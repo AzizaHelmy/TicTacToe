@@ -1,0 +1,9 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.cardpane{
+   -fx-background-color: white;
+   -fx-background-radius: 8px;
+    
+}
