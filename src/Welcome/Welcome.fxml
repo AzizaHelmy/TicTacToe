@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="726.0" stylesheets="@welcome.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="726.0" stylesheets="@welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="65.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="123.0" />
@@ -30,17 +30,17 @@
             <Font name="Bodoni MT" size="32.0" />
          </font>
       </Text>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" stylesheets="@welcome.css" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" stylesheets="@welcome.css" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="Colonna MT" size="24.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font name="Colonna MT" size="26.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="Colonna MT" size="24.0" />
          </font>
