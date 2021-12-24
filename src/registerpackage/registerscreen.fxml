@@ -28,7 +28,7 @@
       <Text fill="#2d0ff2" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic Tac Toe" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
       <TextField fx:id="regusername_field" promptText="Enter your name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <PasswordField fx:id="registerpass_field" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="regsignup_btn" mnemonicParsing="false" prefHeight="42.0" prefWidth="97.0" styleClass="cardpane" stylesheets="@login.css" text="Sign up" textFill="#fffafa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="btn_signupreg" mnemonicParsing="false" prefHeight="42.0" prefWidth="97.0" styleClass="cardpane" stylesheets="@login.css" text="Sign up" textFill="#fffafa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
