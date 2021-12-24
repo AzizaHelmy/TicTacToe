@@ -15,9 +15,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public abstract class onlinePlayersScreenBase extends BorderPane {
+public  class onlinePlayersScreenBase extends BorderPane {
 
-    protected final GridPane gridPane;
+    protected final GridPane mainGridPane;
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
     protected final ColumnConstraints columnConstraints1;
@@ -26,9 +26,9 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints;
     protected final RowConstraints rowConstraints0;
     protected final RowConstraints rowConstraints1;
-    protected final ListView topPlayerListView;
-    protected final ListView onlineListView;
-    protected final GridPane gridPane0;
+    protected final ListView listViewTopPlayers;
+    protected final ListView listViewOnlinePlayers;
+    protected final GridPane gridPaneOnlinePlayers;
     protected final ColumnConstraints columnConstraints4;
     protected final ColumnConstraints columnConstraints5;
     protected final RowConstraints rowConstraints2;
@@ -37,7 +37,7 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
     protected final Rectangle recOnlinePlayers;
     protected final ImageView imgOnline;
     protected final Text txtOnlinePlayers;
-    protected final GridPane gridPane1;
+    protected final GridPane gridPaneTopPlayers;
     protected final ColumnConstraints columnConstraints6;
     protected final ColumnConstraints columnConstraints7;
     protected final RowConstraints rowConstraints5;
@@ -50,11 +50,11 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
     protected final ImageView imgBack;
     protected final Glow glow;
     protected final Button btnSignOut;
-    protected final ImageView imageSignOut;
+    protected final ImageView imgSignOut;
 
     public onlinePlayersScreenBase() {
 
-        gridPane = new GridPane();
+        mainGridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
         columnConstraints1 = new ColumnConstraints();
@@ -63,9 +63,9 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         rowConstraints = new RowConstraints();
         rowConstraints0 = new RowConstraints();
         rowConstraints1 = new RowConstraints();
-        topPlayerListView = new ListView();
-        onlineListView = new ListView();
-        gridPane0 = new GridPane();
+        listViewTopPlayers = new ListView();
+        listViewOnlinePlayers = new ListView();
+        gridPaneOnlinePlayers = new GridPane();
         columnConstraints4 = new ColumnConstraints();
         columnConstraints5 = new ColumnConstraints();
         rowConstraints2 = new RowConstraints();
@@ -74,7 +74,7 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         recOnlinePlayers = new Rectangle();
         imgOnline = new ImageView();
         txtOnlinePlayers = new Text();
-        gridPane1 = new GridPane();
+        gridPaneTopPlayers = new GridPane();
         columnConstraints6 = new ColumnConstraints();
         columnConstraints7 = new ColumnConstraints();
         rowConstraints5 = new RowConstraints();
@@ -87,7 +87,7 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         imgBack = new ImageView();
         glow = new Glow();
         btnSignOut = new Button();
-        imageSignOut = new ImageView();
+        imgSignOut = new ImageView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -96,10 +96,10 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
-        BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        gridPane.setPrefHeight(550.0);
-        gridPane.setPrefWidth(600.0);
+        BorderPane.setAlignment(mainGridPane, javafx.geometry.Pos.CENTER);
+        mainGridPane.setAlignment(javafx.geometry.Pos.CENTER);
+        mainGridPane.setPrefHeight(550.0);
+        mainGridPane.setPrefWidth(600.0);
 
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMaxWidth(193.0);
@@ -142,22 +142,22 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         rowConstraints1.setPrefHeight(101.0);
         rowConstraints1.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        GridPane.setColumnIndex(topPlayerListView, 3);
-        GridPane.setHgrow(topPlayerListView, javafx.scene.layout.Priority.NEVER);
-        GridPane.setRowIndex(topPlayerListView, 1);
-        GridPane.setVgrow(topPlayerListView, javafx.scene.layout.Priority.NEVER);
-        topPlayerListView.setPrefHeight(200.0);
-        topPlayerListView.setPrefWidth(200.0);
+        GridPane.setColumnIndex(listViewTopPlayers, 3);
+        GridPane.setHgrow(listViewTopPlayers, javafx.scene.layout.Priority.NEVER);
+        GridPane.setRowIndex(listViewTopPlayers, 1);
+        GridPane.setVgrow(listViewTopPlayers, javafx.scene.layout.Priority.NEVER);
+        listViewTopPlayers.setPrefHeight(200.0);
+        listViewTopPlayers.setPrefWidth(200.0);
 
-        GridPane.setColumnIndex(onlineListView, 1);
-        GridPane.setRowIndex(onlineListView, 1);
-        onlineListView.setFixedCellSize(0.0);
-        onlineListView.setPrefHeight(200.0);
-        onlineListView.setPrefWidth(200.0);
+        GridPane.setColumnIndex(listViewOnlinePlayers, 1);
+        GridPane.setRowIndex(listViewOnlinePlayers, 1);
+        listViewOnlinePlayers.setFixedCellSize(0.0);
+        listViewOnlinePlayers.setPrefHeight(200.0);
+        listViewOnlinePlayers.setPrefWidth(200.0);
 
-        GridPane.setColumnIndex(gridPane0, 1);
-        gridPane0.setPrefHeight(76.0);
-        gridPane0.setPrefWidth(392.0);
+        GridPane.setColumnIndex(gridPaneOnlinePlayers, 1);
+        gridPaneOnlinePlayers.setPrefHeight(76.0);
+        gridPaneOnlinePlayers.setPrefWidth(392.0);
 
         columnConstraints4.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints4.setMaxWidth(210.0);
@@ -205,7 +205,7 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         txtOnlinePlayers.setText("Onilne Players");
         txtOnlinePlayers.setFont(new Font("System Bold", 21.0));
 
-        GridPane.setColumnIndex(gridPane1, 3);
+        GridPane.setColumnIndex(gridPaneTopPlayers, 3);
 
         columnConstraints6.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints6.setMaxWidth(176.0);
@@ -281,44 +281,44 @@ public abstract class onlinePlayersScreenBase extends BorderPane {
         btnSignOut.setPrefWidth(206.0);
         btnSignOut.setText("Sign Out");
 
-        imageSignOut.setFitHeight(40.0);
-        imageSignOut.setFitWidth(79.0);
-        imageSignOut.setPickOnBounds(true);
-        imageSignOut.setPreserveRatio(true);
-        imageSignOut.setImage(new Image(getClass().getResource("../assets/signOut.png").toExternalForm()));
-        btnSignOut.setGraphic(imageSignOut);
-        setCenter(gridPane);
+        imgSignOut.setFitHeight(40.0);
+        imgSignOut.setFitWidth(79.0);
+        imgSignOut.setPickOnBounds(true);
+        imgSignOut.setPreserveRatio(true);
+        imgSignOut.setImage(new Image(getClass().getResource("../assets/signOut.png").toExternalForm()));
+        btnSignOut.setGraphic(imgSignOut);
+        setCenter(mainGridPane);
 
-        gridPane.getColumnConstraints().add(columnConstraints);
-        gridPane.getColumnConstraints().add(columnConstraints0);
-        gridPane.getColumnConstraints().add(columnConstraints1);
-        gridPane.getColumnConstraints().add(columnConstraints2);
-        gridPane.getColumnConstraints().add(columnConstraints3);
-        gridPane.getRowConstraints().add(rowConstraints);
-        gridPane.getRowConstraints().add(rowConstraints0);
-        gridPane.getRowConstraints().add(rowConstraints1);
-        gridPane.getChildren().add(topPlayerListView);
-        gridPane.getChildren().add(onlineListView);
-        gridPane0.getColumnConstraints().add(columnConstraints4);
-        gridPane0.getColumnConstraints().add(columnConstraints5);
-        gridPane0.getRowConstraints().add(rowConstraints2);
-        gridPane0.getRowConstraints().add(rowConstraints3);
-        gridPane0.getRowConstraints().add(rowConstraints4);
-        gridPane0.getChildren().add(recOnlinePlayers);
-        gridPane0.getChildren().add(imgOnline);
-        gridPane0.getChildren().add(txtOnlinePlayers);
-        gridPane.getChildren().add(gridPane0);
-        gridPane1.getColumnConstraints().add(columnConstraints6);
-        gridPane1.getColumnConstraints().add(columnConstraints7);
-        gridPane1.getRowConstraints().add(rowConstraints5);
-        gridPane1.getRowConstraints().add(rowConstraints6);
-        gridPane1.getRowConstraints().add(rowConstraints7);
-        gridPane1.getChildren().add(recTopPlayer);
-        gridPane1.getChildren().add(txtTopPlayer);
-        gridPane1.getChildren().add(imgTopPlayer);
-        gridPane.getChildren().add(gridPane1);
-        gridPane.getChildren().add(btnBack);
-        gridPane.getChildren().add(btnSignOut);
+        mainGridPane.getColumnConstraints().add(columnConstraints);
+        mainGridPane.getColumnConstraints().add(columnConstraints0);
+        mainGridPane.getColumnConstraints().add(columnConstraints1);
+        mainGridPane.getColumnConstraints().add(columnConstraints2);
+        mainGridPane.getColumnConstraints().add(columnConstraints3);
+        mainGridPane.getRowConstraints().add(rowConstraints);
+        mainGridPane.getRowConstraints().add(rowConstraints0);
+        mainGridPane.getRowConstraints().add(rowConstraints1);
+        mainGridPane.getChildren().add(listViewTopPlayers);
+        mainGridPane.getChildren().add(listViewOnlinePlayers);
+        gridPaneOnlinePlayers.getColumnConstraints().add(columnConstraints4);
+        gridPaneOnlinePlayers.getColumnConstraints().add(columnConstraints5);
+        gridPaneOnlinePlayers.getRowConstraints().add(rowConstraints2);
+        gridPaneOnlinePlayers.getRowConstraints().add(rowConstraints3);
+        gridPaneOnlinePlayers.getRowConstraints().add(rowConstraints4);
+        gridPaneOnlinePlayers.getChildren().add(recOnlinePlayers);
+        gridPaneOnlinePlayers.getChildren().add(imgOnline);
+        gridPaneOnlinePlayers.getChildren().add(txtOnlinePlayers);
+        mainGridPane.getChildren().add(gridPaneOnlinePlayers);
+        gridPaneTopPlayers.getColumnConstraints().add(columnConstraints6);
+        gridPaneTopPlayers.getColumnConstraints().add(columnConstraints7);
+        gridPaneTopPlayers.getRowConstraints().add(rowConstraints5);
+        gridPaneTopPlayers.getRowConstraints().add(rowConstraints6);
+        gridPaneTopPlayers.getRowConstraints().add(rowConstraints7);
+        gridPaneTopPlayers.getChildren().add(recTopPlayer);
+        gridPaneTopPlayers.getChildren().add(txtTopPlayer);
+        gridPaneTopPlayers.getChildren().add(imgTopPlayer);
+        mainGridPane.getChildren().add(gridPaneTopPlayers);
+        mainGridPane.getChildren().add(btnBack);
+        mainGridPane.getChildren().add(btnSignOut);
 
     }
 }
