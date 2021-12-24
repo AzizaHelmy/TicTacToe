@@ -102,21 +102,48 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <Button fx:id="topRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="centerRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="bottomRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="topCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="centerCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textFill="WHITE" />
-                  <Button fx:id="bottomCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="topLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="centerLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="bottomLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE" />
+                  <Button fx:id="topRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="centerRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="bottomRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="topCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="centerCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="bottomCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="topLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="centerLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
+                  <Button fx:id="bottomLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic></Button>
                </children>
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin>
             </AnchorPane>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Restart" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Button fx:id="btnRestart" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Restart" textAlignment="CENTER" visible="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="10.0" right="20.0" />
                </GridPane.margin>
@@ -131,7 +158,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Exit" textAlignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Button fx:id="btnExit" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Exit" textAlignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" />
                </GridPane.margin>
