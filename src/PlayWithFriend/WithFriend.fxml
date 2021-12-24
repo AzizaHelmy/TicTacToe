@@ -25,13 +25,13 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" stylesheets="@withfriend.css" text="Start" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button id="startButt" mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" stylesheets="@withfriend.css" text="Start" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="Copperplate Gothic Bold" size="19.0" />
          </font>
       </Button>
-      <TextField prefHeight="41.0" prefWidth="200.0" promptText="             Enter Player2's Name :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField prefHeight="41.0" prefWidth="200.0" promptText="         Enter Player1's Name :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField id="player2" prefHeight="41.0" prefWidth="200.0" promptText=" Enter Player2's Name :" styleClass="button" stylesheets="@withfriend.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField id="player1" prefHeight="41.0" prefWidth="200.0" promptText="         Enter Player1's Name :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Text fontSmoothingType="LCD" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   Play With Friends.." wrappingWidth="242.50652313232422" GridPane.columnIndex="2">
          <effect>
             <Glow />
