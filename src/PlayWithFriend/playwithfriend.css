@@ -1,4 +1,16 @@
-
+.cardpane{
+   -fx-background-color: white;
+   -fx-background-radius: 20px;
+    
+}
+.anchor{
+   -fx-background-color: blue;
+  
+}
+.button{
+   -fx-background-color: blue;
+    -fx-text-color:white;   
+}
 .withFriend {
     -fx-border-radius: 25px 50px;
     -fx-background: #73AD21;
