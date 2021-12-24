@@ -138,7 +138,7 @@ public abstract class WithFriendBase extends GridPane {
         imageView.setFitWidth(155.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../icons8-user-groups-100.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("../assets/icons8-user-groups-100.png").toExternalForm()));
 
         GridPane.setColumnIndex(imageView0, 2);
         GridPane.setRowIndex(imageView0, 2);
@@ -147,7 +147,7 @@ public abstract class WithFriendBase extends GridPane {
         imageView0.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../icons8-football-team-48.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("../assets/icons8-football-team-48.png").toExternalForm()));
 
         GridPane.setColumnIndex(imageView1, 2);
         GridPane.setRowIndex(imageView1, 1);
@@ -155,7 +155,7 @@ public abstract class WithFriendBase extends GridPane {
         imageView1.setFitWidth(32.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-        imageView1.setImage(new Image(getClass().getResource("../../../icons8-team-96.png").toExternalForm()));
+        imageView1.setImage(new Image(getClass().getResource("../assets/icons8-team-96.png").toExternalForm()));
 
         GridPane.setColumnIndex(imageView2, 1);
         GridPane.setRowIndex(imageView2, 3);
@@ -163,7 +163,7 @@ public abstract class WithFriendBase extends GridPane {
         imageView2.setFitWidth(108.0);
         imageView2.setPickOnBounds(true);
         imageView2.setPreserveRatio(true);
-        imageView2.setImage(new Image(getClass().getResource("../../../icons8-game-controller-96.png").toExternalForm()));
+        imageView2.setImage(new Image(getClass().getResource("../assets/icons8-game-controller-96.png").toExternalForm()));
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);

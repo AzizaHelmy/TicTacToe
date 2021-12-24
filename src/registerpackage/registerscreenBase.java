@@ -111,7 +111,7 @@ public abstract class registerscreenBase extends GridPane {
         btn_signupreg.setPrefHeight(42.0);
         btn_signupreg.setPrefWidth(97.0);
         btn_signupreg.getStyleClass().add("cardpane");
-        btn_signupreg.getStylesheets().add("/registerpackage/login.css");
+        btn_signupreg.getStylesheets().add("/registerpackage/../loginpackage/login.css");
         btn_signupreg.setText("Sign up");
         btn_signupreg.setTextFill(javafx.scene.paint.Color.valueOf("#fffafa"));
 
@@ -119,7 +119,7 @@ public abstract class registerscreenBase extends GridPane {
         imageView.setFitWidth(20.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../../Downloads/icons8-sign-up-64.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64.png").toExternalForm()));
         btn_signupreg.setGraphic(imageView);
 
         GridPane.setColumnIndex(haveacc_text, 2);

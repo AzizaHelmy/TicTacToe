@@ -47,17 +47,17 @@
       </Button>
       <ImageView fitHeight="92.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../../programmer.png" />
+            <Image url="@../assets/programmer.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="106.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <image>
-            <Image url="@../../../icons8-user-groups-100.png" />
+            <Image url="@../assets/icons8-user-groups-100.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="88.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <image>
-            <Image url="@../../../online-game.png" />
+            <Image url="@../assets/online-game.png" />
          </image>
       </ImageView>
       <Text fill="#04062f" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's Play.." textAlignment="CENTER" wrappingWidth="149.13671875" GridPane.columnIndex="3">
@@ -67,7 +67,7 @@
       </Text>
       <ImageView fitHeight="93.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
          <image>
-            <Image url="@../../../arcade-game.png" />
+            <Image url="@../assets/arcade-game.png" />
          </image>
       </ImageView>
    </children>
