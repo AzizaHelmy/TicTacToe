@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe;
+package serverscreen;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Ali
  */
-public class LevelScreenController implements Initializable {
+public class ServerScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
