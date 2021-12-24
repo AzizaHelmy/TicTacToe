@@ -119,7 +119,7 @@ public abstract class registerscreenBase extends GridPane {
         imageView.setFitWidth(20.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
         btn_signupreg.setGraphic(imageView);
 
         GridPane.setColumnIndex(haveacc_text, 2);

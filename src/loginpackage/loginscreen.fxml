@@ -36,7 +36,7 @@
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/icons8-sign-in-64.png" />
+                  <Image url="@../assets/icons8-sign-in-64%20(3).png" />
                </image>
             </ImageView>
          </graphic>
@@ -45,7 +45,7 @@
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/icons8-sign-up-64.png" />
+                  <Image url="@../assets/icons8-sign-up-64%20(2).png" />
                </image>
             </ImageView>
          </graphic>
