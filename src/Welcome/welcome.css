@@ -1,0 +1,23 @@
+.cardpane{
+   -fx-background-color: derive;
+   -fx-background-radius: 20px;
+    
+}
+.anchor{
+   -fx-background-color: lightskyblue;
+   
+    
+}
+.button{
+   -fx-background-color: lightskyblue;
+    -fx-text-color:white;
+    
+}
+.img{
+     -fx-background-image: url("https://www.google.com/search?q=photographer.jpg&rlz=1C1CHBD_enEG978EG978&sxsrf=AOaemvKBxlg7QvWSmUezSDLsFB2XhAdLKg:1640299818508&tbm=isch&source=iu&ictx=1&fir=DTvKG_3rCZMyWM%252CRNByu4DWbyrYlM%252C_%253BT3K9HoDIL41cKM%252CnJ9ZsKPZeIcfcM%252C_%253BuCgOxXpKu3l23M%252C-Bj5TNkxLo736M%252C_%253Bvb63rcwPRNCDzM%252C9HAjmNuGl_SamM%252C_%253B8cCQVTZSpEnyjM%252CkYZOhEnyUaPGUM%252C_%253BE3O4NIzF5ufAZM%252CGU24lpu0EzYoWM%252C_%253Br3-Lrg7RvSSWJM%252CraHmDOo4yhdqgM%252C_%253Be1B5ftq8AvLbYM%252CrhvtKyHcT3EsnM%252C_%253B-GbGPwZHq1iSRM%252ClLSvXoQ8HWmjvM%252C_%253BbOUvwnHJjb6-UM%252C0hB7qM9n9GmTtM%252C_%253BHc0lvvLQ3j8VnM%252Ch0pzO55ZbasGgM%252C_%253BgYgso3tpklxFHM%252CV1kDfUFf09LHqM%252C_&vet=1&usg=AI4_-kQdm-mIqwW1sZELvVARGZ51zwHPlQ&sa=X&ved=2ahUKEwij8oaAgfv0AhWr8uAKHTulB3UQ9QF6BAgFEAE&biw=1366&bih=625&dpr=1#imgrc=bOUvwnHJjb6-UM"); /* The image used */
+  -fx-background-color: #cccccc; /* Used if the image is unavailable */
+  -fx-height: 500px; /* You must set a specified height */
+  -fx-background-position: center; /* Center the image */
+  -fx-background-repeat: no-repeat; /* Do not repeat the image */
+  -fx-background-size: cover; 
+}
