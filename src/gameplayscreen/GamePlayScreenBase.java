@@ -12,9 +12,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
-public abstract class GamePlayScreenBase extends BorderPane {
+public class GamePlayScreenBase extends BorderPane {
 
-    protected final GridPane gridPane;
+    protected final GridPane infomationPane;
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
     protected final ColumnConstraints columnConstraints1;
@@ -24,16 +24,16 @@ public abstract class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints0;
     protected final RowConstraints rowConstraints1;
     protected final Label player1Name;
-    protected final ImageView imageView;
+    protected final ImageView player1Image;
     protected final Label player2Name;
-    protected final ImageView imageView0;
-    protected final Label label;
-    protected final Label label0;
+    protected final ImageView player2Image;
+    protected final Label scoreLabel;
+    protected final Label colonLabel;
     protected final Label player1Score;
     protected final Label player2Score;
-    protected final ImageView player1Logo;
-    protected final ImageView player2Logo;
-    protected final GridPane gridPane0;
+    protected final ImageView player1PlayingLogo;
+    protected final ImageView player2PlayingLogo;
+    protected final GridPane playingPane;
     protected final ColumnConstraints columnConstraints4;
     protected final ColumnConstraints columnConstraints5;
     protected final ColumnConstraints columnConstraints6;
@@ -42,7 +42,7 @@ public abstract class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
-    protected final AnchorPane anchorPane;
+    protected final AnchorPane xoPane;
     protected final Button topRight;
     protected final ImageView topRightIcon;
     protected final Button centerRight;
@@ -62,13 +62,13 @@ public abstract class GamePlayScreenBase extends BorderPane {
     protected final Button bottomLeft;
     protected final ImageView bottomLeftIcon;
     protected final Button btnRestart;
-    protected final ImageView imageView1;
+    protected final ImageView imageView;
     protected final Button btnExit;
-    protected final ImageView imageView2;
+    protected final ImageView imageView0;
 
     public GamePlayScreenBase() {
 
-        gridPane = new GridPane();
+        infomationPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
         columnConstraints1 = new ColumnConstraints();
@@ -78,16 +78,16 @@ public abstract class GamePlayScreenBase extends BorderPane {
         rowConstraints0 = new RowConstraints();
         rowConstraints1 = new RowConstraints();
         player1Name = new Label();
-        imageView = new ImageView();
+        player1Image = new ImageView();
         player2Name = new Label();
-        imageView0 = new ImageView();
-        label = new Label();
-        label0 = new Label();
+        player2Image = new ImageView();
+        scoreLabel = new Label();
+        colonLabel = new Label();
         player1Score = new Label();
         player2Score = new Label();
-        player1Logo = new ImageView();
-        player2Logo = new ImageView();
-        gridPane0 = new GridPane();
+        player1PlayingLogo = new ImageView();
+        player2PlayingLogo = new ImageView();
+        playingPane = new GridPane();
         columnConstraints4 = new ColumnConstraints();
         columnConstraints5 = new ColumnConstraints();
         columnConstraints6 = new ColumnConstraints();
@@ -96,7 +96,7 @@ public abstract class GamePlayScreenBase extends BorderPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        anchorPane = new AnchorPane();
+        xoPane = new AnchorPane();
         topRight = new Button();
         topRightIcon = new ImageView();
         centerRight = new Button();
@@ -116,9 +116,9 @@ public abstract class GamePlayScreenBase extends BorderPane {
         bottomLeft = new Button();
         bottomLeftIcon = new ImageView();
         btnRestart = new Button();
-        imageView1 = new ImageView();
+        imageView = new ImageView();
         btnExit = new Button();
-        imageView2 = new ImageView();
+        imageView0 = new ImageView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -127,7 +127,7 @@ public abstract class GamePlayScreenBase extends BorderPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
-        BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
+        BorderPane.setAlignment(infomationPane, javafx.geometry.Pos.CENTER);
 
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMinWidth(10.0);
@@ -166,13 +166,13 @@ public abstract class GamePlayScreenBase extends BorderPane {
         GridPane.setValignment(player1Name, javafx.geometry.VPos.CENTER);
         player1Name.setText("Player1");
 
-        imageView.setFitHeight(42.0);
-        imageView.setFitWidth(43.0);
-        imageView.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
-        imageView.setPickOnBounds(true);
-        imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../assets/player1.png").toExternalForm()));
-        player1Name.setGraphic(imageView);
+        player1Image.setFitHeight(42.0);
+        player1Image.setFitWidth(43.0);
+        player1Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
+        player1Image.setPickOnBounds(true);
+        player1Image.setPreserveRatio(true);
+        player1Image.setImage(new Image(getClass().getResource("../assets/player1.png").toExternalForm()));
+        player1Name.setGraphic(player1Image);
         player1Name.setFont(new Font(18.0));
 
         GridPane.setColumnIndex(player2Name, 4);
@@ -182,28 +182,28 @@ public abstract class GamePlayScreenBase extends BorderPane {
         player2Name.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         player2Name.setText("Player2");
 
-        imageView0.setFitHeight(42.0);
-        imageView0.setFitWidth(43.0);
-        imageView0.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
-        imageView0.setPickOnBounds(true);
-        imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../assets/player2.png").toExternalForm()));
-        player2Name.setGraphic(imageView0);
+        player2Image.setFitHeight(42.0);
+        player2Image.setFitWidth(43.0);
+        player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
+        player2Image.setPickOnBounds(true);
+        player2Image.setPreserveRatio(true);
+        player2Image.setImage(new Image(getClass().getResource("../assets/player2.png").toExternalForm()));
+        player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font(18.0));
 
-        GridPane.setColumnIndex(label, 2);
-        GridPane.setHalignment(label, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(label, 1);
-        GridPane.setValignment(label, javafx.geometry.VPos.CENTER);
-        label.setText("Score");
-        label.setFont(new Font("System Bold", 16.0));
+        GridPane.setColumnIndex(scoreLabel, 2);
+        GridPane.setHalignment(scoreLabel, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(scoreLabel, 1);
+        GridPane.setValignment(scoreLabel, javafx.geometry.VPos.CENTER);
+        scoreLabel.setText("Score");
+        scoreLabel.setFont(new Font("System Bold", 16.0));
 
-        GridPane.setColumnIndex(label0, 2);
-        GridPane.setHalignment(label0, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(label0, 2);
-        GridPane.setValignment(label0, javafx.geometry.VPos.CENTER);
-        label0.setText(":");
-        label0.setFont(new Font(16.0));
+        GridPane.setColumnIndex(colonLabel, 2);
+        GridPane.setHalignment(colonLabel, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(colonLabel, 2);
+        GridPane.setValignment(colonLabel, javafx.geometry.VPos.CENTER);
+        colonLabel.setText(":");
+        colonLabel.setFont(new Font(16.0));
 
         GridPane.setColumnIndex(player1Score, 1);
         GridPane.setHalignment(player1Score, javafx.geometry.HPos.RIGHT);
@@ -219,27 +219,27 @@ public abstract class GamePlayScreenBase extends BorderPane {
         player2Score.setTextFill(javafx.scene.paint.Color.RED);
         player2Score.setFont(new Font(16.0));
 
-        GridPane.setHalignment(player1Logo, javafx.geometry.HPos.RIGHT);
-        GridPane.setRowIndex(player1Logo, 2);
-        GridPane.setValignment(player1Logo, javafx.geometry.VPos.TOP);
-        player1Logo.setFitHeight(61.0);
-        player1Logo.setFitWidth(68.0);
-        player1Logo.setPickOnBounds(true);
-        player1Logo.setPreserveRatio(true);
-        GridPane.setMargin(player1Logo, new Insets(10.0, 0.0, 0.0, 0.0));
+        GridPane.setHalignment(player1PlayingLogo, javafx.geometry.HPos.RIGHT);
+        GridPane.setRowIndex(player1PlayingLogo, 2);
+        GridPane.setValignment(player1PlayingLogo, javafx.geometry.VPos.TOP);
+        player1PlayingLogo.setFitHeight(61.0);
+        player1PlayingLogo.setFitWidth(68.0);
+        player1PlayingLogo.setPickOnBounds(true);
+        player1PlayingLogo.setPreserveRatio(true);
+        GridPane.setMargin(player1PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
 
-        GridPane.setColumnIndex(player2Logo, 4);
-        GridPane.setHalignment(player2Logo, javafx.geometry.HPos.LEFT);
-        GridPane.setRowIndex(player2Logo, 2);
-        GridPane.setValignment(player2Logo, javafx.geometry.VPos.TOP);
-        player2Logo.setFitHeight(61.0);
-        player2Logo.setFitWidth(68.0);
-        player2Logo.setPickOnBounds(true);
-        player2Logo.setPreserveRatio(true);
-        GridPane.setMargin(player2Logo, new Insets(10.0, 0.0, 0.0, 0.0));
-        setTop(gridPane);
+        GridPane.setColumnIndex(player2PlayingLogo, 4);
+        GridPane.setHalignment(player2PlayingLogo, javafx.geometry.HPos.LEFT);
+        GridPane.setRowIndex(player2PlayingLogo, 2);
+        GridPane.setValignment(player2PlayingLogo, javafx.geometry.VPos.TOP);
+        player2PlayingLogo.setFitHeight(61.0);
+        player2PlayingLogo.setFitWidth(68.0);
+        player2PlayingLogo.setPickOnBounds(true);
+        player2PlayingLogo.setPreserveRatio(true);
+        GridPane.setMargin(player2PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
+        setTop(infomationPane);
 
-        BorderPane.setAlignment(gridPane0, javafx.geometry.Pos.CENTER);
+        BorderPane.setAlignment(playingPane, javafx.geometry.Pos.CENTER);
 
         columnConstraints4.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints4.setMinWidth(10.0);
@@ -273,12 +273,12 @@ public abstract class GamePlayScreenBase extends BorderPane {
         rowConstraints4.setPrefHeight(30.0);
         rowConstraints4.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        GridPane.setColumnIndex(anchorPane, 2);
-        GridPane.setHalignment(anchorPane, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(anchorPane, 1);
-        GridPane.setValignment(anchorPane, javafx.geometry.VPos.CENTER);
-        anchorPane.setPrefHeight(200.0);
-        anchorPane.setPrefWidth(200.0);
+        GridPane.setColumnIndex(xoPane, 2);
+        GridPane.setHalignment(xoPane, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(xoPane, 1);
+        GridPane.setValignment(xoPane, javafx.geometry.VPos.CENTER);
+        xoPane.setPrefHeight(200.0);
+        xoPane.setPrefWidth(200.0);
 
         topRight.setAlignment(javafx.geometry.Pos.CENTER);
         topRight.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
@@ -437,7 +437,7 @@ public abstract class GamePlayScreenBase extends BorderPane {
         bottomLeftIcon.setPreserveRatio(true);
         bottomLeftIcon.setVisible(false);
         bottomLeft.setGraphic(bottomLeftIcon);
-        GridPane.setMargin(anchorPane, new Insets(0.0, 0.0, 30.0, 0.0));
+        GridPane.setMargin(xoPane, new Insets(0.0, 0.0, 30.0, 0.0));
 
         GridPane.setColumnIndex(btnRestart, 4);
         GridPane.setHalignment(btnRestart, javafx.geometry.HPos.RIGHT);
@@ -452,12 +452,12 @@ public abstract class GamePlayScreenBase extends BorderPane {
         btnRestart.setVisible(false);
         GridPane.setMargin(btnRestart, new Insets(0.0, 20.0, 10.0, 0.0));
 
-        imageView1.setFitHeight(37.0);
-        imageView1.setFitWidth(32.0);
-        imageView1.setPickOnBounds(true);
-        imageView1.setPreserveRatio(true);
-        imageView1.setImage(new Image(getClass().getResource("../assets/restart.png").toExternalForm()));
-        btnRestart.setGraphic(imageView1);
+        imageView.setFitHeight(37.0);
+        imageView.setFitWidth(32.0);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+        imageView.setImage(new Image(getClass().getResource("../assets/restart.png").toExternalForm()));
+        btnRestart.setGraphic(imageView);
         btnRestart.setFont(new Font(13.0));
 
         GridPane.setRowIndex(btnExit, 2);
@@ -472,50 +472,50 @@ public abstract class GamePlayScreenBase extends BorderPane {
         GridPane.setMargin(btnExit, new Insets(0.0, 0.0, 10.0, 20.0));
         btnExit.setFont(new Font(13.0));
 
-        imageView2.setFitHeight(37.0);
-        imageView2.setFitWidth(32.0);
-        imageView2.setPickOnBounds(true);
-        imageView2.setPreserveRatio(true);
-        imageView2.setImage(new Image(getClass().getResource("../assets/exit.png").toExternalForm()));
-        btnExit.setGraphic(imageView2);
-        setCenter(gridPane0);
+        imageView0.setFitHeight(37.0);
+        imageView0.setFitWidth(32.0);
+        imageView0.setPickOnBounds(true);
+        imageView0.setPreserveRatio(true);
+        imageView0.setImage(new Image(getClass().getResource("../assets/exit.png").toExternalForm()));
+        btnExit.setGraphic(imageView0);
+        setCenter(playingPane);
 
-        gridPane.getColumnConstraints().add(columnConstraints);
-        gridPane.getColumnConstraints().add(columnConstraints0);
-        gridPane.getColumnConstraints().add(columnConstraints1);
-        gridPane.getColumnConstraints().add(columnConstraints2);
-        gridPane.getColumnConstraints().add(columnConstraints3);
-        gridPane.getRowConstraints().add(rowConstraints);
-        gridPane.getRowConstraints().add(rowConstraints0);
-        gridPane.getRowConstraints().add(rowConstraints1);
-        gridPane.getChildren().add(player1Name);
-        gridPane.getChildren().add(player2Name);
-        gridPane.getChildren().add(label);
-        gridPane.getChildren().add(label0);
-        gridPane.getChildren().add(player1Score);
-        gridPane.getChildren().add(player2Score);
-        gridPane.getChildren().add(player1Logo);
-        gridPane.getChildren().add(player2Logo);
-        gridPane0.getColumnConstraints().add(columnConstraints4);
-        gridPane0.getColumnConstraints().add(columnConstraints5);
-        gridPane0.getColumnConstraints().add(columnConstraints6);
-        gridPane0.getColumnConstraints().add(columnConstraints7);
-        gridPane0.getColumnConstraints().add(columnConstraints8);
-        gridPane0.getRowConstraints().add(rowConstraints2);
-        gridPane0.getRowConstraints().add(rowConstraints3);
-        gridPane0.getRowConstraints().add(rowConstraints4);
-        anchorPane.getChildren().add(topRight);
-        anchorPane.getChildren().add(centerRight);
-        anchorPane.getChildren().add(bottomRight);
-        anchorPane.getChildren().add(topCenter);
-        anchorPane.getChildren().add(centerCenter);
-        anchorPane.getChildren().add(bottomCenter);
-        anchorPane.getChildren().add(topLeft);
-        anchorPane.getChildren().add(centerLeft);
-        anchorPane.getChildren().add(bottomLeft);
-        gridPane0.getChildren().add(anchorPane);
-        gridPane0.getChildren().add(btnRestart);
-        gridPane0.getChildren().add(btnExit);
+        infomationPane.getColumnConstraints().add(columnConstraints);
+        infomationPane.getColumnConstraints().add(columnConstraints0);
+        infomationPane.getColumnConstraints().add(columnConstraints1);
+        infomationPane.getColumnConstraints().add(columnConstraints2);
+        infomationPane.getColumnConstraints().add(columnConstraints3);
+        infomationPane.getRowConstraints().add(rowConstraints);
+        infomationPane.getRowConstraints().add(rowConstraints0);
+        infomationPane.getRowConstraints().add(rowConstraints1);
+        infomationPane.getChildren().add(player1Name);
+        infomationPane.getChildren().add(player2Name);
+        infomationPane.getChildren().add(scoreLabel);
+        infomationPane.getChildren().add(colonLabel);
+        infomationPane.getChildren().add(player1Score);
+        infomationPane.getChildren().add(player2Score);
+        infomationPane.getChildren().add(player1PlayingLogo);
+        infomationPane.getChildren().add(player2PlayingLogo);
+        playingPane.getColumnConstraints().add(columnConstraints4);
+        playingPane.getColumnConstraints().add(columnConstraints5);
+        playingPane.getColumnConstraints().add(columnConstraints6);
+        playingPane.getColumnConstraints().add(columnConstraints7);
+        playingPane.getColumnConstraints().add(columnConstraints8);
+        playingPane.getRowConstraints().add(rowConstraints2);
+        playingPane.getRowConstraints().add(rowConstraints3);
+        playingPane.getRowConstraints().add(rowConstraints4);
+        xoPane.getChildren().add(topRight);
+        xoPane.getChildren().add(centerRight);
+        xoPane.getChildren().add(bottomRight);
+        xoPane.getChildren().add(topCenter);
+        xoPane.getChildren().add(centerCenter);
+        xoPane.getChildren().add(bottomCenter);
+        xoPane.getChildren().add(topLeft);
+        xoPane.getChildren().add(centerLeft);
+        xoPane.getChildren().add(bottomLeft);
+        playingPane.getChildren().add(xoPane);
+        playingPane.getChildren().add(btnRestart);
+        playingPane.getChildren().add(btnExit);
 
     }
 }
