@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cardpane" stylesheets="@withfriend.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayWithFriend.WithFriendController">
+<GridPane id="playWithFriendsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cardpane" stylesheets="@withfriend.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayWithFriend.WithFriendController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="83.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="68.0" />
@@ -30,7 +30,7 @@
             <Font name="Copperplate Gothic Bold" size="19.0" />
          </font>
       </Button>
-      <TextField id="player2" prefHeight="41.0" prefWidth="200.0" promptText=" Enter Player2's Name :" styleClass="button" stylesheets="@withfriend.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField id="player2" prefHeight="41.0" prefWidth="200.0" promptText="            Enter Player2's Name :" stylesheets="@withfriend.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <TextField id="player1" prefHeight="41.0" prefWidth="200.0" promptText="         Enter Player1's Name :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Text fontSmoothingType="LCD" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   Play With Friends.." wrappingWidth="242.50652313232422" GridPane.columnIndex="2">
          <effect>
