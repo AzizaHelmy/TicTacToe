@@ -30,17 +30,17 @@
             <Font name="Bodoni MT" size="32.0" />
          </font>
       </Text>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" stylesheets="@welcome.css" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button id="withComputerButt" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" stylesheets="@welcome.css" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="Colonna MT" size="24.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button id="withFriendButt" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font name="Colonna MT" size="26.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button id="onlineButt" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="Colonna MT" size="24.0" />
          </font>
