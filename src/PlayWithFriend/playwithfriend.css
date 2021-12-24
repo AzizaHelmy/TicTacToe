@@ -1,7 +1,33 @@
-/*
- * Empty Stylesheet file.
- */
 
-.mainFxmlClass {
+.withFriend {
+    -fx-border-radius: 25px 50px;
+    -fx-background: #73AD21;
+    -fx-border: 2px solid #73AD21;
+    -fx-padding: 20px;
+    -fx-width: 200px;
+    -fx-height: 150px;
+}
+.p1{
+    -fx-background-color:rgb(0,128,128);opacity:0.2;
+}
+.border {
+    -fx-border-style: solid;
+    -fx-border-color: orange;
+}
+.border2 {
+    
+    -fx-border-style: solid;
+    -fx-border-color: orange;
+}
+.p2{
+    -fx-background-color:rgb(255, 255, 255);
+}
+.img { 
+    -fx-width: 100%;
+    -fx-height: 400px;
+    -fx-background-image: url('img_flowers.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-border: 1px solid red;
 
 }
