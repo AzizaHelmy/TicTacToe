@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Azza Helmy
  */
-public class PlayWithFriendController implements Initializable {
+public class WithFriendController implements Initializable {
 
     /**
      * Initializes the controller class.
