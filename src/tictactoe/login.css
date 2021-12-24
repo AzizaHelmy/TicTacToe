@@ -16,4 +16,8 @@
    -fx-background-color: blue;
     -fx-text-color:white;
     
+    
+}
+.text{
+    text-width:20;
 }
