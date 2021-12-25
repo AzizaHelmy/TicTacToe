@@ -1,5 +1,7 @@
 package gameplayscreen;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +13,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import loginpackage.ViewSCreen;
+import static loginpackage.ViewSCreen.login;
+import static loginpackage.ViewSCreen.welcomescreen;
 
 public class GamePlayScreenBase extends BorderPane {
 
@@ -516,6 +521,11 @@ public class GamePlayScreenBase extends BorderPane {
         playingPane.getChildren().add(xoPane);
         playingPane.getChildren().add(btnRestart);
         playingPane.getChildren().add(btnExit);
-
+btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(welcomescreen);
+            }
+        });
     }
 }
