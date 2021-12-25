@@ -1,5 +1,7 @@
 package loginpackage;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -8,8 +10,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import static loginpackage.ViewSCreen.login;
+import static loginpackage.ViewSCreen.onlineScreen;
+import static loginpackage.ViewSCreen.register;
 
-public abstract class loginscreenBase extends GridPane {
+public  class loginscreenBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -108,7 +113,7 @@ public abstract class loginscreenBase extends GridPane {
         imageView.setFitWidth(100.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../assets/xo.jpg").toExternalForm()));
+       // imageView.setImage(new Image(getClass().getResource("../assets/xo.jpg").toExternalForm()));
 
         GridPane.setColumnIndex(usernamelogin_field, 1);
         GridPane.setRowIndex(usernamelogin_field, 2);
@@ -129,7 +134,7 @@ public abstract class loginscreenBase extends GridPane {
         imageView0.setFitWidth(20.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../assets/icons8-sign-in-64%20(3).png").toExternalForm()));
+//        imageView0.setImage(new Image(getClass().getResource("../assets/icons8-sign-in-64%20(3).png").toExternalForm()));
         loginsignin_btn.setGraphic(imageView0);
 
         GridPane.setColumnIndex(loginsignup_btn, 2);
@@ -144,7 +149,7 @@ public abstract class loginscreenBase extends GridPane {
         imageView1.setFitWidth(20.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-        imageView1.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
+    //  imageView1.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
         loginsignup_btn.setGraphic(imageView1);
 
         GridPane.setColumnIndex(imageView2, 1);
@@ -170,6 +175,19 @@ public abstract class loginscreenBase extends GridPane {
         getChildren().add(loginsignin_btn);
         getChildren().add(loginsignup_btn);
         getChildren().add(imageView2);
+        loginsignup_btn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(register);
+            }
+        });
+         loginsignin_btn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(onlineScreen);
+            }
+        });
+         
 
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public abstract class ServerScreenBase extends GridPane {
+public  class ServerScreenBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final RowConstraints rowConstraints;

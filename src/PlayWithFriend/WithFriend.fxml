@@ -25,7 +25,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button id="startButt" mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" stylesheets="@withfriend.css" text="Start" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button id="startButt" fx:id="btnstart" mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" stylesheets="@withfriend.css" text="Start" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="Copperplate Gothic Bold" size="19.0" />
          </font>

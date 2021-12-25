@@ -37,6 +37,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="haveacc_text" fill="#2d0ff2" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account ?" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Already have an account?" GridPane.columnIndex="2" GridPane.rowIndex="4" />
    </children>
 </GridPane>

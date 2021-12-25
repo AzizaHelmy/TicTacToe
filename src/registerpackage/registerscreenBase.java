@@ -1,5 +1,7 @@
 package registerpackage;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -9,8 +11,12 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import loginpackage.ViewSCreen;
+import static loginpackage.ViewSCreen.gameScreen;
+import static loginpackage.ViewSCreen.login;
+import static loginpackage.ViewSCreen.onlineScreen;
 
-public abstract class registerscreenBase extends GridPane {
+public  class registerscreenBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -26,7 +32,7 @@ public abstract class registerscreenBase extends GridPane {
     protected final PasswordField registerpass_field;
     protected final Button btn_signupreg;
     protected final ImageView imageView;
-    protected final Text haveacc_text;
+    protected final Button button;
 
     public registerscreenBase() {
 
@@ -44,7 +50,7 @@ public abstract class registerscreenBase extends GridPane {
         registerpass_field = new PasswordField();
         btn_signupreg = new Button();
         imageView = new ImageView();
-        haveacc_text = new Text();
+        button = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -119,15 +125,13 @@ public abstract class registerscreenBase extends GridPane {
         imageView.setFitWidth(20.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
+//        imageView.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
         btn_signupreg.setGraphic(imageView);
 
-        GridPane.setColumnIndex(haveacc_text, 2);
-        GridPane.setRowIndex(haveacc_text, 4);
-        haveacc_text.setFill(javafx.scene.paint.Color.valueOf("#2d0ff2"));
-        haveacc_text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        haveacc_text.setStrokeWidth(0.0);
-        haveacc_text.setText("Already have an account ?");
+        GridPane.setColumnIndex(button, 2);
+        GridPane.setRowIndex(button, 4);
+        button.setMnemonicParsing(false);
+        button.setText("Already have an account?");
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
@@ -142,7 +146,20 @@ public abstract class registerscreenBase extends GridPane {
         getChildren().add(regusername_field);
         getChildren().add(registerpass_field);
         getChildren().add(btn_signupreg);
-        getChildren().add(haveacc_text);
+        getChildren().add(button);
+        btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(onlineScreen);
+            }
+        });
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(login);
+            }
+        });
 
     }
+    
 }

@@ -171,7 +171,7 @@ public class GamePlayScreenBase extends BorderPane {
         player1Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player1Image.setPickOnBounds(true);
         player1Image.setPreserveRatio(true);
-        player1Image.setImage(new Image(getClass().getResource("../assets/player1.png").toExternalForm()));
+//        player1Image.setImage(new Image(getClass().getResource("../assets/player1.png").toExternalForm()));
         player1Name.setGraphic(player1Image);
         player1Name.setFont(new Font(18.0));
 
@@ -187,7 +187,7 @@ public class GamePlayScreenBase extends BorderPane {
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
-        player2Image.setImage(new Image(getClass().getResource("../assets/player2.png").toExternalForm()));
+      //  player2Image.setImage(new Image(getClass().getResource("../assets/player2.png").toExternalForm()));
         player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font(18.0));
 
@@ -456,7 +456,7 @@ public class GamePlayScreenBase extends BorderPane {
         imageView.setFitWidth(32.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../assets/restart.png").toExternalForm()));
+//        imageView.setImage(new Image(getClass().getResource("../assets/restart.png").toExternalForm()));
         btnRestart.setGraphic(imageView);
         btnRestart.setFont(new Font(13.0));
 
@@ -476,7 +476,7 @@ public class GamePlayScreenBase extends BorderPane {
         imageView0.setFitWidth(32.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../assets/exit.png").toExternalForm()));
+//        imageView0.setImage(new Image(getClass().getResource("../assets/exit.png").toExternalForm()));
         btnExit.setGraphic(imageView0);
         setCenter(playingPane);
 

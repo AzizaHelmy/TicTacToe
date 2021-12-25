@@ -1,5 +1,7 @@
 package ui_online_friends_pck;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Glow;
@@ -14,6 +16,10 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import loginpackage.ViewSCreen;
+import static loginpackage.ViewSCreen.gameScreen;
+import static loginpackage.ViewSCreen.login;
+import static loginpackage.ViewSCreen.welcomescreen;
 
 public  class onlinePlayersScreenBase extends BorderPane {
 
@@ -195,7 +201,7 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgOnline.setFitWidth(81.0);
         imgOnline.setPickOnBounds(true);
         imgOnline.setPreserveRatio(true);
-        imgOnline.setImage(new Image(getClass().getResource("../assets/online.png").toExternalForm()));
+//        imgOnline.setImage(new Image(getClass().getResource("../assets/online.png").toExternalForm()));
 
         GridPane.setHalignment(txtOnlinePlayers, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(txtOnlinePlayers, 1);
@@ -253,7 +259,7 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgTopPlayer.setFitWidth(50.0);
         imgTopPlayer.setPickOnBounds(true);
         imgTopPlayer.setPreserveRatio(true);
-        imgTopPlayer.setImage(new Image(getClass().getResource("../assets/top.png").toExternalForm()));
+       // imgTopPlayer.setImage(new Image(getClass().getResource("../assets/top.png").toExternalForm()));
 
         GridPane.setColumnIndex(btnBack, 1);
         GridPane.setRowIndex(btnBack, 2);
@@ -267,7 +273,7 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgBack.setFitWidth(71.0);
         imgBack.setPickOnBounds(true);
         imgBack.setPreserveRatio(true);
-        imgBack.setImage(new Image(getClass().getResource("../assets/icons8-back-64.png").toExternalForm()));
+       // imgBack.setImage(new Image(getClass().getResource("../assets/icons8-back-64.png").toExternalForm()));
         btnBack.setGraphic(imgBack);
 
         btnBack.setEffect(glow);
@@ -285,7 +291,7 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgSignOut.setFitWidth(79.0);
         imgSignOut.setPickOnBounds(true);
         imgSignOut.setPreserveRatio(true);
-        imgSignOut.setImage(new Image(getClass().getResource("../assets/signOut.png").toExternalForm()));
+       // imgSignOut.setImage(new Image(getClass().getResource("../assets/signOut.png").toExternalForm()));
         btnSignOut.setGraphic(imgSignOut);
         setCenter(mainGridPane);
 
@@ -319,6 +325,17 @@ public  class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
-
+btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(welcomescreen);
+            }
+        });
+btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(login);
+            }
+        });
     }
 }
