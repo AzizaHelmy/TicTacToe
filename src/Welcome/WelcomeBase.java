@@ -14,7 +14,6 @@ import tictactoe.ViewSCreen;
 import static tictactoe.ViewSCreen.friiends;
 import static tictactoe.ViewSCreen.levelScreen;
 import static tictactoe.ViewSCreen.login;
-import static tictactoe.ViewSCreen.register;
 
 public  class WelcomeBase extends GridPane {
 
@@ -29,9 +28,9 @@ public  class WelcomeBase extends GridPane {
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
     protected final Text text;
-    protected final Button button;
-    protected final Button button0;
-    protected final Button button1;
+    protected final Button btnWithComputer;
+    protected final Button btnWithFriends;
+    protected final Button btnOnline;
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final ImageView imageView1;
@@ -51,9 +50,9 @@ public  class WelcomeBase extends GridPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         text = new Text();
-        button = new Button();
-        button0 = new Button();
-        button1 = new Button();
+        btnWithComputer = new Button();
+        btnWithFriends = new Button();
+        btnOnline = new Button();
         imageView = new ImageView();
         imageView0 = new ImageView();
         imageView1 = new ImageView();
@@ -129,38 +128,56 @@ public  class WelcomeBase extends GridPane {
         text.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         text.setWrappingWidth(181.13671875);
         text.setFont(new Font("Bodoni MT", 32.0));
-
-        GridPane.setColumnIndex(button, 2);
-        GridPane.setRowIndex(button, 1);
-        button.setId("withComputerButt");
-        button.setMnemonicParsing(false);
-        button.setPrefHeight(42.0);
-        button.setPrefWidth(221.0);
-        button.getStyleClass().add("anchor");
-        button.getStylesheets().add("/Welcome/welcome.css");
-        button.setText(" With Computer");
-        button.setFont(new Font("Colonna MT", 24.0));
-
-        GridPane.setColumnIndex(button0, 2);
-        GridPane.setRowIndex(button0, 2);
-        button0.setId("withFriendButt");
-        button0.setMnemonicParsing(false);
-        button0.setPrefHeight(42.0);
-        button0.setPrefWidth(221.0);
-        button0.getStyleClass().add("anchor");
-        button0.setText(" With Friends");
-        button0.setFont(new Font("Colonna MT", 26.0));
-
-        GridPane.setColumnIndex(button1, 2);
-        GridPane.setRowIndex(button1, 3);
-        button1.setId("onlineButt");
-        button1.setMnemonicParsing(false);
-        button1.setPrefHeight(42.0);
-        button1.setPrefWidth(221.0);
-        button1.getStyleClass().add("anchor");
-        button1.setText("Play OnLine");
-        button1.setFont(new Font("Colonna MT", 24.0));
-
+//====================================================
+        GridPane.setColumnIndex(btnWithComputer, 2);
+        GridPane.setRowIndex(btnWithComputer, 1);
+        btnWithComputer.setId("withComputerButt");
+        btnWithComputer.setMnemonicParsing(false);
+        btnWithComputer.setPrefHeight(42.0);
+        btnWithComputer.setPrefWidth(221.0);
+        btnWithComputer.getStyleClass().add("anchor");
+        btnWithComputer.getStylesheets().add("/Welcome/welcome.css");
+        btnWithComputer.setText(" With Computer");
+        btnWithComputer.setFont(new Font("Colonna MT", 24.0));
+        btnWithComputer.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                 ViewSCreen.view(levelScreen);
+            }
+        });
+//=======================================================
+        GridPane.setColumnIndex(btnWithFriends, 2);
+        GridPane.setRowIndex(btnWithFriends, 2);
+        btnWithFriends.setId("withFriendButt");
+        btnWithFriends.setMnemonicParsing(false);
+        btnWithFriends.setPrefHeight(42.0);
+        btnWithFriends.setPrefWidth(221.0);
+        btnWithFriends.getStyleClass().add("anchor");
+        btnWithFriends.setText(" With Friends");
+        btnWithFriends.setFont(new Font("Colonna MT", 26.0));
+        btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               ViewSCreen.view(friiends);
+            }
+        });
+//==================================================
+        GridPane.setColumnIndex(btnOnline, 2);
+        GridPane.setRowIndex(btnOnline, 3);
+        btnOnline.setId("onlineButt");
+        btnOnline.setMnemonicParsing(false);
+        btnOnline.setPrefHeight(42.0);
+        btnOnline.setPrefWidth(221.0);
+        btnOnline.getStyleClass().add("anchor");
+        btnOnline.setText("Play OnLine");
+        btnOnline.setFont(new Font("Colonna MT", 24.0));
+        btnOnline.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                 ViewSCreen.view(login);
+            }
+        });
+//===================================================
         GridPane.setColumnIndex(imageView, 3);
         GridPane.setRowIndex(imageView, 1);
         imageView.setFitHeight(92.0);
@@ -171,6 +188,7 @@ public  class WelcomeBase extends GridPane {
             imageView.setImage(new Image(getClass().getResource("/assets/programmer.png").toExternalForm()));
         } catch (Exception e) {
         }
+//=====================================================
         GridPane.setColumnIndex(imageView0, 3);
         GridPane.setRowIndex(imageView0, 2);
         imageView0.setFitHeight(106.0);
@@ -181,7 +199,7 @@ public  class WelcomeBase extends GridPane {
             imageView0.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+//==================================================
         GridPane.setColumnIndex(imageView1, 3);
         GridPane.setRowIndex(imageView1, 3);
         imageView1.setFitHeight(88.0);
@@ -192,7 +210,7 @@ public  class WelcomeBase extends GridPane {
             imageView1.setImage(new Image(getClass().getResource("/assets/online-game.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+//====================================================
         GridPane.setColumnIndex(text0, 3);
         text0.setFill(javafx.scene.paint.Color.valueOf("#04062f"));
         text0.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
@@ -212,7 +230,7 @@ public  class WelcomeBase extends GridPane {
             imageView2.setImage(new Image(getClass().getResource("/assets/arcade-game.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+//================================================
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
         getColumnConstraints().add(columnConstraints1);
@@ -224,31 +242,17 @@ public  class WelcomeBase extends GridPane {
         getRowConstraints().add(rowConstraints2);
         getRowConstraints().add(rowConstraints3);
         getChildren().add(text);
-        getChildren().add(button);
-        getChildren().add(button0);
-        getChildren().add(button1);
+        getChildren().add(btnWithComputer);
+        getChildren().add(btnWithFriends);
+        getChildren().add(btnOnline);
         getChildren().add(imageView);
         getChildren().add(imageView0);
         getChildren().add(imageView1);
         getChildren().add(text0);
         getChildren().add(imageView2);
-        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ViewSCreen.view(levelScreen);
-            }
-        });
-        button0.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ViewSCreen.view(friiends);
-            }
-        });
-        button1.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ViewSCreen.view(login);
-            }
-        });
+        
+        
+        
+
     }
 }
