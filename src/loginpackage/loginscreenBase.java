@@ -114,7 +114,10 @@ public  class loginscreenBase extends GridPane {
         imageView.setFitWidth(100.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-       // imageView.setImage(new Image(getClass().getResource("../assets/xo.jpg").toExternalForm()));
+        try {
+            imageView.setImage(new Image(getClass().getResource("/assets/xo.jpg").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(usernamelogin_field, 1);
         GridPane.setRowIndex(usernamelogin_field, 2);
@@ -135,7 +138,10 @@ public  class loginscreenBase extends GridPane {
         imageView0.setFitWidth(20.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-//        imageView0.setImage(new Image(getClass().getResource("../assets/icons8-sign-in-64%20(3).png").toExternalForm()));
+        try {
+            imageView0.setImage(new Image(getClass().getResource("/assets/signIn.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         loginsignin_btn.setGraphic(imageView0);
 
         GridPane.setColumnIndex(loginsignup_btn, 2);
@@ -150,7 +156,10 @@ public  class loginscreenBase extends GridPane {
         imageView1.setFitWidth(20.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-    //  imageView1.setImage(new Image(getClass().getResource("../assets/icons8-sign-up-64%20(2).png").toExternalForm()));
+        try {
+            imageView1.setImage(new Image(getClass().getResource("/assets/signUp.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         loginsignup_btn.setGraphic(imageView1);
 
         GridPane.setColumnIndex(imageView2, 1);

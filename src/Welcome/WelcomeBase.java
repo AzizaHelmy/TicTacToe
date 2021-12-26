@@ -167,15 +167,20 @@ public  class WelcomeBase extends GridPane {
         imageView.setFitWidth(82.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-       // imageView.setImage(new Image(getClass().getResource("../assets/programmer.png").toExternalForm()));
-
+        try {
+            imageView.setImage(new Image(getClass().getResource("/assets/programmer.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         GridPane.setColumnIndex(imageView0, 3);
         GridPane.setRowIndex(imageView0, 2);
         imageView0.setFitHeight(106.0);
         imageView0.setFitWidth(103.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-       // imageView0.setImage(new Image(getClass().getResource("../assets/icons8-user-groups-100.png").toExternalForm()));
+        try {
+            imageView0.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(imageView1, 3);
         GridPane.setRowIndex(imageView1, 3);
@@ -183,7 +188,10 @@ public  class WelcomeBase extends GridPane {
         imageView1.setFitWidth(74.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-       // imageView1.setImage(new Image(getClass().getResource("../assets/online-game.png").toExternalForm()));
+        try {
+            imageView1.setImage(new Image(getClass().getResource("/assets/online-game.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(text0, 3);
         text0.setFill(javafx.scene.paint.Color.valueOf("#04062f"));
@@ -200,7 +208,10 @@ public  class WelcomeBase extends GridPane {
         imageView2.setFitWidth(82.0);
         imageView2.setPickOnBounds(true);
         imageView2.setPreserveRatio(true);
-       // imageView2.setImage(new Image(getClass().getResource("../assets/arcade-game.png").toExternalForm()));
+        try {
+            imageView2.setImage(new Image(getClass().getResource("/assets/arcade-game.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);

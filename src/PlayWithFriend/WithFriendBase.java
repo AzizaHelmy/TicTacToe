@@ -144,7 +144,10 @@ public  class WithFriendBase extends GridPane {
         imageView.setFitWidth(155.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-//        imageView.setImage(new Image(getClass().getResource("../assets/icons8-user-groups-100.png").toExternalForm()));
+        try {
+            imageView.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(imageView0, 2);
         GridPane.setRowIndex(imageView0, 2);
@@ -153,7 +156,10 @@ public  class WithFriendBase extends GridPane {
         imageView0.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        //imageView0.setImage(new Image(getClass().getResource("../assets/icons8-football-team-48.png").toExternalForm()));
+        try {
+            imageView0.setImage(new Image(getClass().getResource("/assets/icons8-football-team-48.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(imageView1, 2);
         GridPane.setRowIndex(imageView1, 1);
@@ -161,7 +167,10 @@ public  class WithFriendBase extends GridPane {
         imageView1.setFitWidth(32.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-       // imageView1.setImage(new Image(getClass().getResource("../assets/icons8-team-96.png").toExternalForm()));
+        try {
+            imageView1.setImage(new Image(getClass().getResource("/assets/icons8-team-96.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(imageView2, 1);
         GridPane.setRowIndex(imageView2, 3);
@@ -169,7 +178,10 @@ public  class WithFriendBase extends GridPane {
         imageView2.setFitWidth(108.0);
         imageView2.setPickOnBounds(true);
         imageView2.setPreserveRatio(true);
-       // imageView2.setImage(new Image(getClass().getResource("../assets/icons8-game-controller-96.png").toExternalForm()));
+        try {
+            imageView2.setImage(new Image(getClass().getResource("/assets/icons8-game-controller-96.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);

@@ -176,7 +176,10 @@ public class GamePlayScreenBase extends BorderPane {
         player1Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player1Image.setPickOnBounds(true);
         player1Image.setPreserveRatio(true);
-//        player1Image.setImage(new Image(getClass().getResource("../assets/player1.png").toExternalForm()));
+        try {
+            player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         player1Name.setGraphic(player1Image);
         player1Name.setFont(new Font(18.0));
 
@@ -192,7 +195,10 @@ public class GamePlayScreenBase extends BorderPane {
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
-      //  player2Image.setImage(new Image(getClass().getResource("../assets/player2.png").toExternalForm()));
+        try {
+            player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font(18.0));
 
@@ -461,7 +467,10 @@ public class GamePlayScreenBase extends BorderPane {
         imageView.setFitWidth(32.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-//        imageView.setImage(new Image(getClass().getResource("../assets/restart.png").toExternalForm()));
+        try {
+            imageView.setImage(new Image(getClass().getResource("/assets/restart.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         btnRestart.setGraphic(imageView);
         btnRestart.setFont(new Font(13.0));
 
@@ -481,7 +490,10 @@ public class GamePlayScreenBase extends BorderPane {
         imageView0.setFitWidth(32.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-//        imageView0.setImage(new Image(getClass().getResource("../assets/exit.png").toExternalForm()));
+        try {
+            imageView0.setImage(new Image(getClass().getResource("/assets/exit.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         btnExit.setGraphic(imageView0);
         setCenter(playingPane);
 

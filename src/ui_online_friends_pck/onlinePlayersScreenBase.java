@@ -201,7 +201,12 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgOnline.setFitWidth(81.0);
         imgOnline.setPickOnBounds(true);
         imgOnline.setPreserveRatio(true);
-//        imgOnline.setImage(new Image(getClass().getResource("../assets/online.png").toExternalForm()));
+        try {
+           imgOnline.setImage(new Image(getClass().getResource("/assets/online.png").toExternalForm())); 
+        } catch (Exception e) {
+           
+        }
+ 
 
         GridPane.setHalignment(txtOnlinePlayers, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(txtOnlinePlayers, 1);
@@ -259,7 +264,10 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgTopPlayer.setFitWidth(50.0);
         imgTopPlayer.setPickOnBounds(true);
         imgTopPlayer.setPreserveRatio(true);
-       // imgTopPlayer.setImage(new Image(getClass().getResource("../assets/top.png").toExternalForm()));
+        try {
+            imgTopPlayer.setImage(new Image(getClass().getResource("/assets/top.png").toExternalForm()));
+        } catch (Exception e) {
+        }
 
         GridPane.setColumnIndex(btnBack, 1);
         GridPane.setRowIndex(btnBack, 2);
@@ -273,7 +281,10 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgBack.setFitWidth(71.0);
         imgBack.setPickOnBounds(true);
         imgBack.setPreserveRatio(true);
-       // imgBack.setImage(new Image(getClass().getResource("../assets/icons8-back-64.png").toExternalForm()));
+        try {
+            imgBack.setImage(new Image(getClass().getResource("/assets/icons8-back-64.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         btnBack.setGraphic(imgBack);
 
         btnBack.setEffect(glow);
@@ -291,7 +302,10 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgSignOut.setFitWidth(79.0);
         imgSignOut.setPickOnBounds(true);
         imgSignOut.setPreserveRatio(true);
-       // imgSignOut.setImage(new Image(getClass().getResource("../assets/signOut.png").toExternalForm()));
+        try {
+            imgSignOut.setImage(new Image(getClass().getResource("/assets/signOut.png").toExternalForm()));
+        } catch (Exception e) {
+        }
         btnSignOut.setGraphic(imgSignOut);
         setCenter(mainGridPane);
 
