@@ -13,9 +13,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import loginpackage.ViewSCreen;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.welcomescreen;
+import tictactoe.ViewSCreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.welcomescreen;
 
 public class GamePlayScreenBase extends BorderPane {
 

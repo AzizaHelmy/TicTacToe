@@ -13,15 +13,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import loginpackage.ViewSCreen;
-import static loginpackage.ViewSCreen.friiends;
-import static loginpackage.ViewSCreen.gameScreen;
-import static loginpackage.ViewSCreen.levelScreen;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.onlineScreen;
-import static loginpackage.ViewSCreen.register;
-import static loginpackage.ViewSCreen.serverscreen;
-import static loginpackage.ViewSCreen.welcomescreen;
+import static tictactoe.ViewSCreen.friiends;
+import static tictactoe.ViewSCreen.gameScreen;
+import static tictactoe.ViewSCreen.levelScreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.onlineScreen;
+import static tictactoe.ViewSCreen.register;
+import static tictactoe.ViewSCreen.serverscreen;
+import static tictactoe.ViewSCreen.welcomescreen;
 
 /**
  *
@@ -42,6 +41,7 @@ public class TicTacToe extends Application {
         root.getChildren().add(serverscreen);
         root.getChildren().add(onlineScreen);
         root.getChildren().add(levelScreen);
+        
         ViewSCreen.view(welcomescreen);
         
         Scene scene = new Scene(root, 700, 500);

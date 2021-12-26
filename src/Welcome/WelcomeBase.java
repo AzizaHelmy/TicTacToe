@@ -10,11 +10,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import loginpackage.ViewSCreen;
-import static loginpackage.ViewSCreen.friiends;
-import static loginpackage.ViewSCreen.levelScreen;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.register;
+import tictactoe.ViewSCreen;
+import static tictactoe.ViewSCreen.friiends;
+import static tictactoe.ViewSCreen.levelScreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.register;
 
 public  class WelcomeBase extends GridPane {
 

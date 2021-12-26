@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginpackage;
+package tictactoe;
 
 import PlayWithFriend.WithFriendBase;
 import Welcome.WelcomeBase;
@@ -11,6 +11,7 @@ import gameplayscreen.GamePlayScreenBase;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import levelscreen.LevelScreenBase;
+import loginpackage.loginscreenBase;
 import registerpackage.registerscreenBase;
 import serverscreen.ServerScreenBase;
 import ui_online_friends_pck.onlinePlayersScreenBase;
@@ -20,6 +21,7 @@ import ui_online_friends_pck.onlinePlayersScreenBase;
  * @author Salma
  */
 public class ViewSCreen {
+    
 public static loginscreenBase login =new loginscreenBase ();
 public static registerscreenBase register= new registerscreenBase ();
 public static WelcomeBase welcomescreen =new WelcomeBase();

@@ -11,10 +11,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
-import loginpackage.ViewSCreen;
-import static loginpackage.ViewSCreen.gameScreen;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.onlineScreen;
+import tictactoe.ViewSCreen;
+import static tictactoe.ViewSCreen.gameScreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.onlineScreen;
 
 public  class registerscreenBase extends GridPane {
 

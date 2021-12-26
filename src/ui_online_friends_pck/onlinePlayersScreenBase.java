@@ -16,10 +16,10 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import loginpackage.ViewSCreen;
-import static loginpackage.ViewSCreen.gameScreen;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.welcomescreen;
+import tictactoe.ViewSCreen;
+import static tictactoe.ViewSCreen.gameScreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.welcomescreen;
 
 public  class onlinePlayersScreenBase extends BorderPane {
 

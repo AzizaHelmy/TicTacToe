@@ -1,5 +1,6 @@
 package loginpackage;
 
+import tictactoe.ViewSCreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,9 +11,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.onlineScreen;
-import static loginpackage.ViewSCreen.register;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.onlineScreen;
+import static tictactoe.ViewSCreen.register;
 
 public  class loginscreenBase extends GridPane {
 
