@@ -28,22 +28,23 @@ import static loginpackage.ViewSCreen.welcomescreen;
  * @author Azza Helmy
  */
 public class TicTacToe extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-      // Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-  StackPane root = new StackPane();
-  
-       root.getChildren().add(login);
-      root.getChildren().add(register);
-      root.getChildren().add(welcomescreen);
-      root.getChildren().add(friiends);
-    root.getChildren().add(gameScreen);
-    root.getChildren().add(serverscreen);
-    root.getChildren().add(onlineScreen);
-      root.getChildren().add(levelScreen);
-       ViewSCreen.view(login);
-       Scene scene = new Scene(root,700,500);
+        // Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        StackPane root = new StackPane();
+
+        root.getChildren().add(login);
+        root.getChildren().add(register);
+        root.getChildren().add(welcomescreen);
+        root.getChildren().add(friiends);
+        root.getChildren().add(gameScreen);
+        root.getChildren().add(serverscreen);
+        root.getChildren().add(onlineScreen);
+        root.getChildren().add(levelScreen);
+        ViewSCreen.view(welcomescreen);
+        
+        Scene scene = new Scene(root, 700, 500);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -54,7 +55,7 @@ public class TicTacToe extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        
+
     }
-    
+
 }
