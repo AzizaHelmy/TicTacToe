@@ -524,7 +524,8 @@ public class GamePlayScreenBase extends BorderPane {
 btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(welcomescreen);
+                System.exit(0);
+               // ViewSCreen.view(welcomescreen);
             }
         });
     }
