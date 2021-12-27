@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane id="welcomScreen" fx:id="welcomePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="726.0" stylesheets="@welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="65.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="123.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.0" minWidth="10.0" prefWidth="259.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="138.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="145.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="117.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Text lineSpacing="7.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic Tac Toe" textAlignment="CENTER" wrappingWidth="181.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="32.0" />
+         </font>
+      </Text>
+      <Button id="withComputerButt" fx:id="btnWithComputer" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" stylesheets="@welcome.css" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="Colonna MT" size="24.0" />
+         </font>
+      </Button>
+      <Button id="withFriendButt" fx:id="btnWithFriends" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font name="Colonna MT" size="26.0" />
+         </font>
+      </Button>
+      <Button id="onlineButt" fx:id="btnOnline" mnemonicParsing="false" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="Colonna MT" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="92.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../assets/programmer.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="106.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../assets/icons8-user-groups-100.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="88.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <image>
+            <Image url="@../assets/online-game.png" />
+         </image>
+      </ImageView>
+      <Text fill="#04062f" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's Play.." textAlignment="CENTER" wrappingWidth="149.13671875" GridPane.columnIndex="3">
+         <font>
+            <Font name="Forte" size="23.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="93.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+         <image>
+            <Image url="@../assets/arcade-game.png" />
+         </image>
+      </ImageView>
+   </children>
+</GridPane>

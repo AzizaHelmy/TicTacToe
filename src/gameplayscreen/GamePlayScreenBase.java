@@ -48,6 +48,7 @@ public class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
     protected final AnchorPane xoPane;
+    
     protected final Button topRight;
     protected final ImageView topRightIcon;
     protected final Button centerRight;
@@ -66,6 +67,7 @@ public class GamePlayScreenBase extends BorderPane {
     protected final ImageView centerLeftIcon;
     protected final Button bottomLeft;
     protected final ImageView bottomLeftIcon;
+    
     protected final Button btnRestart;
     protected final ImageView imageView;
     protected final Button btnExit;
