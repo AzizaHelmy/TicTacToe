@@ -11,10 +11,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
-import tictactoe.ViewSCreen;
-import static tictactoe.ViewSCreen.gameScreen;
-import static tictactoe.ViewSCreen.login;
-import static tictactoe.ViewSCreen.onlineScreen;
+import loginpackage.ViewSCreen;
+import static loginpackage.ViewSCreen.login;
+import static loginpackage.ViewSCreen.onlineScreen;
+import static loginpackage.ViewSCreen.register;
+import static loginpackage.ViewSCreen.welcomescreen;
 
 public  class registerscreenBase extends GridPane {
 
@@ -33,6 +34,8 @@ public  class registerscreenBase extends GridPane {
     protected final Button btn_signupreg;
     protected final ImageView imageView;
     protected final Button button;
+    protected final Button button0;
+    protected final ImageView btnbackreg;
 
     public registerscreenBase() {
 
@@ -51,6 +54,8 @@ public  class registerscreenBase extends GridPane {
         btn_signupreg = new Button();
         imageView = new ImageView();
         button = new Button();
+        button0 = new Button();
+        btnbackreg = new ImageView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -97,7 +102,8 @@ public  class registerscreenBase extends GridPane {
 
         GridPane.setColumnIndex(text, 1);
         GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
-        text.setFill(javafx.scene.paint.Color.valueOf("#2d0ff2"));
+        
+        text.setFill(javafx.scene.paint.Color.valueOf("#04011e"));
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.setText("Tic Tac Toe");
@@ -117,7 +123,7 @@ public  class registerscreenBase extends GridPane {
         btn_signupreg.setPrefHeight(42.0);
         btn_signupreg.setPrefWidth(97.0);
         btn_signupreg.getStyleClass().add("cardpane");
-        btn_signupreg.getStylesheets().add("/registerpackage/../loginpackage/login.css");
+        btn_signupreg.getStylesheets().add("/registerpackage/login.css");
         btn_signupreg.setText("Sign up");
         btn_signupreg.setTextFill(javafx.scene.paint.Color.valueOf("#fffafa"));
 
@@ -125,16 +131,28 @@ public  class registerscreenBase extends GridPane {
         imageView.setFitWidth(20.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        try {
-            imageView.setImage(new Image(getClass().getResource("/assets/signUp.png").toExternalForm()));
-        } catch (Exception e) {
-        }
+        //imageView.setImage(new Image(getClass().getResource("/assets/icons8-sign-up-64%20(3).png").toExternalForm()));
         btn_signupreg.setGraphic(imageView);
 
         GridPane.setColumnIndex(button, 2);
         GridPane.setRowIndex(button, 4);
         button.setMnemonicParsing(false);
+        button.getStyleClass().add("cardpane");
+        button.getStylesheets().add("/registerpackage/login.css");
         button.setText("Already have an account?");
+
+        GridPane.setHalignment(button0, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(button0, 4);
+        button0.setMnemonicParsing(false);
+        button0.getStyleClass().add("cardpane");
+        button0.getStylesheets().add("/registerpackage/login.css");
+
+        btnbackreg.setFitHeight(20.0);
+        btnbackreg.setFitWidth(20.0);
+        btnbackreg.setPickOnBounds(true);
+        btnbackreg.setPreserveRatio(true);
+        btnbackreg.setImage(new Image(getClass().getResource("/assets/icons8-back-50.png").toExternalForm()));
+        button0.setGraphic(btnbackreg);
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
@@ -150,19 +168,24 @@ public  class registerscreenBase extends GridPane {
         getChildren().add(registerpass_field);
         getChildren().add(btn_signupreg);
         getChildren().add(button);
-        btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        getChildren().add(button0);
+btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 ViewSCreen.view(onlineScreen);
             }
         });
-        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+btnbackreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 ViewSCreen.view(login);
             }
         });
-
+button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ViewSCreen.view(login);
+            }
+        });
     }
-    
 }

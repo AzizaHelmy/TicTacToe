@@ -12,6 +12,11 @@
    
     
 }
+.grid{
+   -fx-background-color: white;
+   
+    
+}
 /*.button{
    -fx-background-color: blue;
     -fx-text-color:white;
