@@ -21,9 +21,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
-import tictactoe.ViewSCreen;
-import static tictactoe.ViewSCreen.login;
-import static tictactoe.ViewSCreen.welcomescreen;
 
 public class GamePlayScreenBase extends BorderPane {
 
