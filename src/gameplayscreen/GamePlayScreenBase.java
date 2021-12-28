@@ -1,5 +1,10 @@
 package gameplayscreen;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,7 +17,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
+import tictactoe.ViewSCreen;
+import static tictactoe.ViewSCreen.login;
+import static tictactoe.ViewSCreen.welcomescreen;
 
 public class GamePlayScreenBase extends BorderPane {
 
@@ -45,7 +56,6 @@ public class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
     protected final AnchorPane xoPane;
-    
     protected final Button topRight;
     protected final ImageView topRightIcon;
     protected final Button centerRight;
@@ -64,11 +74,29 @@ public class GamePlayScreenBase extends BorderPane {
     protected final ImageView centerLeftIcon;
     protected final Button bottomLeft;
     protected final ImageView bottomLeftIcon;
-    
     protected final Button btnRestart;
     protected final ImageView imageView;
     protected final Button btnExit;
     protected final ImageView imageView0;
+    protected String start;
+    protected String end;
+    protected Random random;
+    protected int randomNum;
+    protected final Image first;
+    protected final Image second;
+    protected String x;
+    protected String o;
+    protected boolean changeTurn = true;
+    protected String player1;
+    protected String player2;
+    protected int counter = 0;
+    protected String isWin;
+    protected Media media;
+    protected MediaPlayer mediaPlayer;
+    protected MediaView mediaView;
+    protected File mediaFile;
+    protected int score1 = 0;
+    protected int score2 = 0;
 
     public GamePlayScreenBase() {
 
@@ -123,6 +151,29 @@ public class GamePlayScreenBase extends BorderPane {
         imageView = new ImageView();
         btnExit = new Button();
         imageView0 = new ImageView();
+        random = new Random();
+        randomNum = random.nextInt(2) + 1;
+
+        start = "/assets/gamePlay" + randomNum + ".png";
+
+        if (start.equals("/assets/gamePlay1.png")) {
+            end = "/assets/gamePlay2.png";
+            player2 = "x";
+        } else {
+            end = "/assets/gamePlay1.png";
+            player2 = "o";
+        }
+
+        if (player2.equals("x")) {
+            player1 = "o";
+        } else {
+            player1 = "x";
+        }
+
+        first = new Image(getClass().getResource(start).toExternalForm());
+        second = new Image(getClass().getResource(end).toExternalForm());
+        x = "/assets/gamePlay2.png";
+        o = "/assets/gamePlay1.png";
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -237,6 +288,7 @@ public class GamePlayScreenBase extends BorderPane {
         player1PlayingLogo.setPickOnBounds(true);
         player1PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player1PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
+        player1PlayingLogo.setImage(first);
 
         GridPane.setColumnIndex(player2PlayingLogo, 4);
         GridPane.setHalignment(player2PlayingLogo, javafx.geometry.HPos.LEFT);
@@ -247,6 +299,7 @@ public class GamePlayScreenBase extends BorderPane {
         player2PlayingLogo.setPickOnBounds(true);
         player2PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player2PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
+        player2PlayingLogo.setImage(second);
         setTop(infomationPane);
 
         BorderPane.setAlignment(playingPane, javafx.geometry.Pos.CENTER);
@@ -532,12 +585,229 @@ public class GamePlayScreenBase extends BorderPane {
         playingPane.getChildren().add(xoPane);
         playingPane.getChildren().add(btnRestart);
         playingPane.getChildren().add(btnExit);
-btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.exit(0);
-               // ViewSCreen.view(welcomescreen);
+                // ViewSCreen.view(welcomescreen);
             }
         });
+        
+        btnRestart.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                resetting();
+                btnRestart.setVisible(false);
+            }
+        });
+
+        topLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(topLeftIcon, topLeft);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        topCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(topCenterIcon, topCenter);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        topRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(topRightIcon, topRight);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        centerLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(centerLeftIcon, centerLeft);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        centerCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(centerCenterIcon, centerCenter);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        centerRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(centerRightIcon, centerRight);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        bottomLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(bottomLeftIcon, bottomLeft);
+                WinnerWinnerChickenDinner();
+            }
+        });
+        bottomCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(bottomCenterIcon, bottomCenter);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+        bottomRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayingIcon(bottomRightIcon, bottomRight);
+                WinnerWinnerChickenDinner();
+            }
+        });
+
+    }
+
+    public void setPlayingIcon(ImageView imageView, Button button) {
+        imageView.setVisible(true);
+        imageView.setImage(changingTurn(changeTurn, button));
+        button.setDisable(true);
+        changeTurn = !changeTurn;
+    }
+
+    public Image changingTurn(boolean flag, Button button) {
+        if (flag) {
+            button.setText(player1);
+            return first;
+        } else {
+            button.setText(player2);
+            return second;
+        }
+    }
+
+    public String isWinning() {
+        if ((topLeft.getText().equals(player1) && topCenter.getText().equals(player1) && topRight.getText().equals(player1))
+                || (bottomLeft.getText().equals(player1) && bottomCenter.getText().equals(player1) && bottomRight.getText().equals(player1))
+                || (centerLeft.getText().equals(player1) && centerCenter.getText().equals(player1) && centerRight.getText().equals(player1))
+                || (topLeft.getText().equals(player1) && centerLeft.getText().equals(player1) && bottomLeft.getText().equals(player1))
+                || (topCenter.getText().equals(player1) && centerCenter.getText().equals(player1) && bottomCenter.getText().equals(player1))
+                || (topRight.getText().equals(player1) && centerRight.getText().equals(player1) && bottomRight.getText().equals(player1))
+                || (topLeft.getText().equals(player1) && centerCenter.getText().equals(player1) && bottomRight.getText().equals(player1))
+                || (topRight.getText().equals(player1) && centerCenter.getText().equals(player1) && bottomLeft.getText().equals(player1))) {
+            return player1;
+        } else if ((topLeft.getText().equals(player2) && topCenter.getText().equals(player2) && topRight.getText().equals(player2))
+                || (bottomLeft.getText().equals(player2) && bottomCenter.getText().equals(player2) && bottomRight.getText().equals(player2))
+                || (centerLeft.getText().equals(player2) && centerCenter.getText().equals(player2) && centerRight.getText().equals(player2))
+                || (topLeft.getText().equals(player2) && centerLeft.getText().equals(player2) && bottomLeft.getText().equals(player2))
+                || (topCenter.getText().equals(player2) && centerCenter.getText().equals(player2) && bottomCenter.getText().equals(player2))
+                || (topRight.getText().equals(player2) && centerRight.getText().equals(player2) && bottomRight.getText().equals(player2))
+                || (topLeft.getText().equals(player2) && centerCenter.getText().equals(player2) && bottomRight.getText().equals(player2))
+                || (topRight.getText().equals(player2) && centerCenter.getText().equals(player2) && bottomLeft.getText().equals(player2))) {
+            return player2;
+        } else {
+            return "Draw";
+        }
+    }
+
+    public void WinnerWinnerChickenDinner() {
+        counter++;
+        isWin = isWinning();
+        if (isWin.equals(player1)) {
+            score1++;
+            annimation();
+            setDisable();
+            btnRestart.setVisible(true);
+            player1Score.setText(""+score1);
+        } else if (isWin.equals(player2)) {
+            score2++;
+            annimation();
+            setDisable();
+            btnRestart.setVisible(true);
+            player2Score.setText(""+score2);
+        } else if (isWin.equals("Draw") && counter == 9) {
+            btnRestart.setVisible(true);
+        }
+    }
+    
+    public void setDisable() {
+        topRight.setDisable(true);
+        topCenter.setDisable(true);
+        topLeft.setDisable(true);
+        centerRight.setDisable(true);
+        centerCenter.setDisable(true);
+        centerLeft.setDisable(true);
+        bottomRight.setDisable(true);
+        bottomCenter.setDisable(true);
+        bottomLeft.setDisable(true);
+    }
+
+    public void resetting() {
+        topLeft.setDisable(false);
+        topLeftIcon.setImage(null);
+        topLeftIcon.setVisible(false);
+        topLeft.setText("");
+        topCenter.setDisable(false);
+        topCenterIcon.setImage(null);
+        topCenterIcon.setVisible(false);
+        topCenter.setText("");
+        topRight.setDisable(false);
+        topRightIcon.setImage(null);
+        topRightIcon.setVisible(false);
+        topRight.setText("");
+        centerLeft.setDisable(false);
+        centerLeftIcon.setImage(null);
+        centerLeftIcon.setVisible(false);
+        centerLeft.setText("");
+        centerCenter.setDisable(false);
+        centerCenterIcon.setImage(null);
+        centerCenterIcon.setVisible(false);
+        centerCenter.setText("");
+        centerRight.setDisable(false);
+        centerRightIcon.setImage(null);
+        centerRightIcon.setVisible(false);
+        centerRight.setText("");
+        bottomLeft.setDisable(false);
+        bottomLeftIcon.setImage(null);
+        bottomLeftIcon.setVisible(false);
+        bottomLeft.setText("");
+        bottomCenter.setDisable(false);
+        bottomCenterIcon.setImage(null);
+        bottomCenterIcon.setVisible(false);
+        bottomCenter.setText("");
+        bottomRight.setDisable(false);
+        bottomRightIcon.setImage(null);
+        bottomRightIcon.setVisible(false);
+        bottomRight.setText("");
+        counter = 0;
+    }
+
+    public void annimation() {
+        try {
+            mediaFile = new File("C:\\Users\\United\\Desktop\\github\\TicTacToe\\src\\assets\\playerwin.mp4");
+            media = new Media(mediaFile.toURI().toURL().toString());
+
+            //Instantiating MediaPlayer class
+            mediaPlayer = new MediaPlayer(media);
+
+            //Instantiating MediaView class
+            mediaView = new MediaView(mediaPlayer);
+
+            //by setting this property to true, the Video will be played
+            mediaPlayer.setAutoPlay(true);
+
+            /*Scene scene = new Scene(new Pane(mediaView), 1024, 800);
+            primaryStage.setScene(scene);
+            primaryStage.show();*/
+
+            mediaPlayer.play();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GamePlayScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
