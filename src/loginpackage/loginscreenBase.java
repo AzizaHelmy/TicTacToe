@@ -9,10 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import static loginpackage.ViewSCreen.login;
-import static loginpackage.ViewSCreen.onlineScreen;
-import static loginpackage.ViewSCreen.register;
-import static loginpackage.ViewSCreen.welcomescreen;
+import tictactoe.Navigation;
 
 public class loginscreenBase extends AnchorPane {
 
@@ -115,7 +112,7 @@ public class loginscreenBase extends AnchorPane {
         imageView1.setFitWidth(20.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-       // imageView1.setImage(new Image(getClass().getResource("/assets/icons8-sign-up-64%20(3).png").toExternalForm()));
+        imageView1.setImage(new Image(getClass().getResource("/assets/icons8-sign-up-64 (3).png").toExternalForm()));
         btnSignuplog.setGraphic(imageView1);
 
         button.setLayoutX(266.0);
@@ -140,22 +137,25 @@ public class loginscreenBase extends AnchorPane {
         anchorPane0.getChildren().add(btnSignuplog);
         anchorPane0.getChildren().add(button);
         getChildren().add(anchorPane0);
-btnSignuplog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnSignuplog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(register);
+                Navigation nav = new Navigation();
+                nav.navigateToRegisterScreen(event);
             }
         });
-btnSigninlog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnSigninlog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(onlineScreen);
+                Navigation nav = new Navigation();
+                nav.navigateToOnlineScreen(event);
             }
         });
-btnBacklog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(welcomescreen);
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome(event);
             }
         });
     }

@@ -5,22 +5,12 @@
  */
 package tictactoe;
 
+import Welcome.WelcomeBase;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import static tictactoe.ViewSCreen.friiends;
-import static tictactoe.ViewSCreen.gameScreen;
-import static tictactoe.ViewSCreen.levelScreen;
-import static tictactoe.ViewSCreen.login;
-import static tictactoe.ViewSCreen.onlineScreen;
-import static tictactoe.ViewSCreen.register;
-import static tictactoe.ViewSCreen.serverscreen;
-import static tictactoe.ViewSCreen.welcomescreen;
+
 
 /**
  *
@@ -31,7 +21,7 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        StackPane root = new StackPane();
+        /* StackPane root = new StackPane();
 
         root.getChildren().add(login);
         root.getChildren().add(register);
@@ -44,6 +34,12 @@ public class TicTacToe extends Application {
         
         ViewSCreen.view(welcomescreen);
         
+        Scene scene = new Scene(root, 700, 500);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();*/
+        Parent root = new WelcomeBase();
+
         Scene scene = new Scene(root, 700, 500);
         stage.setScene(scene);
         stage.setResizable(false);

@@ -11,17 +11,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import tictactoe.ViewSCreen;
-import static tictactoe.ViewSCreen.gameScreen;
-import static tictactoe.ViewSCreen.login;
-import static tictactoe.ViewSCreen.welcomescreen;
+import tictactoe.Navigation;
 
-public  class onlinePlayersScreenBase extends BorderPane {
+public class onlinePlayersScreenBase extends BorderPane {
 
     protected final GridPane mainGridPane;
     protected final ColumnConstraints columnConstraints;
@@ -202,11 +197,10 @@ public  class onlinePlayersScreenBase extends BorderPane {
         imgOnline.setPickOnBounds(true);
         imgOnline.setPreserveRatio(true);
         try {
-           imgOnline.setImage(new Image(getClass().getResource("/assets/online.png").toExternalForm())); 
+            imgOnline.setImage(new Image(getClass().getResource("/assets/online.png").toExternalForm()));
         } catch (Exception e) {
-           
+
         }
- 
 
         GridPane.setHalignment(txtOnlinePlayers, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(txtOnlinePlayers, 1);
@@ -339,16 +333,18 @@ public  class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
-btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(welcomescreen);
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome(event);
             }
         });
-btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(login);
+                Navigation nav = new Navigation();
+                nav.navigateToLoginScreen(event);
             }
         });
     }

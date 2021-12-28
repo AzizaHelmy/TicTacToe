@@ -1,24 +1,20 @@
 package Welcome;
-import java.net.URL;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import tictactoe.ViewSCreen;
-import static tictactoe.ViewSCreen.friiends;
-import static tictactoe.ViewSCreen.levelScreen;
+import tictactoe.Navigation;
 
-import static tictactoe.ViewSCreen.login;
-
-public  class WelcomeBase extends GridPane {
+public class WelcomeBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -148,10 +144,10 @@ public  class WelcomeBase extends GridPane {
         rowConstraints6.setPrefHeight(24.0);
         rowConstraints6.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-      GridPane.setColumnIndex(txt_name, 2);
+        GridPane.setColumnIndex(txt_name, 2);
         GridPane.setHalignment(txt_name, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(txt_name, javafx.geometry.VPos.CENTER);
-        txt_name.setLineSpacing(7.0);      
+        txt_name.setLineSpacing(7.0);
         txt_name.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txt_name.setStrokeWidth(0.0);
         txt_name.setText("Tic Tac Toe");
@@ -162,7 +158,7 @@ public  class WelcomeBase extends GridPane {
         GridPane.setColumnIndex(btnWithComputer, 2);
         GridPane.setRowIndex(btnWithComputer, 1);
         btnWithComputer.setId("withComputerButt");
-        btnWithComputer.setMnemonicParsing(false);  
+        btnWithComputer.setMnemonicParsing(false);
         btnWithComputer.setPrefHeight(42.0);
         btnWithComputer.setPrefWidth(221.0);
         btnWithComputer.getStyleClass().add("anchor");
@@ -170,34 +166,36 @@ public  class WelcomeBase extends GridPane {
         btnWithComputer.setFont(new Font("Colonna MT", 24.0));
         btnWithComputer.getStylesheets().add("/Welcome/welcome.css");
         btnWithComputer.getStylesheets().add("/Welcome/welcome.css");
-        btnWithComputer.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>() {
+        btnWithComputer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                 ViewSCreen.view(levelScreen);
+                Navigation nav = new Navigation();
+                nav.navigateToLevelScreen(event);
             }
         });
 //===================================
         GridPane.setColumnIndex(btnWithFriends, 2);
         GridPane.setRowIndex(btnWithFriends, 2);
         btnWithFriends.setId("withFriendButt");
-        btnWithFriends.setMnemonicParsing(false);     
+        btnWithFriends.setMnemonicParsing(false);
         btnWithFriends.setPrefHeight(42.0);
         btnWithFriends.setPrefWidth(221.0);
         btnWithFriends.getStyleClass().add("anchor");
         btnWithFriends.getStylesheets().add("/Welcome/welcome.css");
         btnWithFriends.setText(" With Friends");
         btnWithFriends.setFont(new Font("Colonna MT", 26.0));
-         btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               ViewSCreen.view(friiends);
+                Navigation nav = new Navigation();
+                nav.navigateTowithFriendsScreen(event);
             }
         });
 //===================================================
         GridPane.setColumnIndex(btnOnline, 2);
         GridPane.setRowIndex(btnOnline, 3);
         btnOnline.setId("onlineButt");
-        btnOnline.setMnemonicParsing(false);     
+        btnOnline.setMnemonicParsing(false);
         btnOnline.setPrefHeight(42.0);
         btnOnline.setPrefWidth(221.0);
         btnOnline.getStyleClass().add("anchor");
@@ -205,17 +203,18 @@ public  class WelcomeBase extends GridPane {
         btnOnline.setFont(new Font("Colonna MT", 24.0));
         btnOnline.getStylesheets().add("/Welcome/../PlayWithFriend/withfriend.css");
         btnOnline.getStylesheets().add("/Welcome/welcome.css");
-        btnOnline.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>() {
+        btnOnline.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                 ViewSCreen.view(login);
+                Navigation nav = new Navigation();
+                nav.navigateToLoginScreen(event);
             }
         });
 //===============================================
         GridPane.setColumnIndex(img_computer, 3);
         GridPane.setRowIndex(img_computer, 1);
         img_computer.setFitHeight(92.0);
-        img_computer.setFitWidth(82.0);     
+        img_computer.setFitWidth(82.0);
         img_computer.setPickOnBounds(true);
         img_computer.setPreserveRatio(true);
         try {
@@ -237,7 +236,7 @@ public  class WelcomeBase extends GridPane {
         GridPane.setColumnIndex(img_online, 3);
         GridPane.setRowIndex(img_online, 3);
         img_online.setFitHeight(88.0);
-        img_online.setFitWidth(74.0);   
+        img_online.setFitWidth(74.0);
         img_online.setPickOnBounds(true);
         img_online.setPreserveRatio(true);
         try {
@@ -247,7 +246,7 @@ public  class WelcomeBase extends GridPane {
 //=======================================================
         GridPane.setColumnIndex(txt_play, 3);
         txt_play.setFill(javafx.scene.paint.Color.valueOf("#04062f"));
-        txt_play.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);    
+        txt_play.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
         txt_play.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txt_play.setStrokeWidth(0.0);
         txt_play.setText("Let's Play..");
@@ -315,5 +314,4 @@ public  class WelcomeBase extends GridPane {
 
     }
 
-    
 }

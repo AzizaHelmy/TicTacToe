@@ -1,10 +1,13 @@
 package levelscreen;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import tictactoe.Navigation;
 
 public  class LevelScreenBase extends GridPane {
 
@@ -15,8 +18,8 @@ public  class LevelScreenBase extends GridPane {
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
-    protected final Button btnMedium;
-    protected final Button btnDifficullt;
+    protected final Button btnDifficult;
+    protected final Button btnBack;
     protected final Button btnEasy;
     protected final Label label;
 
@@ -29,8 +32,8 @@ public  class LevelScreenBase extends GridPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        btnMedium = new Button();
-        btnDifficullt = new Button();
+        btnDifficult = new Button();
+        btnBack = new Button();
         btnEasy = new Button();
         label = new Label();
 
@@ -69,21 +72,28 @@ public  class LevelScreenBase extends GridPane {
         rowConstraints4.setPrefHeight(30.0);
         rowConstraints4.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        GridPane.setHalignment(btnMedium, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(btnMedium, 3);
-        GridPane.setValignment(btnMedium, javafx.geometry.VPos.CENTER);
-        btnMedium.setMnemonicParsing(false);
-        btnMedium.setPrefHeight(31.0);
-        btnMedium.setPrefWidth(129.0);
-        btnMedium.setText("Medium");
+        GridPane.setHalignment(btnDifficult, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(btnDifficult, 3);
+        GridPane.setValignment(btnDifficult, javafx.geometry.VPos.CENTER);
+        btnDifficult.setMnemonicParsing(false);
+        btnDifficult.setPrefHeight(31.0);
+        btnDifficult.setPrefWidth(129.0);
+        btnDifficult.setText("Difficult");
 
-        GridPane.setHalignment(btnDifficullt, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(btnDifficullt, 4);
-        GridPane.setValignment(btnDifficullt, javafx.geometry.VPos.CENTER);
-        btnDifficullt.setMnemonicParsing(false);
-        btnDifficullt.setPrefHeight(31.0);
-        btnDifficullt.setPrefWidth(129.0);
-        btnDifficullt.setText("Difficult");
+        GridPane.setHalignment(btnBack, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(btnBack, 4);
+        GridPane.setValignment(btnBack, javafx.geometry.VPos.CENTER);
+        btnBack.setMnemonicParsing(false);
+        btnBack.setPrefHeight(31.0);
+        btnBack.setPrefWidth(129.0);
+        btnBack.setText("Back");
+        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome(event);
+            }
+        });
 
         GridPane.setHalignment(btnEasy, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(btnEasy, 2);
@@ -106,8 +116,8 @@ public  class LevelScreenBase extends GridPane {
         getRowConstraints().add(rowConstraints2);
         getRowConstraints().add(rowConstraints3);
         getRowConstraints().add(rowConstraints4);
-        getChildren().add(btnMedium);
-        getChildren().add(btnDifficullt);
+        getChildren().add(btnDifficult);
+        getChildren().add(btnBack);
         getChildren().add(btnEasy);
         getChildren().add(label);
 

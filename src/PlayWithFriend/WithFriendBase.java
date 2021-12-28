@@ -9,12 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import tictactoe.ViewSCreen;
-import static tictactoe.ViewSCreen.gameScreen;
-import static tictactoe.ViewSCreen.welcomescreen;
+import tictactoe.Navigation;
 
 public class WithFriendBase extends GridPane {
 
@@ -40,7 +39,7 @@ public class WithFriendBase extends GridPane {
     protected final Button btnBack;
     protected final ImageView imgBack;
     protected final Glow glow0;
-
+    
     public WithFriendBase() {
 
         columnConstraints = new ColumnConstraints();
@@ -65,7 +64,7 @@ public class WithFriendBase extends GridPane {
         btnBack = new Button();
         imgBack = new ImageView();
         glow0 = new Glow();
-
+        
         setId("playWithFriendsScreen");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -133,7 +132,8 @@ public class WithFriendBase extends GridPane {
         btnstart.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(gameScreen);
+                Navigation nav = new Navigation();
+                nav.navigateToGameScreen(event);
             }
         });
 //===============================================================
@@ -217,7 +217,8 @@ public class WithFriendBase extends GridPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ViewSCreen.view(welcomescreen);
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome(event);
             }
         });
 //===================================================
