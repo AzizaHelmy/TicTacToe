@@ -36,63 +36,70 @@ public class Navigation {
         Parent root = welcomeScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateToLoginScreen(ActionEvent event) {
         Parent root = loginScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateToRegisterScreen(ActionEvent event) {
         Parent root = registerScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateTowithFriendsScreen(ActionEvent event) {
         Parent root = withFriendScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateToGameScreen(ActionEvent event) {
         Parent root = gameScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateToOnlineScreen(ActionEvent event) {
         Parent root = onlineScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
     
     public void navigateToLevelScreen(ActionEvent event) {
         Parent root = levelScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
-        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
     }
 
 }

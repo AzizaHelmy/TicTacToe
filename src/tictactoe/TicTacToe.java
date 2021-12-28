@@ -42,7 +42,9 @@ public class TicTacToe extends Application {
 
         Scene scene = new Scene(root, 700, 500);
         stage.setScene(scene);
-        stage.setResizable(false);
+//        stage.setResizable(false);
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
         stage.show();
     }
 
