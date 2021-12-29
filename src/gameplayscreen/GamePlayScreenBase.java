@@ -717,13 +717,13 @@ public class GamePlayScreenBase extends BorderPane {
         isWin = isWinning();
         if (isWin.equals(player1)) {
             score1++;
-            annimation();
+//            annimation();
             setDisable();
             btnRestart.setVisible(true);
             player1Score.setText(""+score1);
         } else if (isWin.equals(player2)) {
             score2++;
-            annimation();
+            //annimation();
             setDisable();
             btnRestart.setVisible(true);
             player2Score.setText(""+score2);
@@ -784,9 +784,12 @@ public class GamePlayScreenBase extends BorderPane {
         counter = 0;
     }
 
-    public void annimation() {
+    /*public void annimation() {
         try {
-            mediaFile = new File("C:\\Users\\United\\Desktop\\github\\TicTacToe\\src\\assets\\playerwin.mp4");
+            try {
+                mediaFile = new File("/assets/playerwin.mp4");
+            } catch (Exception e) {
+            }
             media = new Media(mediaFile.toURI().toURL().toString());
 
             //Instantiating MediaPlayer class
@@ -801,10 +804,10 @@ public class GamePlayScreenBase extends BorderPane {
             /*Scene scene = new Scene(new Pane(mediaView), 1024, 800);
             primaryStage.setScene(scene);
             primaryStage.show();*/
-
+/*
             mediaPlayer.play();
         } catch (MalformedURLException ex) {
             Logger.getLogger(GamePlayScreenBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 }
