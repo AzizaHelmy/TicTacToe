@@ -1,41 +1,59 @@
 package levelscreen;
 
+import Welcome.WelcomeBase;
+import gameplayscreen.GamePlayScreenBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import tictactoe.Navigation;
 
-public  class LevelScreenBase extends GridPane {
+public class LevelScreenBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
+    protected final ColumnConstraints columnConstraints0;
+    protected final ColumnConstraints columnConstraints1;
     protected final RowConstraints rowConstraints;
     protected final RowConstraints rowConstraints0;
     protected final RowConstraints rowConstraints1;
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
-    protected final Button btnDifficult;
-    protected final Button btnBack;
+    protected final Button btnDifficullt;
     protected final Button btnEasy;
-    protected final Label label;
+    protected final Label textSelsctLevel;
+    protected final Button btnBack;
+    protected final ImageView imgBack;
+    protected final Glow glow;
+    //protected final WelcomeBase welcome;
+    protected final GamePlayScreenBase game;
 
     public LevelScreenBase() {
 
         columnConstraints = new ColumnConstraints();
+        columnConstraints0 = new ColumnConstraints();
+        columnConstraints1 = new ColumnConstraints();
         rowConstraints = new RowConstraints();
         rowConstraints0 = new RowConstraints();
         rowConstraints1 = new RowConstraints();
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        btnDifficult = new Button();
-        btnBack = new Button();
+        btnDifficullt = new Button();
         btnEasy = new Button();
-        label = new Label();
+        textSelsctLevel = new Label();
+        btnBack = new Button();
+        imgBack = new ImageView();
+        glow = new Glow();
+//        welcome = new WelcomeBase();
+        game = new GamePlayScreenBase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -47,6 +65,14 @@ public  class LevelScreenBase extends GridPane {
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMinWidth(10.0);
         columnConstraints.setPrefWidth(100.0);
+
+        columnConstraints0.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
+        columnConstraints0.setMinWidth(10.0);
+        columnConstraints0.setPrefWidth(100.0);
+
+        columnConstraints1.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
+        columnConstraints1.setMinWidth(10.0);
+        columnConstraints1.setPrefWidth(100.0);
 
         rowConstraints.setMinHeight(10.0);
         rowConstraints.setPrefHeight(30.0);
@@ -72,29 +98,22 @@ public  class LevelScreenBase extends GridPane {
         rowConstraints4.setPrefHeight(30.0);
         rowConstraints4.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        GridPane.setHalignment(btnDifficult, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(btnDifficult, 3);
-        GridPane.setValignment(btnDifficult, javafx.geometry.VPos.CENTER);
-        btnDifficult.setMnemonicParsing(false);
-        btnDifficult.setPrefHeight(31.0);
-        btnDifficult.setPrefWidth(129.0);
-        btnDifficult.setText("Difficult");
-
-        GridPane.setHalignment(btnBack, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(btnBack, 4);
-        GridPane.setValignment(btnBack, javafx.geometry.VPos.CENTER);
-        btnBack.setMnemonicParsing(false);
-        btnBack.setPrefHeight(31.0);
-        btnBack.setPrefWidth(129.0);
-        btnBack.setText("Back");
-        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        GridPane.setColumnIndex(btnDifficullt, 1);
+        GridPane.setHalignment(btnDifficullt, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(btnDifficullt, 3);
+        GridPane.setValignment(btnDifficullt, javafx.geometry.VPos.CENTER);
+        btnDifficullt.setMnemonicParsing(false);
+        btnDifficullt.setPrefHeight(31.0);
+        btnDifficullt.setPrefWidth(129.0);
+        btnDifficullt.setText("Difficult");
+        btnDifficullt.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
-            }
+                nav.navigateToGameScreen(event);           }
         });
-
+//====================================
+        GridPane.setColumnIndex(btnEasy, 1);
         GridPane.setHalignment(btnEasy, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(btnEasy, 2);
         GridPane.setValignment(btnEasy, javafx.geometry.VPos.CENTER);
@@ -102,24 +121,62 @@ public  class LevelScreenBase extends GridPane {
         btnEasy.setPrefHeight(31.0);
         btnEasy.setPrefWidth(129.0);
         btnEasy.setText("Esay");
+        btnEasy.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Navigation nav = new Navigation();
+                nav.navigateToGameScreen(event);
+            }
+        });
+        //==========================================
+        GridPane.setColumnIndex(textSelsctLevel, 1);
+        GridPane.setHalignment(textSelsctLevel, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(textSelsctLevel, 1);
+        GridPane.setValignment(textSelsctLevel, javafx.geometry.VPos.CENTER);
+        textSelsctLevel.setAlignment(javafx.geometry.Pos.CENTER);
+        textSelsctLevel.setText("SELECT LEVEL");
+        textSelsctLevel.setFont(new Font("Bodoni MT", 20.0));
 
-        GridPane.setHalignment(label, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(label, 1);
-        GridPane.setValignment(label, javafx.geometry.VPos.CENTER);
-        label.setAlignment(javafx.geometry.Pos.CENTER);
-        label.setText("SELECT LEVEL");
+        GridPane.setHalignment(btnBack, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(btnBack, 4);
+        GridPane.setValignment(btnBack, javafx.geometry.VPos.CENTER);
+        btnBack.setAlignment(javafx.geometry.Pos.CENTER);
+        btnBack.setMnemonicParsing(false);
+        btnBack.setPrefHeight(45.0);
+        btnBack.setPrefWidth(63.0);
+        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome(event);
+            }
+        });
+        //==========================================
+        imgBack.setFitHeight(37.0);
+        imgBack.setFitWidth(71.0);
+        imgBack.setPickOnBounds(true);
+        imgBack.setPreserveRatio(true);
+        try {
+            imgBack.setImage(new Image(getClass().getResource("/assets/icons8-back-64.png").toExternalForm()));
+        } catch (Exception e) {
+        }
+        btnBack.setGraphic(imgBack);
+
+        btnBack.setEffect(glow);
 
         getColumnConstraints().add(columnConstraints);
+        getColumnConstraints().add(columnConstraints0);
+        getColumnConstraints().add(columnConstraints1);
         getRowConstraints().add(rowConstraints);
         getRowConstraints().add(rowConstraints0);
         getRowConstraints().add(rowConstraints1);
         getRowConstraints().add(rowConstraints2);
         getRowConstraints().add(rowConstraints3);
         getRowConstraints().add(rowConstraints4);
-        getChildren().add(btnDifficult);
-        getChildren().add(btnBack);
+        getChildren().add(btnDifficullt);
         getChildren().add(btnEasy);
-        getChildren().add(label);
+        getChildren().add(textSelsctLevel);
+        getChildren().add(btnBack);
 
     }
 }
