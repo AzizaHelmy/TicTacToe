@@ -11,6 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -71,7 +75,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        recOnlinePlayers = new Rectangle();
+        recOnlinePlayers = new Rectangle(150,30,100,65);
         imgOnline = new ImageView();
         txtOnlinePlayers = new Text();
         gridPaneTopPlayers = new GridPane();
@@ -80,7 +84,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints5 = new RowConstraints();
         rowConstraints6 = new RowConstraints();
         rowConstraints7 = new RowConstraints();
-        recTopPlayer = new Rectangle();
+        recTopPlayer = new Rectangle(150,30,100,65);
         txtTopPlayer = new Text();
         imgTopPlayer = new ImageView();
         btnBack = new Button();
@@ -88,6 +92,12 @@ public class onlinePlayersScreenBase extends BorderPane {
         glow = new Glow();
         btnSignOut = new Button();
         imgSignOut = new ImageView();
+         Stop[] stops = new Stop[] {
+         new Stop(0, Color.GRAY),
+         new Stop(1, Color.BLACK)
+      };
+        LinearGradient gradient
+                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,stops);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -188,6 +198,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         recOnlinePlayers.setStroke(javafx.scene.paint.Color.BLACK);
         recOnlinePlayers.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         recOnlinePlayers.setWidth(206.0);
+        recOnlinePlayers.setFill(gradient);
 
         GridPane.setColumnIndex(imgOnline, 1);
         GridPane.setRowIndex(imgOnline, 1);
@@ -241,6 +252,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         recTopPlayer.setStroke(javafx.scene.paint.Color.BLACK);
         recTopPlayer.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         recTopPlayer.setWidth(164.0);
+        recTopPlayer.setFill(gradient);
 
         GridPane.setHalignment(txtTopPlayer, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(txtTopPlayer, 1);
