@@ -1,5 +1,6 @@
 package Controller;
 
+import com.sun.prism.paint.Gradient;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
@@ -57,7 +60,7 @@ public class ServerRegistrationBase extends FlowPane {
         rowConstraints0 = new RowConstraints();
         rowConstraints1 = new RowConstraints();
         imgServer = new ImageView();
-        recTitle = new Rectangle();
+        recTitle = new Rectangle(150,30,100,65);
         text = new Text();
         gridPane0 = new GridPane();
         columnConstraints0 = new ColumnConstraints();
@@ -72,7 +75,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnConnect = new Button();
         txtFieldIP = new TextField();
         txtInvalid = new Text();
-        rectangle = new Rectangle();
+        rectangle = new Rectangle(150,30,100,65);
         label = new Label();
         btnBack = new Button();
 
@@ -115,7 +118,12 @@ public class ServerRegistrationBase extends FlowPane {
         imgServer.setPickOnBounds(true);
         imgServer.setPreserveRatio(true);
         imgServer.setImage(new Image(getClass().getResource("/assets/server.png").toExternalForm()));
-
+         Stop[] stops = new Stop[] {
+         new Stop(0, Color.GRAY),
+         new Stop(1, Color.WHITE)
+      };
+        LinearGradient gradient
+                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,stops);
         GridPane.setRowIndex(recTitle, 1);
         recTitle.setArcHeight(5.0);
         recTitle.setArcWidth(5.0);
@@ -124,9 +132,10 @@ public class ServerRegistrationBase extends FlowPane {
         recTitle.setStroke(javafx.scene.paint.Color.valueOf("#836565"));
         recTitle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         recTitle.setWidth(277.0);
-
+        recTitle.setFill(gradient);
+        
         GridPane.setRowIndex(text, 1);
-        text.setStroke(javafx.scene.paint.Color.valueOf("#ff2323"));
+        text.setStroke(javafx.scene.paint.Color.valueOf("#ffffff"));
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.setText("SERVER REGISTRATION");
@@ -196,6 +205,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnConnect.setMnemonicParsing(false);
         btnConnect.setText("Connect");
         btnConnect.setFont(new Font("System Bold", 16.0));
+        
 
         GridPane.setColumnIndex(txtFieldIP, 2);
         GridPane.setRowIndex(txtFieldIP, 1);
@@ -212,12 +222,13 @@ public class ServerRegistrationBase extends FlowPane {
         txtInvalid.setText("INVALID SERVER IP");
         txtInvalid.setVisible(false);
         txtInvalid.setFont(new Font("System Bold", 15.0));
+        
 
         GridPane.setColumnIndex(rectangle, 1);
         GridPane.setRowIndex(rectangle, 1);
         rectangle.setArcHeight(5.0);
         rectangle.setArcWidth(5.0);
-        rectangle.setFill(javafx.scene.paint.Color.valueOf("#d0d0d0"));
+        rectangle.setFill(gradient);
         rectangle.setHeight(37.0);
         rectangle.setStroke(javafx.scene.paint.Color.BLACK);
         rectangle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
@@ -238,8 +249,8 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack.setText("BACK");
         btnBack.setFont(new Font("System Bold", 15.0));
         borderPane.setCenter(gridPane0);
-        
-         btnConnect.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+        btnConnect.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
@@ -286,8 +297,8 @@ public class ServerRegistrationBase extends FlowPane {
         getChildren().add(borderPane);
 
     }
-    
-     public static boolean isValidIPAddress(String ip) {
+
+    public static boolean isValidIPAddress(String ip) {
 
         /*\d represents digits in regular expressions, same as [0-9]
         \\d{1, 2} catches any one or two-digit number
