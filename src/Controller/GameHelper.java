@@ -95,6 +95,8 @@ public class GameHelper {
         }
         first = new Image(getClass().getResource(start).toExternalForm());
         second = new Image(getClass().getResource(end).toExternalForm());
+        imags.get(9).setImage(first);
+        imags.get(10).setImage(second);
     }
 //=================================================================
 
@@ -169,12 +171,12 @@ public class GameHelper {
 
     public void resetting() {
 
-        for (int i = 0; i < imags.size(); i++) {
+        for (int i = 0; i < imags.size() - 2; i++) {
             imags.get(i).setImage(null);
             imags.get(i).setVisible(false);
         }
 
-        for (int i = 0; i < buttons.size()-2; i++) {
+        for (int i = 0; i < buttons.size() - 2; i++) {
             buttons.get(i).setText("");
             buttons.get(i).setDisable(false);
             buttons.get(i).setVisible(true);

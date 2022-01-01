@@ -12,12 +12,12 @@ package models;
 public class Register {
 
     private String userName;
-    private int passward;
+    private String passward;
 
     public Register() {
     }
 
-    public Register(String userName, int passward) {
+    public Register(String userName, String passward) {
         this.userName = userName;
         this.passward = passward;
     }
@@ -30,11 +30,11 @@ public class Register {
         this.userName = userName;
     }
 
-    public int getPassward() {
+    public String getPassward() {
         return passward;
     }
 
-    public void setPassward(int passward) {
+    public void setPassward(String passward) {
         this.passward = passward;
     }
 }

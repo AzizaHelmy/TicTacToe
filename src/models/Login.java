@@ -12,12 +12,12 @@ package models;
 public class Login {
 
     private String userName;
-    private int passward;
+    private String passward;
 
     public Login() {
     }
 
-    public Login(String userName, int passward) {
+    public Login(String userName, String passward) {
         this.userName = userName;
         this.passward = passward;
     }
@@ -30,11 +30,11 @@ public class Login {
         this.userName = userName;
     }
 
-    public int getPassward() {
+    public String getPassward() {
         return passward;
     }
 
-    public void setPassward(int passward) {
+    public void setPassward(String passward) {
         this.passward = passward;
     }
 

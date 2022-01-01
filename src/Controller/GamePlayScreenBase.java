@@ -110,7 +110,7 @@ public class GamePlayScreenBase extends BorderPane {
     protected GameHelper game;
 
     public GamePlayScreenBase(GameHelper g) {
-        
+
         buttons = new Vector<>();
         imgs = new Vector<>();
         labels = new Vector<>();
@@ -287,7 +287,7 @@ public class GamePlayScreenBase extends BorderPane {
         player1PlayingLogo.setPickOnBounds(true);
         player1PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player1PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
-        player1PlayingLogo.setImage(first);
+        //player1PlayingLogo.setImage(first);
 
         GridPane.setColumnIndex(player2PlayingLogo, 4);
         GridPane.setHalignment(player2PlayingLogo, javafx.geometry.HPos.LEFT);
@@ -298,7 +298,7 @@ public class GamePlayScreenBase extends BorderPane {
         player2PlayingLogo.setPickOnBounds(true);
         player2PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player2PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
-        player2PlayingLogo.setImage(second);
+        //player2PlayingLogo.setImage(second);
         setTop(infomationPane);
 
         BorderPane.setAlignment(playingPane, javafx.geometry.Pos.CENTER);
@@ -605,10 +605,9 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(topLeftIcon, topLeft);
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -618,10 +617,9 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(topCenterIcon, topCenter);
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -632,10 +630,9 @@ public class GamePlayScreenBase extends BorderPane {
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(topRightIcon, topRight);
 
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
 
                 g.WinnerWinnerChickenDinner();
@@ -646,10 +643,9 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(centerLeftIcon, centerLeft);
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -659,10 +655,10 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(centerCenterIcon, centerCenter);
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+
+                    g.setComputerChoice();
+
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -672,10 +668,9 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(centerRightIcon, centerRight);
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -686,10 +681,9 @@ public class GamePlayScreenBase extends BorderPane {
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(bottomLeftIcon, bottomLeft);
 
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
 
                 g.WinnerWinnerChickenDinner();
@@ -701,10 +695,9 @@ public class GamePlayScreenBase extends BorderPane {
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(bottomCenterIcon, bottomCenter);
 
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+                    g.setComputerChoice();
+
                 }
 
                 g.WinnerWinnerChickenDinner();
@@ -716,10 +709,10 @@ public class GamePlayScreenBase extends BorderPane {
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(bottomRightIcon, bottomRight);
 
-                if (g instanceof ComputerEasyLevel) {
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
+                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
+
+                    g.setComputerChoice();
+
                 }
 
                 g.WinnerWinnerChickenDinner();
@@ -747,6 +740,8 @@ public class GamePlayScreenBase extends BorderPane {
         imgs.add(6, bottomLeftIcon);
         imgs.add(7, bottomCenterIcon);
         imgs.add(8, bottomRightIcon);
+        imgs.add(9, player1PlayingLogo);
+        imgs.add(10, player2PlayingLogo);
 
         labels.add(0, player1Name);//0       
         labels.add(1, player2Name);//1
