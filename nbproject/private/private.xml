@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/peter/Desktop/java%20project/TicTacToe/src/databaseconnection/DBConnection.java</file>
-            <file>file:/C:/Users/peter/Desktop/java%20project/TicTacToe/src/databaseconnection/Player.java</file>
-            <file>file:/C:/Users/peter/Desktop/java%20project/TicTacToe/src/serverscreen/ServerScreenBase.java</file>
-            <file>file:/C:/Users/peter/Desktop/java%20project/TicTacToe/src/serverscreen/ServerScreenController.java</file>
-            <file>file:/C:/Users/peter/Desktop/java%20project/TicTacToe/src/tictactoe/TicTacToe.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/gameplayscreen/ComputerEasyLevel.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/gameplayscreen/GameHelper.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/tictactoe/TicTacToe.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/gameplayscreen/ComputerEasyLevelBase.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/tictactoe/Navigation.java</file>
+            <file>file:/G:/ITIMAD/JAVA%20Project/Navigation%20problem/src/levelscreen/LevelScreenBase.java</file>
         </group>
     </open-files>
 </project-private>
