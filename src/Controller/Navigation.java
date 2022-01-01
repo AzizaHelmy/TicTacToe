@@ -5,20 +5,11 @@
  */
 package Controller;
 
-import Controller.WithFriendBase;
-import Controller.WelcomeBase;
-import Controller.ComputerEasyLevel;
-import Controller.GamePlayScreenBase;
-import Controller.GameHelper;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Controller.LevelScreenBase;
-import Controller.loginscreenBase;
-import Controller.registerscreenBase;
-import Controller.onlinePlayersScreenBase;
 
 /**
  *
@@ -32,6 +23,7 @@ public class Navigation {
     public WithFriendBase withFriendScreen = new WithFriendBase();
     public onlinePlayersScreenBase onlineScreen = new onlinePlayersScreenBase();
     public LevelScreenBase levelScreen = new LevelScreenBase();
+    public ServerRegistrationBase serverRegistrationScreen = new ServerRegistrationBase();
     public GamePlayScreenBase easyGame;
      
     public void navigateToWelcome(ActionEvent event) {
@@ -98,7 +90,16 @@ public class Navigation {
 
     public void navigateToLevelScreen(ActionEvent event) {
         Parent root = levelScreen;
-        System.out.println(levelScreen.toString());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 700, 500);
+        stage.setScene(scene);
+        stage.show();
+        stage.setMinHeight(630);
+        stage.setMinWidth(600);
+    }
+    
+    public void navigateToRegistrationScreen(ActionEvent event) {
+        Parent root = serverRegistrationScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
         stage.setScene(scene);

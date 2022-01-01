@@ -211,7 +211,7 @@ public class WelcomeBase extends GridPane {
             @Override
             public void handle(ActionEvent event) {
                 Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+                nav.navigateToRegistrationScreen(event);
             }
         });
 //===============================================
