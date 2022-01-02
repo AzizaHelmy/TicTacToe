@@ -42,7 +42,7 @@ public class GameHelper {
     protected File mediaFile;
     protected int score1 = 0;
     protected int score2 = 0;
-    boolean isWinn = false;
+    
 
     protected String Player1Score;
     protected String Player2Score;
@@ -53,7 +53,7 @@ public class GameHelper {
     protected Vector<ImageView> imags = new Vector<>();
     protected Vector<Label> labels = new Vector<>();
 
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//=======================================================
     public void setButtons(Vector<Button> b) {
         for (int i = 0; i < b.size(); i++) {
             buttons.add(i, b.get(i));
@@ -119,7 +119,6 @@ public class GameHelper {
         }
     }
 //================================================================
-
     public boolean isWinning(String player) {
         if ((buttons.get(0).getText().equals(player) && buttons.get(1).getText().equals(player) && buttons.get(2).getText().equals(player))
                 || (buttons.get(3).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(5).getText().equals(player))
@@ -135,10 +134,9 @@ public class GameHelper {
         }
     }
 //================================================================
-
     public void WinnerWinnerChickenDinner() {
         counter++;
-         isWinning(player1);
+        
         if (isWinning(player1)) {
             score1++;
             // annimation();
@@ -185,7 +183,7 @@ public class GameHelper {
 
         counter = 0;
         changeTurn = true;
-        isWinn = false;
+         isWinning(player1);
     }
 //==================================================
 

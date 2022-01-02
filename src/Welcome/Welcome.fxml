@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane id="welcomScreen" fx:id="welcomePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="600.0" styleClass="cardpane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="60.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="126.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.0" minWidth="10.0" prefWidth="257.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="128.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="76.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="117.0" minHeight="0.0" prefHeight="46.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="117.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="125.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Text fx:id="txt_name" lineSpacing="7.0" onDragDetected="#txt_name" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic Tac Toe" textAlignment="CENTER" wrappingWidth="181.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="32.0" />
+         </font>
+      </Text>
+      <Button id="withComputerButt" fx:id="btnWithComputer" mnemonicParsing="false" onAction="#btnWithComputer" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text=" With Computer" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="Colonna MT" size="24.0" />
+         </font>
+         <stylesheets>
+            <URL value="@welcome.css" />
+            <URL value="@welcome.css" />
+         </stylesheets>
+      </Button>
+      <Button id="withFriendButt" fx:id="btnWithFriends" mnemonicParsing="false" onAction="#btnWithFriends" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" stylesheets="@welcome.css" text=" With Friends" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font name="Colonna MT" size="26.0" />
+         </font>
+      </Button>
+      <Button id="onlineButt" fx:id="btnOnline" mnemonicParsing="false" onAction="#btnOnline" prefHeight="42.0" prefWidth="221.0" styleClass="anchor" text="Play OnLine" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="Colonna MT" size="24.0" />
+         </font>
+         <stylesheets>
+            <URL value="@../PlayWithFriend/withfriend.css" />
+            <URL value="@welcome.css" />
+         </stylesheets>
+      </Button>
+      <ImageView fx:id="img_computer" fitHeight="92.0" fitWidth="82.0" onDragDetected="#img_computer" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../assets/programmer.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img_friends" fitHeight="106.0" fitWidth="103.0" onDragDetected="#img_friends" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../assets/icons8-user-groups-100.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img_online" fitHeight="88.0" fitWidth="74.0" onDragDetected="#img_online" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <image>
+            <Image url="@../assets/online-game.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="txt_play" fill="#04062f" fontSmoothingType="LCD" onDragDetected="#txt_play" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's Play.." textAlignment="CENTER" wrappingWidth="149.13671875" GridPane.columnIndex="3">
+         <font>
+            <Font name="Forte" size="23.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="img_icon" fitHeight="93.0" fitWidth="82.0" onDragDetected="#img_icon" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+         <image>
+            <Image url="@../assets/arcade-game.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnBack" alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="46.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <graphic>
+            <ImageView fx:id="imgBack" fitHeight="37.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
+   </children>
+   <stylesheets>
+      <URL value="@welcome.css" />
+      <URL value="@../PlayWithFriend/withfriend.css" />
+   </stylesheets>
+</GridPane>
