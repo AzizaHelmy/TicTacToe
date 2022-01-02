@@ -609,6 +609,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -621,6 +622,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -634,7 +636,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -647,6 +649,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -660,6 +663,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -672,6 +676,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -685,7 +690,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -699,7 +704,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -714,11 +719,11 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-
+                g.drawLine();
                 g.WinnerWinnerChickenDinner();
             }
         });
-
+//===========================================================
         buttons.add(0, topLeft);//0
         buttons.add(1, topCenter);//1
         buttons.add(2, topRight);//2
