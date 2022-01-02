@@ -1,6 +1,7 @@
 package Controller;
 
 import com.sun.prism.paint.Gradient;
+import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -22,6 +23,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import static Controller.ClientSocket.getInstance;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ServerRegistrationBase extends FlowPane {
 
@@ -45,11 +49,12 @@ public class ServerRegistrationBase extends FlowPane {
     protected final RowConstraints rowConstraints4;
     protected final ImageView imgInvalid;
     protected final Button btnConnect;
-    protected final TextField txtFieldIP;
+    protected final static TextField txtFieldIP=new TextField();
     protected final Text txtInvalid;
     protected final Rectangle rectangle;
     protected final Label label;
     protected final Button btnBack;
+   
 
     public ServerRegistrationBase() {
 
@@ -60,7 +65,7 @@ public class ServerRegistrationBase extends FlowPane {
         rowConstraints0 = new RowConstraints();
         rowConstraints1 = new RowConstraints();
         imgServer = new ImageView();
-        recTitle = new Rectangle(150,30,100,65);
+        recTitle = new Rectangle(150, 30, 100, 65);
         text = new Text();
         gridPane0 = new GridPane();
         columnConstraints0 = new ColumnConstraints();
@@ -73,9 +78,9 @@ public class ServerRegistrationBase extends FlowPane {
         rowConstraints4 = new RowConstraints();
         imgInvalid = new ImageView();
         btnConnect = new Button();
-        txtFieldIP = new TextField();
+        //txtFieldIP = new TextField();
         txtInvalid = new Text();
-        rectangle = new Rectangle(150,30,100,65);
+        rectangle = new Rectangle(150, 30, 100, 65);
         label = new Label();
         btnBack = new Button();
 
@@ -118,12 +123,12 @@ public class ServerRegistrationBase extends FlowPane {
         imgServer.setPickOnBounds(true);
         imgServer.setPreserveRatio(true);
         imgServer.setImage(new Image(getClass().getResource("/assets/server.png").toExternalForm()));
-         Stop[] stops = new Stop[] {
-         new Stop(0, Color.GRAY),
-         new Stop(1, Color.WHITE)
-      };
+        Stop[] stops = new Stop[]{
+            new Stop(0, Color.GRAY),
+            new Stop(1, Color.WHITE)
+        };
         LinearGradient gradient
-                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,stops);
+                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
         GridPane.setRowIndex(recTitle, 1);
         recTitle.setArcHeight(5.0);
         recTitle.setArcWidth(5.0);
@@ -133,7 +138,7 @@ public class ServerRegistrationBase extends FlowPane {
         recTitle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         recTitle.setWidth(277.0);
         recTitle.setFill(gradient);
-        
+
         GridPane.setRowIndex(text, 1);
         text.setStroke(javafx.scene.paint.Color.valueOf("#ffffff"));
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
@@ -205,7 +210,6 @@ public class ServerRegistrationBase extends FlowPane {
         btnConnect.setMnemonicParsing(false);
         btnConnect.setText("Connect");
         btnConnect.setFont(new Font("System Bold", 16.0));
-        
 
         GridPane.setColumnIndex(txtFieldIP, 2);
         GridPane.setRowIndex(txtFieldIP, 1);
@@ -222,7 +226,6 @@ public class ServerRegistrationBase extends FlowPane {
         txtInvalid.setText("INVALID SERVER IP");
         txtInvalid.setVisible(false);
         txtInvalid.setFont(new Font("System Bold", 15.0));
-        
 
         GridPane.setColumnIndex(rectangle, 1);
         GridPane.setRowIndex(rectangle, 1);
@@ -249,11 +252,13 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack.setText("BACK");
         btnBack.setFont(new Font("System Bold", 15.0));
         borderPane.setCenter(gridPane0);
-
+//==========================================================
         btnConnect.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
+                    Socket socket = getInstance(txtFieldIP.getText(),5005);
+
                     Navigation nav = new Navigation();
                     nav.navigateToLoginScreen(event);
                 } else {
@@ -263,7 +268,7 @@ public class ServerRegistrationBase extends FlowPane {
             }
 
         });
-
+//=========================================================
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

@@ -1,5 +1,13 @@
 package Controller;
 
+import static Controller.ClientSocket.getInstance;
+import static Controller.ServerRegistrationBase.txtFieldIP;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import models.Login;
 
 public class loginscreenBase extends AnchorPane {
 
@@ -24,6 +33,9 @@ public class loginscreenBase extends AnchorPane {
     protected final ImageView imageView1;
     protected final Button button;
     protected final ImageView btnBacklog;
+
+    ObjectInputStream inputStream;
+    ObjectOutputStream outputStream;
 
     public loginscreenBase() {
 
@@ -143,13 +155,26 @@ public class loginscreenBase extends AnchorPane {
                 nav.navigateToRegisterScreen(event);
             }
         });
+        //===================================================       
         btnSigninlog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event) {            
+                try {
+                    Socket socket = getInstance(txtFieldIP.getText(), 5005);
+                    inputStream = new ObjectInputStream(socket.getInputStream());
+                    outputStream = new ObjectOutputStream(socket.getOutputStream());
+                    Login login =new Login(usernamelog_field.getText(), passlog_field.getText());
+                     outputStream.writeObject(login);
+                     
+                } catch (IOException ex) {
+                    Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 Navigation nav = new Navigation();
                 nav.navigateToOnlineScreen(event);
             }
         });
+        //=======================================================       
         button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
