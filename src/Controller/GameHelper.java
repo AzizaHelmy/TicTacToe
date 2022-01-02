@@ -138,6 +138,7 @@ public class GameHelper {
 
     public void WinnerWinnerChickenDinner() {
         counter++;
+         isWinning(player1);
         if (isWinning(player1)) {
             score1++;
             // annimation();

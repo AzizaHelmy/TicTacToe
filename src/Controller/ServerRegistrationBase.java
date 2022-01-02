@@ -24,8 +24,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import static Controller.ClientSocket.getInstance;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServerRegistrationBase extends FlowPane {
 
@@ -49,12 +56,14 @@ public class ServerRegistrationBase extends FlowPane {
     protected final RowConstraints rowConstraints4;
     protected final ImageView imgInvalid;
     protected final Button btnConnect;
-    protected final static TextField txtFieldIP=new TextField();
+    protected final static TextField txtFieldIP = new TextField();
     protected final Text txtInvalid;
     protected final Rectangle rectangle;
     protected final Label label;
     protected final Button btnBack;
-   
+
+    DataInputStream dis;
+    PrintStream ps;
 
     public ServerRegistrationBase() {
 
@@ -257,7 +266,8 @@ public class ServerRegistrationBase extends FlowPane {
             @Override
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
-                    Socket socket = getInstance(txtFieldIP.getText(),5005);
+                    Socket socket = getInstance(txtFieldIP.getText());
+                    System.out.println("Connected");
 
                     Navigation nav = new Navigation();
                     nav.navigateToLoginScreen(event);

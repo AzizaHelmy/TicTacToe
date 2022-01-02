@@ -5,8 +5,8 @@
  */
 package Controller;
 
-import models.Match;
-import models.Player;
+import model.Match;
+import model.Player;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;

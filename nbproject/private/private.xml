@@ -2,9 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
         <group>
             <file>file:/C:/Users/peter/Desktop/java%20project/New%20folder/TicTacToe/src/Controller/ServerRegistrationBase.java</file>
+        </group>
+        <group>
+            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/ServerRegistrationBase.java</file>
+            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/ClientSocket.java</file>
+            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/registerscreenBase.java</file>
+            <file>file:/D:/sours/1-Project/TicTacToe/src/model/Register.java</file>
         </group>
     </open-files>
 </project-private>

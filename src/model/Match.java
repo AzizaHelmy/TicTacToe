@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author zoz
  */
-public class Match {
+public class Match implements Serializable{
     private int MatchNo;
     private Date timeDate;
     private int p1ID;

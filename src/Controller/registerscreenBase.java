@@ -2,6 +2,7 @@ package Controller;
 
 import static Controller.ClientSocket.getInstance;
 import static Controller.ServerRegistrationBase.txtFieldIP;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,11 +16,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
-import models.Register;
+import model.Register;
 
 public class registerscreenBase extends GridPane {
 
@@ -177,22 +179,50 @@ public class registerscreenBase extends GridPane {
         getChildren().add(btn_signupreg);
         getChildren().add(button);
         getChildren().add(button0);
- //============================================================       
+
+        //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                Socket socket = getInstance(txtFieldIP.getText());
                 try {
-                    Socket socket = getInstance(txtFieldIP.getText(), 5005);
-                    //inputStream = new ObjectInputStream(socket.getInputStream());
-                    outputStream = new ObjectOutputStream(socket.getOutputStream());
-                    Register register=new Register(regusername_field.getText(), registerpass_field.getText());
-                     outputStream.writeObject(register);
-                     
-                    Navigation nav = new Navigation();
-                    nav.navigateToOnlineScreen(event);
+                    inputStream = new ObjectInputStream(socket.getInputStream());
+                     outputStream = new ObjectOutputStream(socket.getOutputStream());
+
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                               Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (true) {
+                            try {
+                                Register register = new Register(regusername_field.getText(), registerpass_field.getText());
+                                outputStream.writeObject(register);
+                                outputStream.flush();
+                                String reg = "";
+                                try {
+                                    reg = (String) inputStream.readObject(); //replayMessage from server
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+//                                System.out.println(reg);
+                                if (reg.equals("Error")) {
+                                    regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                                    registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                                } else {
+                                    System.out.println("done");
+                                    //Navigation nav = new Navigation();
+                                    //nav.navigateToOnlineScreen(event);
+                                }
+                            } catch (IOException ex) {
+                                Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                }
+                );
+                thread.start();
             }
         });
 //===========================================================        

@@ -19,10 +19,10 @@ public class ClientSocket {
     
    
     
-    public static synchronized Socket getInstance(String ip,int port) {
+    public static synchronized Socket getInstance(String ip) {
         if (socketObj == null) {
             try {
-                socketObj = new Socket(ip,port);
+                socketObj = new Socket(ip,8080);
             } catch (IOException ex) {
                 Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, ex);
             }

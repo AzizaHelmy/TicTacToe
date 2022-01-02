@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package model;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Azza Helmy
  */
-public class Move {
+public class Move implements Serializable{
     private int x;
 
     public Move(int x) {
