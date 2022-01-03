@@ -174,15 +174,16 @@ public class loginscreenBase extends AnchorPane {
 
                 } catch (IOException ex) {
                     Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                } finally{
-                    try {
-                        objInputStream.close();
-                        objoutputStream.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
                 }
+//                finally{
+//                    try {
+//                        objInputStream.close();
+//                        objoutputStream.close();
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    
+//                }
 
                     Navigation nav = new Navigation();
                     nav.navigateToOnlineScreen(event);

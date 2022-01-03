@@ -609,7 +609,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+                if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -622,7 +624,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+               if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -636,7 +640,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+               if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -649,7 +655,10 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+                if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
+               
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -663,7 +672,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+                if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -676,7 +687,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+               if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -690,7 +703,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+               if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -704,7 +719,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+               if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -719,7 +736,9 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                g.drawLine();
+                if(g.isWinning(player1)){
+                   g.drawLine();  
+                }
                 g.WinnerWinnerChickenDinner();
             }
         });

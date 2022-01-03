@@ -198,11 +198,12 @@ public class registerscreenBase extends GridPane {
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
                     ObjectoutputStream = new ObjectOutputStream(outputStream);
-                    
+                    System.out.println(ObjectoutputStream);
                     ObjectoutputStream.writeObject(register);
                     ObjectoutputStream.flush();
 
                     ObjectinputStream = new ObjectInputStream(inputStream);
+                    System.out.println(ObjectinputStream);
                     String reg = (String) ObjectinputStream.readObject(); //replayMessage from server
                     if (reg.equals("Error")) {
                         regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
@@ -210,11 +211,11 @@ public class registerscreenBase extends GridPane {
                         System.out.println("error");
                     } else if (reg.equals("Done")) {
 
-                        ObjectoutputStream.close();
-                        ObjectinputStream.close();
-                        inputStream.close();
-                        outputStream.close();
-                        
+//                        ObjectoutputStream.close();
+//                        ObjectinputStream.close();
+//                        inputStream.close();
+//                        outputStream.close();
+//                        
                         Navigation nav = new Navigation();
                         nav.navigateToOnlineScreen(event);
                     }

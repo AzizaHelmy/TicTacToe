@@ -68,15 +68,15 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
 
-    
-    protected ObjectOutputStream objOutputStream;
-    protected ObjectInputStream objInputStream;
-    protected  Socket socket;
-            Player player;
-             private InputStream inputStream;
-             
+    private Socket socket;
+    private ObjectInputStream ObjectinputStream;
+    private ObjectOutputStream ObjectoutputStream;
+    private InputStream inputStream;
     private OutputStream outputStream;
+    Player player;
+
     LogOut logOut;
+
     public onlinePlayersScreenBase() {
 
         mainGridPane = new GridPane();
@@ -96,7 +96,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        recOnlinePlayers = new Rectangle(150,30,100,65);
+        recOnlinePlayers = new Rectangle(150, 30, 100, 65);
         imgOnline = new ImageView();
         txtOnlinePlayers = new Text();
         gridPaneTopPlayers = new GridPane();
@@ -105,7 +105,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints5 = new RowConstraints();
         rowConstraints6 = new RowConstraints();
         rowConstraints7 = new RowConstraints();
-        recTopPlayer = new Rectangle(150,30,100,65);
+        recTopPlayer = new Rectangle(150, 30, 100, 65);
         txtTopPlayer = new Text();
         imgTopPlayer = new ImageView();
         btnBack = new Button();
@@ -113,12 +113,12 @@ public class onlinePlayersScreenBase extends BorderPane {
         glow = new Glow();
         btnSignOut = new Button();
         imgSignOut = new ImageView();
-         Stop[] stops = new Stop[] {
-         new Stop(0, Color.GRAY),
-         new Stop(1, Color.BLACK)
-      };
+        Stop[] stops = new Stop[]{
+            new Stop(0, Color.GRAY),
+            new Stop(1, Color.BLACK)
+        };
         LinearGradient gradient
-                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,stops);
+                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -375,38 +375,40 @@ public class onlinePlayersScreenBase extends BorderPane {
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
+//                        player = new Player();
+                logOut = new LogOut("555333");
+//                        System.out.println(player.getUserName());
                 try {
-                 
-                    socket=ClientSocket.getInstance(txtFieldIP.getText());
-                      inputStream = socket.getInputStream();
+                    socket = ClientSocket.getInstance(txtFieldIP.getText());
+                    inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
-                    objInputStream=new ObjectInputStream(inputStream);
-                    objOutputStream=new ObjectOutputStream(outputStream);
-                  
-                    
-                    player=new Player();
-                    logOut=new LogOut(player.getUserName());
+                    ObjectoutputStream = new ObjectOutputStream(outputStream);
+                    System.out.println(ObjectoutputStream);
+                    ObjectoutputStream.writeObject(logOut);
+                    ObjectoutputStream.flush();
+                    System.out.println("Donnnnnnnnn");
                     //player=new Player(logOut.getUserName());
-                   
-                    objOutputStream.writeObject(logOut);
-                    objOutputStream.flush();
-                    
-                    
-                    
-                   String mesg = (String) objInputStream.readObject();
-                    if(mesg.equals("Logged out")){
-                         Navigation nav = new Navigation();
-                         nav.navigateToWelcome(event);
-                         //2- don't show to me ip screen & login  again 
-                    }else{
+
+                    ObjectinputStream = new ObjectInputStream(inputStream);
+                    System.out.println(ObjectinputStream);
+                    String mesg = (String) ObjectinputStream.readObject();
+                    System.out.println("Recieeeevd");
+                    if (mesg.equals("Logged out")) {
+
+                        Navigation nav = new Navigation();
+                        nav.navigateToWelcome(event);
+                        //2- don't show to me ip screen & login  again 
+                    } else {
                         System.out.println("Err");
                     }
-                   
+
                 } catch (IOException ex) {
                     Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         });
     }
