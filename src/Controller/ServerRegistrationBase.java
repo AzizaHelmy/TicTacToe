@@ -23,7 +23,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import static Controller.ClientSocket.getInstance;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -61,9 +60,8 @@ public class ServerRegistrationBase extends FlowPane {
     protected final Rectangle rectangle;
     protected final Label label;
     protected final Button btnBack;
-
-    DataInputStream dis;
-    PrintStream ps;
+    protected Socket socket;
+    public static boolean connectionFlag;
 
     public ServerRegistrationBase() {
 
@@ -92,6 +90,7 @@ public class ServerRegistrationBase extends FlowPane {
         rectangle = new Rectangle(150, 30, 100, 65);
         label = new Label();
         btnBack = new Button();
+        connectionFlag = false;
 
         setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -266,9 +265,9 @@ public class ServerRegistrationBase extends FlowPane {
             @Override
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
-                    Socket socket = getInstance(txtFieldIP.getText());
+                    socket = ClientSocket.getInstance(txtFieldIP.getText());
+                    connectionFlag=true;
                     System.out.println("Connected");
-
                     Navigation nav = new Navigation();
                     nav.navigateToLoginScreen(event);
                 } else {

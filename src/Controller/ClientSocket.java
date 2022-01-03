@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Azza Helmy
@@ -16,17 +17,16 @@ import java.util.logging.Logger;
 public class ClientSocket {
 
     private static Socket socketObj;
-    
-   
-    
+
     public static synchronized Socket getInstance(String ip) {
         if (socketObj == null) {
             try {
-                socketObj = new Socket(ip,8080);
+                socketObj = new Socket(ip, 5555);
             } catch (IOException ex) {
                 Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return socketObj;
     }
+
 }

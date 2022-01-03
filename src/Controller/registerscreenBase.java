@@ -4,11 +4,14 @@ import static Controller.ClientSocket.getInstance;
 import static Controller.ServerRegistrationBase.txtFieldIP;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -42,9 +45,11 @@ public class registerscreenBase extends GridPane {
     protected final Button button;
     protected final Button button0;
     protected final ImageView btnbackreg;
-
-    ObjectInputStream inputStream;
-    ObjectOutputStream outputStream;
+    private Socket socket;
+    private ObjectInputStream ObjectinputStream;
+    private ObjectOutputStream ObjectoutputStream;
+    private InputStream inputStream;
+    private OutputStream outputStream;
 
     public registerscreenBase() {
 
@@ -180,58 +185,50 @@ public class registerscreenBase extends GridPane {
         getChildren().add(button);
         getChildren().add(button0);
 
+        if (ServerRegistrationBase.connectionFlag) {
+            socket = getInstance(txtFieldIP.getText());
+        }
+
 //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Socket socket = getInstance(txtFieldIP.getText());
+                Register register = new Register(regusername_field.getText(), registerpass_field.getText());
                 try {
-                    inputStream = new ObjectInputStream(socket.getInputStream());
-                     outputStream = new ObjectOutputStream(socket.getOutputStream());
+                    inputStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
+                    ObjectoutputStream = new ObjectOutputStream(outputStream);
+                    ObjectoutputStream.writeObject(register);
+                    ObjectoutputStream.flush();
+
+                    ObjectinputStream = new ObjectInputStream(inputStream);
+                    String reg = (String) ObjectinputStream.readObject(); //replayMessage from server
+                    if (reg.equals("Error")) {
+                        regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                        registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                        System.out.println("error");
+                    } else if (reg.equals("Done")) {
+                        Navigation nav = new Navigation();
+                        nav.navigateToOnlineScreen(event);
+                    }
 
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                               Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (true) {
-                            try {
-                                Register register = new Register(regusername_field.getText(), registerpass_field.getText());
-                                outputStream.writeObject(register);
-                                outputStream.flush();
-                                String reg = "";
-                                try {
-                                    reg = (String) inputStream.readObject(); //replayMessage from server
-                                } catch (ClassNotFoundException ex) {
-                                    Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-//                                System.out.println(reg);
-                                if (reg.equals("Error")) {
-                                    regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
-                                    registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
-                                } else {
-                                    System.out.println("done");
-                                    //Navigation nav = new Navigation();
-                                    //nav.navigateToOnlineScreen(event);
-                                }
-                            } catch (IOException ex) {
-                                Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    }
-                }
-                );
-                thread.start();
             }
         });
 //===========================================================        
-        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION,
+                new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event
+            ) {
                 Navigation nav = new Navigation();
                 nav.navigateToLoginScreen(event);
             }
-        });
+        }
+        );
     }
 }
