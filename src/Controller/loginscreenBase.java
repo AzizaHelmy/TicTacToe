@@ -3,8 +3,10 @@ package Controller;
 import static Controller.ClientSocket.getInstance;
 import static Controller.ServerRegistrationBase.txtFieldIP;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +36,11 @@ public class loginscreenBase extends AnchorPane {
     protected final Button button;
     protected final ImageView btnBacklog;
 
-    ObjectInputStream inputStream;
-    ObjectOutputStream outputStream;
+   private ObjectInputStream objInputStream;
+    private ObjectOutputStream objoutputStream;
+    private InputStream inputStream;
+    private OutputStream outputStream;
+    private Socket socket;
 
     public loginscreenBase() {
 
@@ -158,30 +163,45 @@ public class loginscreenBase extends AnchorPane {
 //===================================================       
         btnSigninlog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {            
+            public void handle(ActionEvent event) {
                 try {
-                    Socket socket = getInstance(txtFieldIP.getText());
-                    inputStream = new ObjectInputStream(socket.getInputStream());
-                    outputStream = new ObjectOutputStream(socket.getOutputStream());
-                    Login login =new Login(usernamelog_field.getText(), passlog_field.getText());
-                     outputStream.writeObject(login);
-                     outputStream.flush();
-                     
+                    socket = getInstance(txtFieldIP.getText());
+                    objInputStream = new ObjectInputStream(socket.getInputStream());
+                    objoutputStream = new ObjectOutputStream(socket.getOutputStream());
+                    Login login = new Login(usernamelog_field.getText(), passlog_field.getText());
+                    objoutputStream.writeObject(login);
+                    objoutputStream.flush();
+
                 } catch (IOException ex) {
                     Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                } finally{
+                    try {
+                        objInputStream.close();
+                        objoutputStream.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
 
-                Navigation nav = new Navigation();
-                nav.navigateToOnlineScreen(event);
+                    Navigation nav = new Navigation();
+                    nav.navigateToOnlineScreen(event);
+                }
             }
-        });
+
+            );
 //=======================================================       
-        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            button.addEventHandler (ActionEvent.ACTION,  
+                new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+                public void handle
+                (ActionEvent event
+                
+                    ) {
                 Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                    nav.navigateToWelcome(event);
+                }
             }
-        });
+        );
     }
 }

@@ -1,6 +1,5 @@
 package Controller;
 
-import com.sun.prism.paint.Gradient;
 import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,15 +22,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ServerRegistrationBase extends FlowPane {
 
@@ -61,7 +51,6 @@ public class ServerRegistrationBase extends FlowPane {
     protected final Label label;
     protected final Button btnBack;
     protected Socket socket;
-    public static boolean connectionFlag;
 
     public ServerRegistrationBase() {
 
@@ -90,8 +79,7 @@ public class ServerRegistrationBase extends FlowPane {
         rectangle = new Rectangle(150, 30, 100, 65);
         label = new Label();
         btnBack = new Button();
-        connectionFlag = false;
-
+        
         setAlignment(javafx.geometry.Pos.CENTER);
 
         borderPane.setMaxHeight(USE_PREF_SIZE);
@@ -266,7 +254,7 @@ public class ServerRegistrationBase extends FlowPane {
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
                     socket = ClientSocket.getInstance(txtFieldIP.getText());
-                    connectionFlag=true;
+
                     System.out.println("Connected");
                     Navigation nav = new Navigation();
                     nav.navigateToLoginScreen(event);
@@ -339,4 +327,5 @@ public class ServerRegistrationBase extends FlowPane {
 
         return m.matches();
     }
+
 }

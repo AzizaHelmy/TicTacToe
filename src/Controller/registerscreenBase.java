@@ -50,6 +50,7 @@ public class registerscreenBase extends GridPane {
     private ObjectOutputStream ObjectoutputStream;
     private InputStream inputStream;
     private OutputStream outputStream;
+//    protected ServerRegistrationBase srb;
 
     public registerscreenBase() {
 
@@ -70,6 +71,7 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
+//        srb = new ServerRegistrationBase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -185,9 +187,9 @@ public class registerscreenBase extends GridPane {
         getChildren().add(button);
         getChildren().add(button0);
 
-        if (ServerRegistrationBase.connectionFlag) {
-            socket = getInstance(txtFieldIP.getText());
-        }
+//        if (srb.getServerConnectionStatus()) {
+//            
+//        }
 
 //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -195,6 +197,7 @@ public class registerscreenBase extends GridPane {
             public void handle(ActionEvent event) {
                 Register register = new Register(regusername_field.getText(), registerpass_field.getText());
                 try {
+                    socket = getInstance(txtFieldIP.getText());
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
                     ObjectoutputStream = new ObjectOutputStream(outputStream);
@@ -208,6 +211,11 @@ public class registerscreenBase extends GridPane {
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                         System.out.println("error");
                     } else if (reg.equals("Done")) {
+
+                        ObjectoutputStream.close();
+                        ObjectinputStream.close();
+                        inputStream.close();
+                        outputStream.close();
                         Navigation nav = new Navigation();
                         nav.navigateToOnlineScreen(event);
                     }
