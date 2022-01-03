@@ -1,5 +1,13 @@
 package Controller;
 
+import static Controller.ServerRegistrationBase.txtFieldIP;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -18,6 +26,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Player;
+import model.TopOnlinePlayers;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -55,9 +65,21 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Glow glow;
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
+    private Socket socket;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
+    private java.io.InputStream is;
+    private OutputStream os;
+    /* protected InputStream is;
+   protected OutputStream os;
+   protected Socket socket;
+   protected ObjectOutputStream oos;
+   protected ObjectInputStream ois;*/
+    protected Player player;
 
-    public onlinePlayersScreenBase() {
+    public onlinePlayersScreenBase(Player p) {
 
+        player = p;
         mainGridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
@@ -75,7 +97,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
-        recOnlinePlayers = new Rectangle(150,30,100,65);
+        recOnlinePlayers = new Rectangle(150, 30, 100, 65);
         imgOnline = new ImageView();
         txtOnlinePlayers = new Text();
         gridPaneTopPlayers = new GridPane();
@@ -84,7 +106,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         rowConstraints5 = new RowConstraints();
         rowConstraints6 = new RowConstraints();
         rowConstraints7 = new RowConstraints();
-        recTopPlayer = new Rectangle(150,30,100,65);
+        recTopPlayer = new Rectangle(150, 30, 100, 65);
         txtTopPlayer = new Text();
         imgTopPlayer = new ImageView();
         btnBack = new Button();
@@ -92,12 +114,12 @@ public class onlinePlayersScreenBase extends BorderPane {
         glow = new Glow();
         btnSignOut = new Button();
         imgSignOut = new ImageView();
-         Stop[] stops = new Stop[] {
-         new Stop(0, Color.GRAY),
-         new Stop(1, Color.BLACK)
-      };
+        Stop[] stops = new Stop[]{
+            new Stop(0, Color.GRAY),
+            new Stop(1, Color.BLACK)
+        };
         LinearGradient gradient
-                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,stops);
+                = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -158,6 +180,8 @@ public class onlinePlayersScreenBase extends BorderPane {
         GridPane.setVgrow(listViewTopPlayers, javafx.scene.layout.Priority.NEVER);
         listViewTopPlayers.setPrefHeight(200.0);
         listViewTopPlayers.setPrefWidth(200.0);
+        listViewTopPlayers.setMouseTransparent(true);
+        listViewTopPlayers.setFocusTraversable(false);
 
         GridPane.setColumnIndex(listViewOnlinePlayers, 1);
         GridPane.setRowIndex(listViewOnlinePlayers, 1);
@@ -344,6 +368,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
+
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -351,6 +376,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                 nav.navigateToWelcome(event);
             }
         });
+
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -358,5 +384,47 @@ public class onlinePlayersScreenBase extends BorderPane {
                 nav.navigateToLoginScreen(event);
             }
         });
+        new Thread() {
+            @Override
+            public void run() {
+                // loginscreenBase loginscreen=new  loginscreenBase();
+                TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
+                socket = ClientSocket.getInstance(txtFieldIP.getText());
+                try {
+                    is = socket.getInputStream();
+                    os = socket.getOutputStream();
+                    oos = new ObjectOutputStream(os);
+                    oos.writeObject(toponline);
+                    oos.flush();
+
+                    ois = new ObjectInputStream(is);
+                    Object obj;
+                    try {
+                        obj = ois.readObject();
+                        if (obj instanceof String) {
+                            String msg = (String) obj;
+                            System.out.print(msg);
+
+                        } else if (obj instanceof TopOnlinePlayers) {
+                            TopOnlinePlayers topplayer = (TopOnlinePlayers) obj;
+                            for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
+                                listViewTopPlayers.getItems().add(topplayer.getTopPlayers().get(i).getUserName()+"\t\t"+topplayer.getTopPlayers().get(i).getTotalScore());
+
+                            }
+                            for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
+                                listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
+                            }
+
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }.start();
     }
 }

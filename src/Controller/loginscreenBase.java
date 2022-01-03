@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Login;
+import model.Player;
 
 public class loginscreenBase extends AnchorPane {
 
@@ -36,11 +37,11 @@ public class loginscreenBase extends AnchorPane {
     protected final Button button;
     protected final ImageView btnBacklog;
 
-   private ObjectInputStream objInputStream;
-    private ObjectOutputStream objoutputStream;
+    private Socket socket;
+    private ObjectInputStream ObjectinputStream;
+    private ObjectOutputStream ObjectoutputStream;
     private InputStream inputStream;
     private OutputStream outputStream;
-    private Socket socket;
 
     public loginscreenBase() {
 
@@ -166,42 +167,46 @@ public class loginscreenBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 try {
                     socket = getInstance(txtFieldIP.getText());
-                    objInputStream = new ObjectInputStream(socket.getInputStream());
-                    objoutputStream = new ObjectOutputStream(socket.getOutputStream());
+                    inputStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
+                    ObjectoutputStream = new ObjectOutputStream(outputStream);
                     Login login = new Login(usernamelog_field.getText(), passlog_field.getText());
-                    objoutputStream.writeObject(login);
-                    objoutputStream.flush();
+                    System.out.println(login.getUserName() + " , " + login.getPassward());
+                    ObjectoutputStream.writeObject(login);
+                    ObjectoutputStream.flush();
+                    
+                    ObjectinputStream = new ObjectInputStream(inputStream);
+                    Object obj = ObjectinputStream.readObject();
 
+                    if (obj instanceof String) {
+                        String msg = (String) obj;
+                        System.out.println(msg);
+                        usernamelog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                        passlog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                    } else if(obj instanceof Player){
+                        Player p = (Player)obj;
+                        System.out.println(p.getIsOnline() + " , " + p.getIsRequest());
+                        Navigation nav = new Navigation();
+                        nav.navigateToOnlineScreen(event,p);
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                } finally{
-                    try {
-                        objInputStream.close();
-                        objoutputStream.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                }
-
-                    Navigation nav = new Navigation();
-                    nav.navigateToOnlineScreen(event);
                 }
             }
-
-            );
+        }
+        );
 //=======================================================       
-            button.addEventHandler (ActionEvent.ACTION,  
+        button.addEventHandler(ActionEvent.ACTION,
                 new EventHandler<ActionEvent>() {
             @Override
-                public void handle
-                (ActionEvent event
-                
-                    ) {
+            public void handle(ActionEvent event
+            ) {
                 Navigation nav = new Navigation();
-                    nav.navigateToWelcome(event);
-                }
+                nav.navigateToWelcome(event);
             }
+        }
         );
     }
 }

@@ -24,6 +24,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import model.Player;
 import model.Register;
 
 public class registerscreenBase extends GridPane {
@@ -190,7 +191,6 @@ public class registerscreenBase extends GridPane {
 //        if (srb.getServerConnectionStatus()) {
 //            
 //        }
-
 //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
@@ -205,19 +205,15 @@ public class registerscreenBase extends GridPane {
                     ObjectoutputStream.flush();
 
                     ObjectinputStream = new ObjectInputStream(inputStream);
-                    String reg = (String) ObjectinputStream.readObject(); //replayMessage from server
-                    if (reg.equals("Error")) {
+                    Object obj = ObjectinputStream.readObject();
+                    if (obj instanceof String) {
                         regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                         System.out.println("error");
-                    } else if (reg.equals("Done")) {
-
-                        ObjectoutputStream.close();
-                        ObjectinputStream.close();
-                        inputStream.close();
-                        outputStream.close();
+                    } else if (obj instanceof Player) {
+                        Player p = (Player) obj;
                         Navigation nav = new Navigation();
-                        nav.navigateToOnlineScreen(event);
+                        nav.navigateToOnlineScreen(event, p);
                     }
 
                 } catch (IOException ex) {

@@ -54,7 +54,8 @@ public class DBConnection {
         pst.setInt(7, 0);
         pst.executeQuery();
     }
-
+//================================================================================
+    
     public static Vector<Player> getOnlinePlayers() throws SQLException {
         String onlineSQL = "SELECT USERNAME FROM " + PLAYERS_TABLE + " WHERE ISONLINE = 1";
         pst = con.prepareStatement(onlineSQL);

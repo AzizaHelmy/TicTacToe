@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Player;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Navigation {
     public registerscreenBase registerScreen = new registerscreenBase();
     public WelcomeBase welcomeScreen = new WelcomeBase();
     public WithFriendBase withFriendScreen = new WithFriendBase();
-    public onlinePlayersScreenBase onlineScreen = new onlinePlayersScreenBase();
+    public onlinePlayersScreenBase onlineScreen ;
     public LevelScreenBase levelScreen = new LevelScreenBase();
     public ServerRegistrationBase serverRegistrationScreen = new ServerRegistrationBase();
     public GamePlayScreenBase easyGame;
@@ -78,7 +79,8 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToOnlineScreen(ActionEvent event) {
+    public void navigateToOnlineScreen(ActionEvent event,Player player) {
+        onlineScreen = new onlinePlayersScreenBase(player);
         Parent root = onlineScreen;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 700, 500);
