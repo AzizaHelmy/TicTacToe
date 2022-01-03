@@ -1,5 +1,15 @@
 package Controller;
 
+import static Controller.ServerRegistrationBase.txtFieldIP;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -18,6 +28,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.LogOut;
+import model.Player;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -56,6 +68,15 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
 
+    
+    protected ObjectOutputStream objOutputStream;
+    protected ObjectInputStream objInputStream;
+    protected  Socket socket;
+            Player player;
+             private InputStream inputStream;
+             
+    private OutputStream outputStream;
+    LogOut logOut;
     public onlinePlayersScreenBase() {
 
         mainGridPane = new GridPane();
@@ -354,8 +375,38 @@ public class onlinePlayersScreenBase extends BorderPane {
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+                try {
+                 
+                    socket=ClientSocket.getInstance(txtFieldIP.getText());
+                      inputStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
+                    objInputStream=new ObjectInputStream(inputStream);
+                    objOutputStream=new ObjectOutputStream(outputStream);
+                  
+                    
+                    player=new Player();
+                    logOut=new LogOut(player.getUserName());
+                    //player=new Player(logOut.getUserName());
+                   
+                    objOutputStream.writeObject(logOut);
+                    objOutputStream.flush();
+                    
+                    
+                    
+                   String mesg = (String) objInputStream.readObject();
+                    if(mesg.equals("Logged out")){
+                         Navigation nav = new Navigation();
+                         nav.navigateToWelcome(event);
+                         //2- don't show to me ip screen & login  again 
+                    }else{
+                        System.out.println("Err");
+                    }
+                   
+                } catch (IOException ex) {
+                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
