@@ -2,6 +2,7 @@ package Controller;
 
 import static Controller.ServerRegistrationBase.txtFieldIP;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -28,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Player;
 import model.TopOnlinePlayers;
+import model.LogOut;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -65,17 +67,25 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Glow glow;
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
-    private Socket socket;
+    /*private Socket socket;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private java.io.InputStream is;
-    private OutputStream os;
+    private OutputStream os;*/
     /* protected InputStream is;
    protected OutputStream os;
    protected Socket socket;
    protected ObjectOutputStream oos;
    protected ObjectInputStream ois;*/
     protected Player player;
+
+    private Socket socket;
+    private ObjectInputStream ObjectinputStream;
+    private ObjectOutputStream ObjectoutputStream;
+    private InputStream inputStream;
+    private OutputStream outputStream;
+
+    protected LogOut logOut;
 
     public onlinePlayersScreenBase(Player p) {
 
@@ -380,8 +390,40 @@ public class onlinePlayersScreenBase extends BorderPane {
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+
+//                        player = new Player();
+                logOut = new LogOut("555333");
+//                        System.out.println(player.getUserName());
+                try {
+                    socket = ClientSocket.getInstance(txtFieldIP.getText());
+                    inputStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
+                    ObjectoutputStream = new ObjectOutputStream(outputStream);
+                    System.out.println(ObjectoutputStream);
+                    ObjectoutputStream.writeObject(logOut);
+                    ObjectoutputStream.flush();
+                    System.out.println("Donnnnnnnnn");
+                    //player=new Player(logOut.getUserName());
+
+                    ObjectinputStream = new ObjectInputStream(inputStream);
+                    System.out.println(ObjectinputStream);
+                    String mesg = (String) ObjectinputStream.readObject();
+                    System.out.println("Recieeeevd");
+                    if (mesg.equals("Logged out")) {
+
+                        Navigation nav = new Navigation();
+                        nav.navigateToWelcome(event);
+                        //2- don't show to me ip screen & login  again 
+                    } else {
+                        System.out.println("Err");
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
         new Thread() {
@@ -391,16 +433,16 @@ public class onlinePlayersScreenBase extends BorderPane {
                 TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
                 socket = ClientSocket.getInstance(txtFieldIP.getText());
                 try {
-                    is = socket.getInputStream();
-                    os = socket.getOutputStream();
-                    oos = new ObjectOutputStream(os);
-                    oos.writeObject(toponline);
-                    oos.flush();
+                    inputStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
+                    ObjectoutputStream = new ObjectOutputStream(outputStream);
+                    ObjectoutputStream.writeObject(toponline);
+                    ObjectoutputStream.flush();
 
-                    ois = new ObjectInputStream(is);
+                    ObjectinputStream = new ObjectInputStream(inputStream);
                     Object obj;
                     try {
-                        obj = ois.readObject();
+                        obj = ObjectinputStream.readObject();
                         if (obj instanceof String) {
                             String msg = (String) obj;
                             System.out.print(msg);

@@ -3,15 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/JavaProject/TicTacToe/src/model/Register.java</file>
-            <file>file:/H:/JavaProject/TicTacToe/src/Controller/registerscreenBase.java</file>
-            <file>file:/H:/JavaProject/TicTacToe/src/Controller/ServerRegistrationBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/ServerRegistrationBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/model/TopOnlinePlayers.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/WithFriendBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/registerscreenBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/loginscreenBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/Navigation.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/onlinePlayersScreenBase.java</file>
         </group>
         <group>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/DBConnection.java</file>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/ClientSocket.java</file>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/loginscreenBase.java</file>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/registerscreenBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/ServerRegistrationBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/DBConnection.java</file>
+            <file>file:/D:/project/TicTacToe/src/model/TopOnlinePlayers.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/WithFriendBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/registerscreenBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/loginscreenBase.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/Navigation.java</file>
+            <file>file:/D:/project/TicTacToe/src/Controller/onlinePlayersScreenBase.java</file>
         </group>
     </open-files>
 </project-private>

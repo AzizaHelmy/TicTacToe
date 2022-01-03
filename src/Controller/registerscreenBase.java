@@ -1,6 +1,5 @@
 package Controller;
 
-import static Controller.ClientSocket.getInstance;
 import static Controller.ServerRegistrationBase.txtFieldIP;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -72,7 +71,7 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
-//        srb = new ServerRegistrationBase();
+
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -188,19 +187,19 @@ public class registerscreenBase extends GridPane {
         getChildren().add(button);
         getChildren().add(button0);
 
-//        if (srb.getServerConnectionStatus()) {
-//            
-//        }
+
+
 //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Register register = new Register(regusername_field.getText(), registerpass_field.getText());
                 try {
-                    socket = getInstance(txtFieldIP.getText());
+                    socket =ClientSocket.getInstance(txtFieldIP.getText());
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
                     ObjectoutputStream = new ObjectOutputStream(outputStream);
+                    System.out.println(ObjectoutputStream);
                     ObjectoutputStream.writeObject(register);
                     ObjectoutputStream.flush();
 

@@ -28,6 +28,7 @@ public class DBConnection {
     private static final String MATCHES_TABLE = "MATCHES";
     static Vector<Player> onlinePlayers;
     static Vector<Player> topPlayers;
+    static Vector<Player> offLinePlayers;
     static ResultSet rs;
     static Connection con;
     static PreparedStatement pst;
@@ -54,8 +55,18 @@ public class DBConnection {
         pst.setInt(7, 0);
         pst.executeQuery();
     }
-//================================================================================
-    
+//=====================================================
+    public static Vector<Player> getOffLinePlayers() throws SQLException {
+        String offLineSQL = "SELECT USERNAME FROM " + PLAYERS_TABLE + " WHERE ISONLINE = 0";
+        pst = con.prepareStatement(offLineSQL);
+        rs = pst.executeQuery();
+        offLinePlayers = new Vector<>();
+        while(rs.next()){
+            offLinePlayers.add(new Player(rs.getString(1)));
+        }
+        return offLinePlayers;
+    }
+//=========================================================
     public static Vector<Player> getOnlinePlayers() throws SQLException {
         String onlineSQL = "SELECT USERNAME FROM " + PLAYERS_TABLE + " WHERE ISONLINE = 1";
         pst = con.prepareStatement(onlineSQL);
