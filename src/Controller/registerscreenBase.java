@@ -213,6 +213,8 @@ public class registerscreenBase extends GridPane {
                         Player p = (Player) obj;
                         Navigation nav = new Navigation();
                         nav.navigateToOnlineScreen(event, p);
+                        //heeeeeer
+                        
                     }
 
                 } catch (IOException ex) {

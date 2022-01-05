@@ -128,11 +128,13 @@ public class GameHelper {
                 || (buttons.get(2).getText().equals(player) && buttons.get(5).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(0).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(2).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(6).getText().equals(player))) {
-           //drawLine();
+           drawLine();
             return true;
         } else {
+           
             return false;
         }
+         
     }
 //================================================================
     public void WinnerWinnerChickenDinner() {
@@ -184,54 +186,59 @@ public class GameHelper {
 
         counter = 0;
         changeTurn = true;
-         isWinning(player1);
+        //buttons.removeAllElements();
+        // isWinning(player1);
     }
 //==================================================
     public void drawLine() {
-        //Graphics g = null;
-        if (((buttons.get(0).equals(player1) || (buttons.get(0).getText().equals(player2))
-                && buttons.get(1).getText().equals(player1) ||buttons.get(1).getText().equals(player2)
-                && buttons.get(2).getText().equals(player1) || buttons.get(2).getText().equals(player2)))) {
-            //g.drawLine(10, 30, 50, 30);
+       
+        if ((buttons.get(0).getText().equals( buttons.get(1).getText()))
+                &&(buttons.get(0).getText().equals(buttons.get(2).getText()))) {
+            
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(2).setStyle("-fx-background-color:#FFFF00");
     
-        } else if ( (buttons.get(6).getText().equals(player1))||(buttons.get(6).getText().equals(player2)) 
-                && (buttons.get(7).getText().equals(player1))||(buttons.get(7).getText().equals(player2)) &&
-                (buttons.get(8).getText().equals(player1))||buttons.get(8).getText().equals(player2)) {
-            //g.drawLine(10, 30, 50, 30);
+        } else if ( (buttons.get(6).getText().equals(buttons.get(7).getText())) 
+                 &&(buttons.get(6).getText().equals(buttons.get(8).getText()))) {
+          
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
             
-        } else if (buttons.get(3).getText().equals(player1) &&  buttons.get(4).getText().equals(player1) && buttons.get(5).getText().equals(player1)){
-           // g.drawLine(10, 30, 50, 30);
+        } else if (buttons.get(3).getText().equals(buttons.get(4).getText())
+                && buttons.get(3).getText() .equals(buttons.get(5).getText())){
+         
            buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(0).getText().equals(player1) &&  buttons.get(3).getText().equals(player1) &&  buttons.get(6).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(0).getText().equals(buttons.get(3).getText())
+                &&  buttons.get(0).getText().equals(buttons.get(6).getText()))) {
+          
            buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(1).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(7).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(1).getText().equals( buttons.get(4).getText())
+                && buttons.get(1).getText().equals( buttons.get(7).getText()))) {
+           
            buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(2).getText().equals(player1) && buttons.get(5).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(2).getText().equals(buttons.get(5).getText())
+                && buttons.get(2).getText().equals(buttons.get(8).getText()))) {
+           
            buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(0).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
-            //g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(0).getText().equals( buttons.get(4).getText())
+                && buttons.get(0).getText().equals( buttons.get(8).getText()))) {
+            
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
-        } else if (buttons.get(2).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(6).getText().equals(player1)) {
-           // g.drawLine(10, 30, 50, 30);
+        } else if (buttons.get(2).getText().equals( buttons.get(4).getText())
+                && buttons.get(2).getText().equals( buttons.get(6).getText())) {
+        
            buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
