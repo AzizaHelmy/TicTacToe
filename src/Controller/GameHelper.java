@@ -24,6 +24,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -80,6 +81,7 @@ public class GameHelper {
         }
     }
 //==================================================================
+
     public void changeXO() {
 
         random = new Random();
@@ -113,9 +115,10 @@ public class GameHelper {
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
         changeTurn = !changeTurn;
-      
+
     }
 //===================================================================
+
     public Image changingTurn(boolean flag, Button button) {
         if (flag) {
             button.setText(player1);
@@ -159,14 +162,15 @@ public class GameHelper {
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
         } else if (counter == 9) {//no one win ,
-           // setEnable();
+            // setEnable();
             setDisable();
             buttons.get(9).setVisible(true);
-            
+
         }
     }
-  //=================================================
-     public void setEnable() {
+    //=================================================
+
+    public void setEnable() {
         buttons.get(0).setDisable(false);
         buttons.get(1).setDisable(false);
         buttons.get(2).setDisable(false);
@@ -178,6 +182,7 @@ public class GameHelper {
         buttons.get(8).setDisable(false);
     }
 //====================================================    
+
     public void setDisable() {
         buttons.get(0).setDisable(true);
         buttons.get(1).setDisable(true);
@@ -190,6 +195,7 @@ public class GameHelper {
         buttons.get(8).setDisable(true);
     }
 //===========================================================
+
     public void resetting() {
 
         for (int i = 0; i < imags.size() - 2; i++) {
@@ -206,6 +212,7 @@ public class GameHelper {
         removeColors();
     }
 //==================================================
+
     public void drawLineOfColors() {
 
         if ((buttons.get(0).getText().equals(buttons.get(1).getText()))
@@ -260,7 +267,8 @@ public class GameHelper {
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
         }
     }
- //=============================================================
+    //=============================================================
+
     public void removeColors() {
         buttons.get(0).setStyle(null);
         buttons.get(1).setStyle(null);
@@ -289,6 +297,15 @@ public class GameHelper {
         mvh.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
         mv.setPreserveRatio(false);
         mediaPlayer.setAutoPlay(true);
+
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
+        pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
+        pauseTransition.play();
 
         VBox vbox = new VBox();
         vbox.getChildren().add(mv);
