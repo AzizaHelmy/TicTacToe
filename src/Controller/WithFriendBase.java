@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class WithFriendBase extends GridPane {
-
+    
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
     protected final ColumnConstraints columnConstraints1;
@@ -39,8 +39,11 @@ public class WithFriendBase extends GridPane {
     protected final ImageView imgBack;
     protected final Glow glow0;
     
+    public static String nameOfPlayer1;
+    public static String nameOfPlayer2;
+    
     public WithFriendBase() {
-
+        
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
         columnConstraints1 = new ColumnConstraints();
@@ -73,52 +76,52 @@ public class WithFriendBase extends GridPane {
         setPrefWidth(600.0);
         getStyleClass().add("cardpane");
         getStylesheets().add("/PlayWithFriend/withfriend.css");
-
+        
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMaxWidth(194.0);
         columnConstraints.setMinWidth(10.0);
         columnConstraints.setPrefWidth(49.0);
-
+        
         columnConstraints0.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints0.setMaxWidth(194.0);
         columnConstraints0.setMinWidth(10.0);
         columnConstraints0.setPrefWidth(62.0);
-
+        
         columnConstraints1.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints1.setMaxWidth(212.0);
         columnConstraints1.setMinWidth(10.0);
         columnConstraints1.setPrefWidth(76.0);
-
+        
         columnConstraints2.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints2.setMaxWidth(354.0);
         columnConstraints2.setMinWidth(10.0);
         columnConstraints2.setPrefWidth(298.0);
-
+        
         columnConstraints3.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints3.setMaxWidth(180.0);
         columnConstraints3.setMinWidth(10.0);
         columnConstraints3.setPrefWidth(151.0);
-
+        
         rowConstraints.setMinHeight(10.0);
         rowConstraints.setPrefHeight(30.0);
         rowConstraints.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
+        
         rowConstraints0.setMinHeight(10.0);
         rowConstraints0.setPrefHeight(30.0);
         rowConstraints0.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
+        
         rowConstraints1.setMinHeight(10.0);
         rowConstraints1.setPrefHeight(30.0);
         rowConstraints1.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
+        
         rowConstraints2.setMinHeight(10.0);
         rowConstraints2.setPrefHeight(30.0);
         rowConstraints2.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
+        
         rowConstraints3.setMinHeight(10.0);
         rowConstraints3.setPrefHeight(30.0);
         rowConstraints3.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
+        
         GridPane.setColumnIndex(btnstart, 3);
         GridPane.setRowIndex(btnstart, 3);
         btnstart.setId("startButt");
@@ -131,8 +134,18 @@ public class WithFriendBase extends GridPane {
         btnstart.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToGameScreen(event, new LocalGame());
+                
+                nameOfPlayer1 = player1.getText();
+                nameOfPlayer2 = player2.getText();
+                if (nameOfPlayer1.isEmpty()) {
+                    player1.setStyle("-fx-text-box-border: #FF0000; -fx-focus-color: #B22222;");
+                } else if (nameOfPlayer2.isEmpty()) {
+                    player2.setStyle("-fx-text-box-border: #FF0000; -fx-focus-color: #B22222;");
+                } else {
+                    Navigation nav = new Navigation();
+                    nav.navigateToGameScreen(event, new LocalGame());
+                }
+                
             }
         });
 //===============================================================
@@ -143,14 +156,14 @@ public class WithFriendBase extends GridPane {
         player2.setPrefWidth(280.0);
         player2.setPromptText("            Enter Player2's Name :");
         player2.getStylesheets().add("/PlayWithFriend/withfriend.css");
-
+        
         GridPane.setColumnIndex(player1, 3);
         GridPane.setRowIndex(player1, 1);
         player1.setId("player1");
         player1.setPrefHeight(41.0);
         player1.setPrefWidth(200.0);
         player1.setPromptText("         Enter Player1's Name :");
-
+        
         GridPane.setColumnIndex(text, 3);
         text.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
         text.setLineSpacing(3.0);
@@ -158,10 +171,10 @@ public class WithFriendBase extends GridPane {
         text.setStrokeWidth(0.0);
         text.setText("   Play With Friends..");
         text.setWrappingWidth(242.50652313232422);
-
+        
         text.setEffect(glow);
         text.setFont(new Font("Berlin Sans FB Demi Bold", 23.0));
-
+        
         GridPane.setColumnIndex(img_friends, 4);
         img_friends.setFitHeight(120.0);
         img_friends.setFitWidth(155.0);
@@ -171,7 +184,7 @@ public class WithFriendBase extends GridPane {
             img_friends.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+        
         GridPane.setColumnIndex(img_player2, 3);
         GridPane.setRowIndex(img_player2, 2);
         img_player2.setFitHeight(47.0);
@@ -183,7 +196,7 @@ public class WithFriendBase extends GridPane {
             img_player2.setImage(new Image(getClass().getResource("/assets/icons8-football-team-48.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+        
         GridPane.setColumnIndex(img_player1, 3);
         GridPane.setRowIndex(img_player1, 1);
         img_player1.setFitHeight(50.0);
@@ -194,7 +207,9 @@ public class WithFriendBase extends GridPane {
             img_player1.setImage(new Image(getClass().getResource("/assets/icons8-team-96.png").toExternalForm()));
         } catch (Exception e) {
         }
-
+       // player1.onKeyTypedProperty().addListener();
+       // img_player1.setMouseTransparent(true);
+        
         GridPane.setColumnIndex(img_start, 4);
         GridPane.setRowIndex(img_start, 3);
         img_start.setFitHeight(56.0);
@@ -230,9 +245,9 @@ public class WithFriendBase extends GridPane {
         } catch (Exception e) {
         }
         btnBack.setGraphic(imgBack);
-
+        
         btnBack.setEffect(glow0);
-
+        
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
         getColumnConstraints().add(columnConstraints1);
@@ -252,6 +267,6 @@ public class WithFriendBase extends GridPane {
         getChildren().add(img_player1);
         getChildren().add(img_start);
         getChildren().add(btnBack);
-
+        
     }
 }

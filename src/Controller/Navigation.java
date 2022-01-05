@@ -31,6 +31,7 @@ public class Navigation {
     protected Scene scene;
 
     public void navigateToWelcome(ActionEvent event) {
+              
         welcomeScreen = new WelcomeBase();
         root = welcomeScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -76,6 +77,7 @@ public class Navigation {
 
     public void navigateToGameScreen(ActionEvent event, GameHelper g) {
         gameScreen = new GamePlayScreenBase(g);
+       
         root = gameScreen;
         System.out.println(gameScreen.toString());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -463,6 +463,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                             TopOnlinePlayers topplayer = (TopOnlinePlayers) obj;
                             for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
                                 listViewTopPlayers.getItems().add(topplayer.getTopPlayers().get(i).getUserName() + "\t\t" + topplayer.getTopPlayers().get(i).getTotalScore());
+                                System.out.println("list:"+listViewTopPlayers);
                                 listViewTopPlayers.refresh();                         
                                 listViewTopPlayers.setItems(topObservableList);
                                 
