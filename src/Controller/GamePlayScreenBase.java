@@ -71,39 +71,26 @@ public class GamePlayScreenBase extends BorderPane {
     protected final Button btnExit;
     protected final ImageView imageView0;
 
-//    protected String start;
-//    protected String end;
-//    protected Random random;
-//    protected int randomNum;
     protected Image first;
     protected Image second;
-//    protected String x;
-//    protected String o;
-//    protected boolean changeTurn = true;
+
     protected String player1;
     protected String player2;
-//    protected int counter = 0;
-//    protected String isWin;
-//    protected Media media;
-//    protected MediaPlayer mediaPlayer;
-//    protected MediaView mediaView;
-//    protected File mediaFile;
-//    protected int score1 = 0;
-//    protected int score2 = 0;
-//    boolean isWinn = false;
 
     protected Vector<Button> buttons;
     protected Vector<ImageView> imgs;
     protected Vector<Label> labels;
 
     protected GameHelper game;
+    WithFriendBase friend;
 
     public GamePlayScreenBase(GameHelper g) {
+
+        friend = new WithFriendBase();
 
         buttons = new Vector<>();
         imgs = new Vector<>();
         labels = new Vector<>();
-
         game = g;
 
         infomationPane = new GridPane();
@@ -223,17 +210,21 @@ public class GamePlayScreenBase extends BorderPane {
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
+        
         try {
             if (g instanceof ComputerEasyLevel) {
                 player1Image.setImage(new Image(getClass().getResource("/assets/you.png").toExternalForm()));
                 player2Image.setImage(new Image(getClass().getResource("/assets/compute.png").toExternalForm()));
+               
                 player2Name.setText("Computer");
                 player1Name.setText("You");
             } else {
                 player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
                 player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
-                player1Name.setText("Player1");
-                player2Name.setText("Player2");
+                
+                player1Name.setText(WithFriendBase.nameOfPlayer1);               
+                player2Name.setText(WithFriendBase.nameOfPlayer2);
+               
             }
         } catch (Exception e) {
         }
@@ -574,6 +565,10 @@ public class GamePlayScreenBase extends BorderPane {
         playingPane.getChildren().add(btnRestart);
         playingPane.getChildren().add(btnExit);
 
+//        player1Name.setText(friend.player1.getText());
+//        System.out.println("your Name"+friend.player1.getText());
+//        player2Name.setText(friend.player2.getText());
+//        System.out.println("friend"+friend.player2.getText());
         btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -597,10 +592,6 @@ public class GamePlayScreenBase extends BorderPane {
                 
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
-
-                }
-                if(g.isWinning(player1)){
-                   g.drawLine();  
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -613,9 +604,6 @@ public class GamePlayScreenBase extends BorderPane {
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
 
-                }
-               if(g.isWinning(player1)){
-                   g.drawLine();  
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -630,9 +618,6 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-               if(g.isWinning(player1)){
-                   g.drawLine();  
-                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -645,10 +630,6 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                if(g.isWinning(player1)){
-                   g.drawLine();  
-                }
-               
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -662,9 +643,6 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-                if(g.isWinning(player1)){
-                   g.drawLine();  
-                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -676,9 +654,6 @@ public class GamePlayScreenBase extends BorderPane {
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
 
-                }
-               if(g.isWinning(player1)){
-                   g.drawLine();  
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -693,9 +668,6 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setComputerChoice();
 
                 }
-               if(g.isWinning(player1)){
-                   g.drawLine();  
-                }
                 g.WinnerWinnerChickenDinner();
             }
         });
@@ -708,9 +680,6 @@ public class GamePlayScreenBase extends BorderPane {
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
 
-                }
-               if(g.isWinning(player1)){
-                   g.drawLine();  
                 }
                 g.WinnerWinnerChickenDinner();
             }
@@ -725,9 +694,6 @@ public class GamePlayScreenBase extends BorderPane {
 
                     g.setComputerChoice();
 
-                }
-                if(g.isWinning(player1)){
-                   g.drawLine();  
                 }
                 g.WinnerWinnerChickenDinner();
             }

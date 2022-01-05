@@ -296,7 +296,7 @@ public class WelcomeBase extends GridPane {
         imgBack.setPickOnBounds(true);
         imgBack.setPreserveRatio(true);
         try {
-            imgBack.setImage(new Image(getClass().getResource("/assets/logout.png").toExternalForm()));
+            imgBack.setImage(new Image(getClass().getResource("/assets/exitButt.png").toExternalForm()));
         } catch (Exception e) {
         }
         btnBack.setGraphic(imgBack);

@@ -20,7 +20,7 @@ public class ComputerEasyLevel extends GameHelper {
         if (!isWinning(player1) && counter < 8) {
             while (true) {
                 int rnd = new Random().nextInt(buttons2.length);
-
+                System.out.println(rnd);
                 if (rnd == 0 && !buttons.get(0).isDisabled()) {
                     setPlayingIcon(imags.get(0), buttons.get(0));
                     break;
@@ -45,10 +45,11 @@ public class ComputerEasyLevel extends GameHelper {
                 } else if (rnd == 7 && !buttons.get(7).isDisabled()) {
                     setPlayingIcon(imags.get(7), buttons.get(7));
                     break;
-                } else if (rnd == 8 && !buttons.get(8).isDisabled()) {
+              } else if (rnd == 8 && !buttons.get(8).isDisabled()) {
                     setPlayingIcon(imags.get(8), buttons.get(8));
                     break;
-                }
+                    
+                }               
             }
 
         }

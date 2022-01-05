@@ -80,7 +80,6 @@ public class GameHelper {
         }
     }
 //==================================================================
-
     public void changeXO() {
 
         random = new Random();
@@ -114,10 +113,9 @@ public class GameHelper {
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
         changeTurn = !changeTurn;
-        isWinning(player1);
+      
     }
 //===================================================================
-
     public Image changingTurn(boolean flag, Button button) {
         if (flag) {
             button.setText(player1);
@@ -138,9 +136,10 @@ public class GameHelper {
                 || (buttons.get(2).getText().equals(player) && buttons.get(5).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(0).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(2).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(6).getText().equals(player))) {
-            //drawLine();
+            drawLineOfColors();
             return true;
         } else {
+
             return false;
         }
     }
@@ -159,12 +158,26 @@ public class GameHelper {
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
-        } else if (counter == 9) {
+        } else if (counter == 9) {//no one win ,
+           // setEnable();
+            setDisable();
             buttons.get(9).setVisible(true);
+            
         }
     }
+  //=================================================
+     public void setEnable() {
+        buttons.get(0).setDisable(false);
+        buttons.get(1).setDisable(false);
+        buttons.get(2).setDisable(false);
+        buttons.get(3).setDisable(false);
+        buttons.get(4).setDisable(false);
+        buttons.get(5).setDisable(false);
+        buttons.get(6).setDisable(false);
+        buttons.get(7).setDisable(false);
+        buttons.get(8).setDisable(false);
+    }
 //====================================================    
-
     public void setDisable() {
         buttons.get(0).setDisable(true);
         buttons.get(1).setDisable(true);
@@ -177,75 +190,87 @@ public class GameHelper {
         buttons.get(8).setDisable(true);
     }
 //===========================================================
-
     public void resetting() {
 
         for (int i = 0; i < imags.size() - 2; i++) {
             imags.get(i).setImage(null);
             imags.get(i).setVisible(false);
         }
-
         for (int i = 0; i < buttons.size() - 2; i++) {
             buttons.get(i).setText("");
             buttons.get(i).setDisable(false);
             buttons.get(i).setVisible(true);
         }
-
         counter = 0;
         changeTurn = true;
-        isWinning(player1);
+        removeColors();
     }
 //==================================================
+    public void drawLineOfColors() {
 
-    public void drawLine() {
-        //Graphics g = null;
-        if (((buttons.get(0).equals(player1) || (buttons.get(0).getText().equals(player2))
-                && buttons.get(1).getText().equals(player1) || buttons.get(1).getText().equals(player2)
-                && buttons.get(2).getText().equals(player1) || buttons.get(2).getText().equals(player2)))) {
-            //g.drawLine(10, 30, 50, 30);
+        if ((buttons.get(0).getText().equals(buttons.get(1).getText()))
+                && (buttons.get(0).getText().equals(buttons.get(2).getText()))) {
+
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(2).setStyle("-fx-background-color:#FFFF00");
 
-        } else if ((buttons.get(6).getText().equals(player1)) || (buttons.get(6).getText().equals(player2))
-                && (buttons.get(7).getText().equals(player1)) || (buttons.get(7).getText().equals(player2))
-                && (buttons.get(8).getText().equals(player1)) || buttons.get(8).getText().equals(player2)) {
-            //g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(6).getText().equals(buttons.get(7).getText()))
+                && (buttons.get(6).getText().equals(buttons.get(8).getText()))) {
+
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
 
-        } else if (buttons.get(3).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(5).getText().equals(player1)) {
-            // g.drawLine(10, 30, 50, 30);
+        } else if (buttons.get(3).getText().equals(buttons.get(4).getText())
+                && buttons.get(3).getText().equals(buttons.get(5).getText())) {
+
             buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(0).getText().equals(player1) && buttons.get(3).getText().equals(player1) && buttons.get(6).getText().equals(player1))) {
-            // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(0).getText().equals(buttons.get(3).getText())
+                && buttons.get(0).getText().equals(buttons.get(6).getText()))) {
+
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(1).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(7).getText().equals(player1))) {
-            // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(1).getText().equals(buttons.get(4).getText())
+                && buttons.get(1).getText().equals(buttons.get(7).getText()))) {
+
             buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(2).getText().equals(player1) && buttons.get(5).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
-            // g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(2).getText().equals(buttons.get(5).getText())
+                && buttons.get(2).getText().equals(buttons.get(8).getText()))) {
+
             buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(0).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
-            //g.drawLine(10, 30, 50, 30);
+        } else if ((buttons.get(0).getText().equals(buttons.get(4).getText())
+                && buttons.get(0).getText().equals(buttons.get(8).getText()))) {
+
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
-        } else if (buttons.get(2).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(6).getText().equals(player1)) {
-            // g.drawLine(10, 30, 50, 30);
+        } else if (buttons.get(2).getText().equals(buttons.get(4).getText())
+                && buttons.get(2).getText().equals(buttons.get(6).getText())) {
+
             buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
         }
+    }
+ //=============================================================
+    public void removeColors() {
+        buttons.get(0).setStyle(null);
+        buttons.get(1).setStyle(null);
+        buttons.get(2).setStyle(null);
+        buttons.get(3).setStyle(null);
+        buttons.get(4).setStyle(null);
+        buttons.get(5).setStyle(null);
+        buttons.get(6).setStyle(null);
+        buttons.get(7).setStyle(null);
+        buttons.get(8).setStyle(null);
     }
 //====================================================================
 
