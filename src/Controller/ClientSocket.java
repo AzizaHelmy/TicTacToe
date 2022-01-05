@@ -6,6 +6,10 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,17 +20,20 @@ import java.util.logging.Logger;
  */
 public class ClientSocket {
 
-    private static Socket socketObj;
+    private static Socket socket;
+    private static String ip;
 
-    public static synchronized Socket getInstance(String ip) {
-        if (socketObj == null) {
-            try {
-                socketObj = new Socket(ip, 5555);
-            } catch (IOException ex) {
-                Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public static void setIp(String ip) {
+        ClientSocket.ip = ip;
+    }
+
+    public static synchronized Socket getInstance() throws IOException {
+        if (socket == null || socket.isClosed()) {
+
+            socket = new Socket(ip, 5555);
+
         }
-        return socketObj;
+        return socket;
     }
 
 }

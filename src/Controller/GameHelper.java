@@ -8,13 +8,22 @@ package Controller;
 import java.io.File;
 import java.util.Random;
 import java.util.Vector;
+import javafx.animation.PauseTransition;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
@@ -42,7 +51,6 @@ public class GameHelper {
     protected File mediaFile;
     protected int score1 = 0;
     protected int score2 = 0;
-    
 
     protected String Player1Score;
     protected String Player2Score;
@@ -101,6 +109,7 @@ public class GameHelper {
 //=================================================================
 
     public void setPlayingIcon(ImageView imageView, Button button) {
+        counter++;
         imageView.setVisible(true);
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
@@ -119,6 +128,7 @@ public class GameHelper {
         }
     }
 //================================================================
+
     public boolean isWinning(String player) {
         if ((buttons.get(0).getText().equals(player) && buttons.get(1).getText().equals(player) && buttons.get(2).getText().equals(player))
                 || (buttons.get(3).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(5).getText().equals(player))
@@ -128,25 +138,24 @@ public class GameHelper {
                 || (buttons.get(2).getText().equals(player) && buttons.get(5).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(0).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(8).getText().equals(player))
                 || (buttons.get(2).getText().equals(player) && buttons.get(4).getText().equals(player) && buttons.get(6).getText().equals(player))) {
-           //drawLine();
+            //drawLine();
             return true;
         } else {
             return false;
         }
     }
 //================================================================
+
     public void WinnerWinnerChickenDinner() {
-        counter++;
-        
         if (isWinning(player1)) {
             score1++;
-            // annimation();
+            annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(2).setText("" + score1);
         } else if (isWinning(player2)) {
             score2++;
-            // annimation();
+            annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
@@ -184,45 +193,46 @@ public class GameHelper {
 
         counter = 0;
         changeTurn = true;
-         isWinning(player1);
+        isWinning(player1);
     }
 //==================================================
+
     public void drawLine() {
         //Graphics g = null;
         if (((buttons.get(0).equals(player1) || (buttons.get(0).getText().equals(player2))
-                && buttons.get(1).getText().equals(player1) ||buttons.get(1).getText().equals(player2)
+                && buttons.get(1).getText().equals(player1) || buttons.get(1).getText().equals(player2)
                 && buttons.get(2).getText().equals(player1) || buttons.get(2).getText().equals(player2)))) {
             //g.drawLine(10, 30, 50, 30);
             buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(2).setStyle("-fx-background-color:#FFFF00");
-    
-        } else if ( (buttons.get(6).getText().equals(player1))||(buttons.get(6).getText().equals(player2)) 
-                && (buttons.get(7).getText().equals(player1))||(buttons.get(7).getText().equals(player2)) &&
-                (buttons.get(8).getText().equals(player1))||buttons.get(8).getText().equals(player2)) {
+
+        } else if ((buttons.get(6).getText().equals(player1)) || (buttons.get(6).getText().equals(player2))
+                && (buttons.get(7).getText().equals(player1)) || (buttons.get(7).getText().equals(player2))
+                && (buttons.get(8).getText().equals(player1)) || buttons.get(8).getText().equals(player2)) {
             //g.drawLine(10, 30, 50, 30);
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
-            
-        } else if (buttons.get(3).getText().equals(player1) &&  buttons.get(4).getText().equals(player1) && buttons.get(5).getText().equals(player1)){
-           // g.drawLine(10, 30, 50, 30);
-           buttons.get(3).setStyle("-fx-background-color:#FFFF00");
+
+        } else if (buttons.get(3).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(5).getText().equals(player1)) {
+            // g.drawLine(10, 30, 50, 30);
+            buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
-        } else if ((buttons.get(0).getText().equals(player1) &&  buttons.get(3).getText().equals(player1) &&  buttons.get(6).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
-           buttons.get(0).setStyle("-fx-background-color:#FFFF00");
+        } else if ((buttons.get(0).getText().equals(player1) && buttons.get(3).getText().equals(player1) && buttons.get(6).getText().equals(player1))) {
+            // g.drawLine(10, 30, 50, 30);
+            buttons.get(0).setStyle("-fx-background-color:#FFFF00");
             buttons.get(3).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
         } else if ((buttons.get(1).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(7).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
-           buttons.get(1).setStyle("-fx-background-color:#FFFF00");
+            // g.drawLine(10, 30, 50, 30);
+            buttons.get(1).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(7).setStyle("-fx-background-color:#FFFF00");
         } else if ((buttons.get(2).getText().equals(player1) && buttons.get(5).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
-           // g.drawLine(10, 30, 50, 30);
-           buttons.get(2).setStyle("-fx-background-color:#FFFF00");
+            // g.drawLine(10, 30, 50, 30);
+            buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(5).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
         } else if ((buttons.get(0).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(8).getText().equals(player1))) {
@@ -231,13 +241,49 @@ public class GameHelper {
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(8).setStyle("-fx-background-color:#FFFF00");
         } else if (buttons.get(2).getText().equals(player1) && buttons.get(4).getText().equals(player1) && buttons.get(6).getText().equals(player1)) {
-           // g.drawLine(10, 30, 50, 30);
-           buttons.get(2).setStyle("-fx-background-color:#FFFF00");
+            // g.drawLine(10, 30, 50, 30);
+            buttons.get(2).setStyle("-fx-background-color:#FFFF00");
             buttons.get(4).setStyle("-fx-background-color:#FFFF00");
             buttons.get(6).setStyle("-fx-background-color:#FFFF00");
         }
     }
 //====================================================================
+
+    public void annimation() {
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        Media media = new Media(new File("src/assets/playerwin.mp4").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mv = new MediaView(mediaPlayer);
+
+        DoubleProperty mvw = mv.fitWidthProperty();
+        DoubleProperty mvh = mv.fitHeightProperty();
+        mvw.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
+        mvh.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
+        mv.setPreserveRatio(false);
+        mediaPlayer.setAutoPlay(true);
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(mv);
+        Scene scene = new Scene(vbox, 500, 400);
+        stage.setScene(scene);
+        stage.show();
+
+        PauseTransition pt = new PauseTransition(javafx.util.Duration.seconds(10));
+        pt.play();
+        pt.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+
+        });
+    }
+
+//====================================================================
     public void setComputerChoice() {
     }
+
 }

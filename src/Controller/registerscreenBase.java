@@ -1,16 +1,15 @@
 package Controller;
 
-import static Controller.ServerRegistrationBase.txtFieldIP;
-import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -50,7 +48,6 @@ public class registerscreenBase extends GridPane {
     private ObjectOutputStream ObjectoutputStream;
     private InputStream inputStream;
     private OutputStream outputStream;
-//    protected ServerRegistrationBase srb;
 
     public registerscreenBase() {
 
@@ -71,7 +68,13 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
-
+        try {
+            socket = ClientSocket.getInstance();
+        } catch (SocketException s) {
+            // alert server under mintatnce got to welcome screen
+        } catch (IOException ex) {
+            Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -187,34 +190,39 @@ public class registerscreenBase extends GridPane {
         getChildren().add(button);
         getChildren().add(button0);
 
-
-
 //============================================================       
         btn_signupreg.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Register register = new Register(regusername_field.getText(), registerpass_field.getText());
+                Register register = new Register(regusername_field.getText().trim(), registerpass_field.getText().trim());
                 try {
-                    socket =ClientSocket.getInstance(txtFieldIP.getText());
-                    inputStream = socket.getInputStream();
-                    outputStream = socket.getOutputStream();
-                    ObjectoutputStream = new ObjectOutputStream(outputStream);
-                    System.out.println(ObjectoutputStream);
-                    ObjectoutputStream.writeObject(register);
-                    ObjectoutputStream.flush();
+                    if (!regusername_field.getText().trim().isEmpty()
+                            && !registerpass_field.getText().trim().isEmpty()) {
+                        inputStream = socket.getInputStream();
+                        outputStream = socket.getOutputStream();
+                        ObjectoutputStream = new ObjectOutputStream(outputStream);
+                        System.out.println(ObjectoutputStream);
+                        ObjectoutputStream.writeObject(register);
+                        ObjectoutputStream.flush();
 
-                    ObjectinputStream = new ObjectInputStream(inputStream);
-                    Object obj = ObjectinputStream.readObject();
-                    if (obj instanceof String) {
+                        ObjectinputStream = new ObjectInputStream(inputStream);
+                        Object obj = ObjectinputStream.readObject();
+                        if (obj instanceof String) {
+                            regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                            registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                            System.out.println("error");
+                        } else if (obj instanceof Player) {
+                            Player p = (Player) obj;
+                            Navigation nav = new Navigation();
+                            nav.navigateToOnlineScreen(event, p);
+                        }
+
+                    } else {
                         regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
-                        System.out.println("error");
-                    } else if (obj instanceof Player) {
-                        Player p = (Player) obj;
-                        Navigation nav = new Navigation();
-                        nav.navigateToOnlineScreen(event, p);
                     }
-
+                } catch (SocketException s) {
+                } catch (EOFException e) {
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {

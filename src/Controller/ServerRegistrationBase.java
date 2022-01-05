@@ -1,6 +1,10 @@
 package Controller;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -79,7 +83,7 @@ public class ServerRegistrationBase extends FlowPane {
         rectangle = new Rectangle(150, 30, 100, 65);
         label = new Label();
         btnBack = new Button();
-        
+
         setAlignment(javafx.geometry.Pos.CENTER);
 
         borderPane.setMaxHeight(USE_PREF_SIZE);
@@ -253,14 +257,24 @@ public class ServerRegistrationBase extends FlowPane {
             @Override
             public void handle(ActionEvent event) {
                 if (isValidIPAddress(txtFieldIP.getText())) {
-                    socket = ClientSocket.getInstance(txtFieldIP.getText());
+                    ClientSocket.setIp(txtFieldIP.getText());
+                    try {
+                        socket = ClientSocket.getInstance();
+                        System.out.println("Connected");
+                        Navigation nav = new Navigation();
+                        nav.navigateToLoginScreen(event);
+                    }catch(SocketException s){
+                        imgInvalid.setVisible(true);
+                        txtInvalid.setVisible(true);
+                    }
+                    catch (IOException ex) {
+                        Logger.getLogger(ServerRegistrationBase.class.getName()).log(Level.SEVERE, null, ex);
 
-                    System.out.println("Connected");
-                    Navigation nav = new Navigation();
-                    nav.navigateToLoginScreen(event);
+                    }
                 } else {
                     imgInvalid.setVisible(true);
                     txtInvalid.setVisible(true);
+
                 }
             }
 

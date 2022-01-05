@@ -17,7 +17,7 @@ public class ComputerEasyLevel extends GameHelper {
     @Override
     public void setComputerChoice() {
         int[] buttons2 = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
-        if (!isWinning(player1)) {
+        if (!isWinning(player1) && counter < 8) {
             while (true) {
                 int rnd = new Random().nextInt(buttons2.length);
 
@@ -50,8 +50,6 @@ public class ComputerEasyLevel extends GameHelper {
                     break;
                 }
             }
-
-        } else {
 
         }
     }

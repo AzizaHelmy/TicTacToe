@@ -1,13 +1,14 @@
 package Controller;
 
-import static Controller.ClientSocket.getInstance;
-import static Controller.ServerRegistrationBase.txtFieldIP;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -57,6 +58,13 @@ public class loginscreenBase extends AnchorPane {
         imageView1 = new ImageView();
         button = new Button();
         btnBacklog = new ImageView();
+        try {
+            socket = ClientSocket.getInstance();
+        } catch (SocketException s) {
+            //alert server under mintanance got to welcome screen
+        } catch (IOException ex) {
+            Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -166,29 +174,38 @@ public class loginscreenBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    socket = getInstance(txtFieldIP.getText());
-                    inputStream = socket.getInputStream();
-                    outputStream = socket.getOutputStream();
-                    ObjectoutputStream = new ObjectOutputStream(outputStream);
-                    Login login = new Login(usernamelog_field.getText(), passlog_field.getText());
-                    System.out.println(login.getUserName() + " , " + login.getPassward());
-                    ObjectoutputStream.writeObject(login);
-                    ObjectoutputStream.flush();
-                    
-                    ObjectinputStream = new ObjectInputStream(inputStream);
-                    Object obj = ObjectinputStream.readObject();
-
-                    if (obj instanceof String) {
-                        String msg = (String) obj;
-                        System.out.println(msg);
+                    if (usernamelog_field.getText().trim().isEmpty() || passlog_field.getText().trim().isEmpty()) {
                         usernamelog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                         passlog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
-                    } else if(obj instanceof Player){
-                        Player p = (Player)obj;
-                        System.out.println(p.getIsOnline() + " , " + p.getIsRequest());
-                        Navigation nav = new Navigation();
-                        nav.navigateToOnlineScreen(event,p);
+                    } else {
+                        System.out.println("1");
+                        inputStream = socket.getInputStream();
+                        outputStream = socket.getOutputStream();
+                        ObjectoutputStream = new ObjectOutputStream(outputStream);
+                        Login login = new Login(usernamelog_field.getText().trim(), passlog_field.getText().trim());
+                        System.out.println(login.getUserName().trim() + " , " + login.getPassward().trim());
+                        ObjectoutputStream.writeObject(login);
+                        ObjectoutputStream.flush();
+
+                        ObjectinputStream = new ObjectInputStream(inputStream);
+                        Object obj = ObjectinputStream.readObject();
+
+                        if (obj instanceof String) {
+                            String msg = (String) obj;
+                            System.out.println(msg);
+                            usernamelog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                            passlog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
+                        } else if (obj instanceof Player) {
+                            Player p = (Player) obj;
+                            System.out.println(p.getIsOnline() + " , " + p.getIsRequest());
+                            Navigation nav = new Navigation();
+                            nav.navigateToOnlineScreen(event, p);
+                        }
                     }
+                } catch (SocketException s) {
+
+                } catch (EOFException e) {
+
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {

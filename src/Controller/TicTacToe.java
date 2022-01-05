@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 /**
  *
  * @author Azza Helmy
@@ -21,7 +20,7 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = new WelcomeBase();
-        Scene scene = new Scene(root, 700, 500);
+        Scene scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.setMinHeight(630);
         stage.setMinWidth(600);

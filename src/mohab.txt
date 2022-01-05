@@ -1,0 +1,8 @@
+PauseTransition pauseTransition =new PauseTransition(Duration.seconds(4));
+        pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
+        pauseTransition.play();

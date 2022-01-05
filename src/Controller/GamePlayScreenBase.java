@@ -1,13 +1,6 @@
 package Controller;
 
-import java.awt.Graphics;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,10 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class GamePlayScreenBase extends BorderPane {
@@ -605,6 +594,7 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(topLeftIcon, topLeft);
+                
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
 

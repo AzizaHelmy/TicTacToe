@@ -45,7 +45,7 @@ public class Navigation {
         loginScreen = new loginscreenBase();
         root = loginScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
@@ -56,7 +56,7 @@ public class Navigation {
         registerScreen = new registerscreenBase();
         root = registerScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
@@ -67,7 +67,7 @@ public class Navigation {
         withFriendScreen = new WithFriendBase();
         root = withFriendScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
@@ -79,18 +79,18 @@ public class Navigation {
         root = gameScreen;
         System.out.println(gameScreen.toString());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
         stage.setMinWidth(600);
     }
 
-    public void navigateToOnlineScreen(ActionEvent event,Player player) {
+    public void navigateToOnlineScreen(ActionEvent event, Player player) {
         onlineScreen = new onlinePlayersScreenBase(player);
         root = onlineScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
@@ -101,7 +101,7 @@ public class Navigation {
         levelScreen = new LevelScreenBase();
         root = levelScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
@@ -112,7 +112,7 @@ public class Navigation {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(630);
