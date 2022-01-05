@@ -24,7 +24,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -298,14 +298,11 @@ public class GameHelper {
         mv.setPreserveRatio(false);
         mediaPlayer.setAutoPlay(true);
 
-        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
-        pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage.close();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                mediaPlayer.stop();
             }
         });
-        pauseTransition.play();
 
         VBox vbox = new VBox();
         vbox.getChildren().add(mv);
