@@ -11,8 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,18 +20,42 @@ public class ClientSocket {
 
     private static Socket socket;
     private static String ip;
+    private static ObjectInputStream objectInputStream;
+    private static ObjectOutputStream objectOutputStream;
+    private static InputStream inputStream;
+    private static OutputStream outputStream;
 
-    public static void setIp(String ip) {
-        ClientSocket.ip = ip;
+    public static void setIp(String s) {
+        ip = s;
     }
 
     public static synchronized Socket getInstance() throws IOException {
         if (socket == null || socket.isClosed()) {
-
-            socket = new Socket(ip, 5555);
-
+            socket = new Socket(ip, 6666);
+            inputStream = socket.getInputStream();
+            outputStream = socket.getOutputStream();
         }
         return socket;
+    }
+
+    public static synchronized ObjectOutputStream getObjectOutputStreamInstance() throws IOException {
+        if (objectOutputStream == null && socket.isConnected()) {
+            objectOutputStream = new ObjectOutputStream(outputStream);
+        }
+        return objectOutputStream;
+    }
+
+    public static synchronized ObjectInputStream getObjectInputStreamInstance() throws IOException {
+        if (objectInputStream == null && socket.isConnected()) {
+            objectInputStream = new ObjectInputStream(inputStream);
+        }
+        return objectInputStream;
+    }
+
+    public static void closeConnection() throws IOException {
+        objectOutputStream.close();
+        objectInputStream.close();
+        socket.close();
     }
 
 }

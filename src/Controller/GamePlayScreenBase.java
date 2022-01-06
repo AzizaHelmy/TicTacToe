@@ -1,6 +1,15 @@
 package Controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -82,11 +91,12 @@ public class GamePlayScreenBase extends BorderPane {
     protected Vector<Label> labels;
 
     protected GameHelper game;
-    WithFriendBase friend;
+
+    private Socket socket;
+    private ObjectInputStream ObjectinputStream;
+    private ObjectOutputStream ObjectoutputStream;
 
     public GamePlayScreenBase(GameHelper g) {
-
-        friend = new WithFriendBase();
 
         buttons = new Vector<>();
         imgs = new Vector<>();
@@ -210,21 +220,21 @@ public class GamePlayScreenBase extends BorderPane {
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
-        
+
         try {
             if (g instanceof ComputerEasyLevel) {
                 player1Image.setImage(new Image(getClass().getResource("/assets/you.png").toExternalForm()));
                 player2Image.setImage(new Image(getClass().getResource("/assets/compute.png").toExternalForm()));
-               
+
                 player2Name.setText("Computer");
                 player1Name.setText("You");
             } else {
                 player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
                 player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
-                
-                player1Name.setText(WithFriendBase.nameOfPlayer1);               
+
+                player1Name.setText(WithFriendBase.nameOfPlayer1);
                 player2Name.setText(WithFriendBase.nameOfPlayer2);
-               
+
             }
         } catch (Exception e) {
         }
@@ -589,7 +599,7 @@ public class GamePlayScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 g.setPlayingIcon(topLeftIcon, topLeft);
-                
+
                 if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
                     g.setComputerChoice();
                 }
@@ -732,5 +742,19 @@ public class GamePlayScreenBase extends BorderPane {
         g.setImages(imgs);
         g.setLabels(labels);
         g.changeXO();
+
+        if (g instanceof OnlineGame) {
+            try {
+                socket = ClientSocket.getInstance();
+                ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
+                ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
+            } catch (SocketException s) {
+                // alert server under mintatnce got to welcome screen
+            } catch (IOException ex) {
+                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+
     }
 }

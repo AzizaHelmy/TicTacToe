@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import model.Player;
@@ -43,11 +44,8 @@ public class registerscreenBase extends GridPane {
     protected final Button button;
     protected final Button button0;
     protected final ImageView btnbackreg;
-    private Socket socket;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-    private InputStream inputStream;
-    private OutputStream outputStream;
 
     public registerscreenBase() {
 
@@ -68,13 +66,6 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
-        try {
-            socket = ClientSocket.getInstance();
-        } catch (SocketException s) {
-            // alert server under mintatnce got to welcome screen
-        } catch (IOException ex) {
-            Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -198,14 +189,12 @@ public class registerscreenBase extends GridPane {
                 try {
                     if (!regusername_field.getText().trim().isEmpty()
                             && !registerpass_field.getText().trim().isEmpty()) {
-                        inputStream = socket.getInputStream();
-                        outputStream = socket.getOutputStream();
-                        ObjectoutputStream = new ObjectOutputStream(outputStream);
+                        ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
                         System.out.println(ObjectoutputStream);
                         ObjectoutputStream.writeObject(register);
                         ObjectoutputStream.flush();
 
-                        ObjectinputStream = new ObjectInputStream(inputStream);
+                        ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
                         Object obj = ObjectinputStream.readObject();
                         if (obj instanceof String) {
                             regusername_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");

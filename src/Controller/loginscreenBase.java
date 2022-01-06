@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Login;
@@ -38,11 +39,8 @@ public class loginscreenBase extends AnchorPane {
     protected final Button button;
     protected final ImageView btnBacklog;
 
-    private Socket socket;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-    private InputStream inputStream;
-    private OutputStream outputStream;
 
     public loginscreenBase() {
 
@@ -58,13 +56,6 @@ public class loginscreenBase extends AnchorPane {
         imageView1 = new ImageView();
         button = new Button();
         btnBacklog = new ImageView();
-        try {
-            socket = ClientSocket.getInstance();
-        } catch (SocketException s) {
-            //alert server under mintanance got to welcome screen
-        } catch (IOException ex) {
-            Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -179,15 +170,13 @@ public class loginscreenBase extends AnchorPane {
                         passlog_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                     } else {
                         System.out.println("1");
-                        inputStream = socket.getInputStream();
-                        outputStream = socket.getOutputStream();
-                        ObjectoutputStream = new ObjectOutputStream(outputStream);
+                        ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
                         Login login = new Login(usernamelog_field.getText().trim(), passlog_field.getText().trim());
                         System.out.println(login.getUserName().trim() + " , " + login.getPassward().trim());
                         ObjectoutputStream.writeObject(login);
                         ObjectoutputStream.flush();
 
-                        ObjectinputStream = new ObjectInputStream(inputStream);
+                        ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
                         Object obj = ObjectinputStream.readObject();
 
                         if (obj instanceof String) {
