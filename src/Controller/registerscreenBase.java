@@ -44,9 +44,11 @@ public class registerscreenBase extends GridPane {
     protected final Button button;
     protected final Button button0;
     protected final ImageView btnbackreg;
+    protected Navigation nav;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-
+    private PopUp pop;
+    
     public registerscreenBase() {
 
         columnConstraints = new ColumnConstraints();
@@ -66,7 +68,9 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
-
+        nav = new Navigation();
+        pop = new PopUp();
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -202,8 +206,8 @@ public class registerscreenBase extends GridPane {
                             System.out.println("error");
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
-                            Navigation nav = new Navigation();
-                            nav.navigateToOnlineScreen(event, p);
+           
+                            nav.navigateToOnlineScreen(p);
                         }
 
                     } else {
@@ -211,6 +215,7 @@ public class registerscreenBase extends GridPane {
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                     }
                 } catch (SocketException s) {
+                    pop.showErrorInServer();
                 } catch (EOFException e) {
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,8 +230,7 @@ public class registerscreenBase extends GridPane {
             @Override
             public void handle(ActionEvent event
             ) {
-                Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+                nav.navigateToLoginScreen();
             }
         }
         );

@@ -56,7 +56,8 @@ public class ServerRegistrationBase extends FlowPane {
     protected final Button btnBack;
     protected Socket socket;
     protected Navigation nav;
-
+    protected PopUp pop;
+    
     public ServerRegistrationBase() {
 
         borderPane = new BorderPane();
@@ -85,6 +86,7 @@ public class ServerRegistrationBase extends FlowPane {
         label = new Label();
         btnBack = new Button();
         nav = new Navigation();
+        pop = new PopUp();
 
         setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -262,9 +264,13 @@ public class ServerRegistrationBase extends FlowPane {
                     ClientSocket.setIp(txtFieldIP.getText());
                     try {
                         socket = ClientSocket.getInstance();
+                        if(!socket.isConnected())
+                            pop.waitForRsponse();
+                        
                         System.out.println("Connected");
-                        nav.navigateToLoginScreen(event);
+                        nav.navigateToLoginScreen();
                     }catch(SocketException s){
+                        pop.showErrorInServer();
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
                     }
@@ -284,7 +290,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
 

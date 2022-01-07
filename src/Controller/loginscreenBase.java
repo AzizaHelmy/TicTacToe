@@ -38,6 +38,7 @@ public class loginscreenBase extends AnchorPane {
     protected final ImageView imageView1;
     protected final Button button;
     protected final ImageView btnBacklog;
+    protected Navigation nav;
 
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
@@ -56,6 +57,7 @@ public class loginscreenBase extends AnchorPane {
         imageView1 = new ImageView();
         button = new Button();
         btnBacklog = new ImageView();
+        nav = new Navigation();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -156,8 +158,7 @@ public class loginscreenBase extends AnchorPane {
         btnSignuplog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToRegisterScreen(event);
+                nav.navigateToRegisterScreen();
             }
         });
 //===================================================       
@@ -187,8 +188,7 @@ public class loginscreenBase extends AnchorPane {
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
                             System.out.println(p.getIsOnline() + " , " + p.getIsRequest());
-                            Navigation nav = new Navigation();
-                            nav.navigateToOnlineScreen(event, p);
+                            nav.navigateToOnlineScreen(p);
                         }
                     }
                 } catch (SocketException s) {
@@ -209,8 +209,7 @@ public class loginscreenBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event
             ) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         }
         );

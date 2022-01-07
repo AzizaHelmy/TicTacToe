@@ -61,7 +61,8 @@ public class GameHelper {
     protected Vector<Button> buttons = new Vector<>();
     protected Vector<ImageView> imags = new Vector<>();
     protected Vector<Label> labels = new Vector<>();
-
+    protected PopUp pop = new PopUp();
+    
 //=======================================================
     public void setButtons(Vector<Button> b) {
         for (int i = 0; i < b.size(); i++) {
@@ -151,13 +152,13 @@ public class GameHelper {
     public void WinnerWinnerChickenDinner() {
         if (isWinning(player1)) {
             score1++;
-            annimation();
+            pop.annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(2).setText("" + score1);
         } else if (isWinning(player2)) {
             score2++;
-            annimation();
+            pop.annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
@@ -280,46 +281,8 @@ public class GameHelper {
         buttons.get(7).setStyle(null);
         buttons.get(8).setStyle(null);
     }
-//====================================================================
 
-    public void annimation() {
-
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-
-        Media media = new Media(new File("src/assets/playerwin.mp4").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mv = new MediaView(mediaPlayer);
-
-        DoubleProperty mvw = mv.fitWidthProperty();
-        DoubleProperty mvh = mv.fitHeightProperty();
-        mvw.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
-        mvh.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
-        mv.setPreserveRatio(false);
-        mediaPlayer.setAutoPlay(true);
-
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                mediaPlayer.stop();
-            }
-        });
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(mv);
-        Scene scene = new Scene(vbox, 500, 400);
-        stage.setScene(scene);
-        stage.show();
-
-        PauseTransition pt = new PauseTransition(javafx.util.Duration.seconds(10));
-        pt.play();
-        pt.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage.close();
-            }
-
-        });
-    }
+   
 
 //====================================================================
     public void setComputerChoice() {

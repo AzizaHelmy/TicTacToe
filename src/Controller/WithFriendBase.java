@@ -38,6 +38,7 @@ public class WithFriendBase extends GridPane {
     protected final Button btnBack;
     protected final ImageView imgBack;
     protected final Glow glow0;
+    protected Navigation nav;
     
     public static String nameOfPlayer1;
     public static String nameOfPlayer2;
@@ -66,6 +67,7 @@ public class WithFriendBase extends GridPane {
         btnBack = new Button();
         imgBack = new ImageView();
         glow0 = new Glow();
+        nav = new Navigation();
         
         setId("playWithFriendsScreen");
         setMaxHeight(USE_PREF_SIZE);
@@ -142,8 +144,8 @@ public class WithFriendBase extends GridPane {
                 } else if (nameOfPlayer2.isEmpty()) {
                     player2.setStyle("-fx-text-box-border: #FF0000; -fx-focus-color: #B22222;");
                 } else {
-                    Navigation nav = new Navigation();
-                    nav.navigateToGameScreen(event, new LocalGame());
+                    
+                    nav.navigateToGameScreen(new LocalGame());
                 }
                 
             }
@@ -231,8 +233,7 @@ public class WithFriendBase extends GridPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
 //===================================================

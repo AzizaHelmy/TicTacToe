@@ -31,7 +31,7 @@ public class ClientSocket {
 
     public static synchronized Socket getInstance() throws IOException {
         if (socket == null || socket.isClosed()) {
-            socket = new Socket(ip, 6666);
+            socket = new Socket(ip, 5555);
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         }

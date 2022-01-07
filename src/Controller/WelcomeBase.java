@@ -45,7 +45,8 @@ public class WelcomeBase extends GridPane {
     protected final Button btnBack;
     protected final ImageView imgBack;
     protected final Glow glow;
-
+    protected Navigation nav;
+    protected PopUp pop;
     public WelcomeBase() {
 
         columnConstraints = new ColumnConstraints();
@@ -73,6 +74,8 @@ public class WelcomeBase extends GridPane {
         btnBack = new Button();
         imgBack = new ImageView();
         glow = new Glow();
+        nav = new Navigation();
+        pop = new PopUp();
 
         setId("welcomScreen");
         setMaxHeight(USE_PREF_SIZE);
@@ -173,8 +176,8 @@ public class WelcomeBase extends GridPane {
         btnWithComputer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToLevelScreen(event);
+                
+                nav.navigateToLevelScreen();
             }
         });
 //===================================
@@ -191,8 +194,7 @@ public class WelcomeBase extends GridPane {
         btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateTowithFriendsScreen(event);
+                nav.navigateTowithFriendsScreen();
             }
         });
 //===================================================
@@ -210,8 +212,7 @@ public class WelcomeBase extends GridPane {
         btnOnline.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToRegistrationScreen(event);
+                nav.navigateToRegistrationScreen();
             }
         });
 //===============================================
@@ -277,17 +278,7 @@ public class WelcomeBase extends GridPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-                ButtonType no = new ButtonType("No",ButtonBar.ButtonData.CANCEL_CLOSE);
-                alert.setTitle("Exit");
-                alert.setHeaderText("Are you Sure that you need to exit?");
-                alert.getButtonTypes().setAll(yes,no);
-                Optional<ButtonType>result=alert.showAndWait();
-                if(result.get()==yes){
-                    System.exit(0);
-                
-                }
+                pop.closeTheGame();
             }
         });
 //===========================================================

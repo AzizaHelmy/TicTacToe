@@ -95,7 +95,8 @@ public class GamePlayScreenBase extends BorderPane {
     private Socket socket;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-
+    protected PopUp pop;
+    
     public GamePlayScreenBase(GameHelper g) {
 
         buttons = new Vector<>();
@@ -154,7 +155,8 @@ public class GamePlayScreenBase extends BorderPane {
         imageView = new ImageView();
         btnExit = new Button();
         imageView0 = new ImageView();
-
+        pop = new PopUp();
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -582,8 +584,7 @@ public class GamePlayScreenBase extends BorderPane {
         btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                pop.exitTheGame();
             }
         });
 
