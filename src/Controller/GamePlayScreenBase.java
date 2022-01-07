@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.SocketException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +29,7 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import model.Move;
+import model.buttonDetails;
 
 public class GamePlayScreenBase extends BorderPane {
 
@@ -80,6 +86,8 @@ public class GamePlayScreenBase extends BorderPane {
     protected final ImageView imageView;
     protected final Button btnExit;
     protected final ImageView imageView0;
+    protected final Button btnRecord;
+    protected final ImageView imgRecord;
 
     protected Image first;
     protected Image second;
@@ -90,6 +98,7 @@ public class GamePlayScreenBase extends BorderPane {
     protected Vector<Button> buttons;
     protected Vector<ImageView> imgs;
     protected Vector<Label> labels;
+    public static ArrayList<Object> detail;
 
     protected Navigation nav;
 
@@ -157,6 +166,9 @@ public class GamePlayScreenBase extends BorderPane {
         btnExit = new Button();
         imageView0 = new ImageView();
         pop = new PopUp();
+        btnRecord = new Button();
+        imgRecord = new ImageView();
+        detail = new ArrayList<Object>();
 
         nav = new Navigation();
 
@@ -562,6 +574,29 @@ public class GamePlayScreenBase extends BorderPane {
         } catch (Exception e) {
         }
         btnExit.setGraphic(imageView0);
+
+        GridPane.setColumnIndex(btnRecord, 2);
+        GridPane.setHalignment(btnRecord, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(btnRecord, 2);
+        GridPane.setValignment(btnRecord, javafx.geometry.VPos.BOTTOM);
+        btnRecord.setAlignment(javafx.geometry.Pos.CENTER);
+        btnRecord.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
+        btnRecord.setMnemonicParsing(false);
+        btnRecord.setPrefHeight(40.0);
+        btnRecord.setPrefWidth(100.0);
+        btnRecord.setText("Record");
+        btnRecord.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        btnRecord.setFont(new Font(13.0));
+
+        imgRecord.setFitHeight(37.0);
+        imgRecord.setFitWidth(32.0);
+        imgRecord.setPickOnBounds(true);
+        imgRecord.setPreserveRatio(true);
+        imgRecord.setImage(new Image(getClass().getResource("/assets/exit.png").toExternalForm()));
+        btnRecord.setGraphic(imgRecord);
+        GridPane.setMargin(btnRecord, new Insets(0.0, 0.0, 10.0, 0.0));
+        setCenter(playingPane);
+
         setCenter(playingPane);
 
         infomationPane.getColumnConstraints().add(columnConstraints);
@@ -600,6 +635,7 @@ public class GamePlayScreenBase extends BorderPane {
         playingPane.getChildren().add(xoPane);
         playingPane.getChildren().add(btnRestart);
         playingPane.getChildren().add(btnExit);
+        playingPane.getChildren().add(btnRecord);
 
         if (g instanceof OnlineGame) {
             try {
@@ -654,8 +690,11 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(0);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(topLeftIcon, topLeft);
+                    detail.add(new buttonDetails(topLeft.getId(), topLeft.getText()));
+
                 }
                 g.checkWinning();
+
             }
         });
 //==============================================================
@@ -671,8 +710,11 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(1);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(topCenterIcon, topCenter);
+                    detail.add(new buttonDetails(topCenter.getId(), topCenter.getText()));
+
                 }
                 g.checkWinning();
+
             }
         });
 //==========================================================
@@ -689,8 +731,11 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(2);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(topRightIcon, topRight);
+                    detail.add(new buttonDetails(topRight.getId(), topRight.getText()));
+
                 }
                 g.checkWinning();
+
             }
         });
 //=============================================================
@@ -706,8 +751,10 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(3);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(centerLeftIcon, centerLeft);
+                    detail.add(new buttonDetails(centerLeft.getId(), centerLeft.getText()));
                 }
                 g.checkWinning();
+
             }
         });
 //=========================================================
@@ -723,8 +770,10 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(4);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(centerCenterIcon, centerCenter);
+                    detail.add(new buttonDetails(centerCenter.getId(), centerCenter.getText()));
                 }
                 g.checkWinning();
+
             }
         });
 //======================================================
@@ -740,6 +789,8 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(5);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(centerRightIcon, centerRight);
+                    detail.add(new buttonDetails(centerRight.getId(), centerRight.getText()));
+
                 }
                 g.checkWinning();
             }
@@ -759,8 +810,11 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(6);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(bottomLeftIcon, bottomLeft);
+                    detail.add(new buttonDetails(bottomLeft.getId(), bottomLeft.getText()));
+
                 }
                 g.checkWinning();
+
             }
         });
         //========================================================       
@@ -776,6 +830,8 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(7);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(bottomCenterIcon, bottomCenter);
+                    detail.add(new buttonDetails(bottomCenter.getId(), bottomCenter.getText()));
+
                 }
                 g.checkWinning();
             }
@@ -793,6 +849,7 @@ public class GamePlayScreenBase extends BorderPane {
                     g.setPosition(8);
                 } else if (g instanceof LocalGame) {
                     g.setPlayingIcon(bottomRightIcon, bottomRight);
+                    detail.add(new buttonDetails(bottomRight.getId(), bottomRight.getText()));
                 }
                 g.checkWinning();
             }
@@ -809,6 +866,7 @@ public class GamePlayScreenBase extends BorderPane {
         buttons.add(8, bottomRight);//8
         buttons.add(9, btnRestart);//9
         buttons.add(10, btnExit);//10
+        buttons.add(11, btnRecord);//11
 
         imgs.add(0, topLeftIcon);
         imgs.add(1, topCenterIcon);
@@ -821,6 +879,7 @@ public class GamePlayScreenBase extends BorderPane {
         imgs.add(8, bottomRightIcon);
         imgs.add(9, player1PlayingLogo);
         imgs.add(10, player2PlayingLogo);
+        imgs.add(11, imgRecord);
 
         labels.add(0, player1Name);//0       
         labels.add(1, player2Name);//1
@@ -832,5 +891,35 @@ public class GamePlayScreenBase extends BorderPane {
         g.setLabels(labels);
         g.setPane(xoPane);
         g.changeXO();
+
+        //===========================================================================
+        //Record
+        topLeft.setId("TopLeftButton");
+        topCenter.setId("TopCentertButton");
+        topRight.setId("TopRightButton");
+        centerLeft.setId("CenterLeftButton");
+        centerCenter.setId("CentercenterButton");
+        centerRight.setId("CenterRightButton");
+        bottomLeft.setId("BottomLeftButton");
+        bottomCenter.setId("BottomCenterButton");
+        bottomRight.setId("BottomRightButton");
+
+        btnRecord.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (btnRecord.getText().equals("Record")) {
+                    boolean response = pop.recordGame();
+                    if (response) {
+                        btnRecord.setText("Recording");
+                        btnRecord.setFont(new Font(0.1));
+                        btnRecord.setDisable(true);
+                    }
+                }else if(btnRecord.getText().equals("Load")){
+                    g.displayRecorded();
+                }
+
+            }
+        });
     }
+
 }

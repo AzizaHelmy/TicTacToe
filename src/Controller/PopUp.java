@@ -234,4 +234,15 @@ public class PopUp {
         }
     }
 
+    public boolean recordGame() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.setTitle("Access Record");
+        alert.setHeaderText("Do you want to record game ?");
+        alert.getButtonTypes().setAll(yes, no);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == yes;
+    }
+
 }

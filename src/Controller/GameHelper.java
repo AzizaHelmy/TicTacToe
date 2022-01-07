@@ -6,26 +6,24 @@
 package Controller;
 
 import java.io.File;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-import javafx.animation.PauseTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import model.buttonDetails;
 
 /**
  *
@@ -64,8 +62,10 @@ public class GameHelper {
     protected Vector<ImageView> imags = new Vector<>();
     protected Vector<Label> labels = new Vector<>();
     protected PopUp pop = new PopUp();
-    
+    protected  String fileName;
+    int i = 0;
 //=======================================================
+
     public void setButtons(Vector<Button> b) {
         for (int i = 0; i < b.size(); i++) {
             buttons.add(i, b.get(i));
@@ -121,6 +121,7 @@ public class GameHelper {
         imageView.setVisible(true);
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
+        
         changeTurn = !changeTurn;
 
     }
@@ -162,16 +163,33 @@ public class GameHelper {
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(2).setText("" + score1);
+
+            if (buttons.get(11).getText().equals("Recording")) {
+                save();
+                buttons.get(11).setText("Load");
+                buttons.get(11).setDisable(false);
+            }
         } else if (isWinning(player2)) {
             score2++;
             pop.annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
+            if (buttons.get(11).getText().equals("Recording")) {
+                save();
+                buttons.get(11).setText("Load");
+                buttons.get(11).setDisable(false);
+            }
         } else if (counter == 9) {//no one win ,
             // setEnable();
             setDisable();
             buttons.get(9).setVisible(true);
+            if (buttons.get(11).getText().equals("Recording")) {
+                save();
+                buttons.get(11).setText("Load");
+                buttons.get(11).setDisable(false);
+                
+            }
 
         }
     }
@@ -217,6 +235,7 @@ public class GameHelper {
         counter = 0;
         changeTurn = true;
         removeColors();
+        i = 0;
     }
 //==================================================
 
@@ -288,7 +307,73 @@ public class GameHelper {
         buttons.get(8).setStyle(null);
     }
 
-   
+    public void save() {
+        buttons.get(0).setId("TopLeftButton");
+        buttons.get(1).setId("TopCentertButton");
+        buttons.get(2).setId("TopRightButton");
+        buttons.get(3).setId("CenterLeftButton");
+        buttons.get(4).setId("CentercenterButton");
+        buttons.get(5).setId("CenterRightButton");
+        buttons.get(6).setId("BottomLeftButton");
+        buttons.get(7).setId("BottomCenterButton");
+        buttons.get(8).setId("BottomRightButton");
+
+        String date = Date.valueOf(LocalDate.now()).toString();
+        String time = Time.valueOf(LocalTime.now()).toString().replace(":", "-");
+        fileName = date + "-" + time + ".json";
+        saveSteps recordedSteps = new saveSteps();
+        recordedSteps.recordSteps(GamePlayScreenBase.detail, fileName);
+    }
+
+    public void displayRecorded() {
+
+        List<buttonDetails> detailed;
+        saveSteps recordedSteps = new saveSteps();
+        detailed = recordedSteps.loadScreen(fileName);
+        System.out.println(fileName);
+
+        Platform.runLater(() -> {
+//            System.out.println(detailed.get(i).getContent());
+//            System.out.println(detailed.get(i).getId());
+            if (i < detailed.size()) {
+                if (detailed.get(i).getId().equals("TopLeftButton")) {
+                    buttons.get(0).setText(detailed.get(i).getContent());
+                    
+                    System.out.println("1");
+
+                    //setPlayingIcon(topLeftIcon, topLeft);
+                } else if (detailed.get(i).getId().equals("TopCentertButton")) {
+                    buttons.get(1).setText(detailed.get(i).getContent());
+                    System.out.println("2");
+
+                } else if (detailed.get(i).getId().equals("TopRightButton")) {
+                    buttons.get(2).setText(detailed.get(i).getContent());
+                    System.out.println("3");
+                } else if (detailed.get(i).getId().equals("CenterLeftButton")) {
+                    buttons.get(3).setText(detailed.get(i).getContent());
+
+                } else if (detailed.get(i).getId().equals("CentercenterButton")) {
+                    buttons.get(4).setText(detailed.get(i).getContent());
+                    System.out.println("5");
+
+                } else if (detailed.get(i).getId().equals("CenterRightButton")) {
+                    buttons.get(5).setText(detailed.get(i).getContent());
+                    System.out.println("6");
+                } else if (detailed.get(i).getId().equals("BottomLeftButton")) {
+                    buttons.get(6).setText(detailed.get(i).getContent());
+                    System.out.println("7");
+                } else if (detailed.get(i).getId().equals("BottomCenterButton")) {
+                    buttons.get(7).setText(detailed.get(i).getContent());
+                    System.out.println("8");
+                } else if (detailed.get(i).getId().equals("BottomRightButton")) {
+                    buttons.get(8).setText(detailed.get(i).getContent());
+                    System.out.println("9");
+                }
+            }
+            setDisable();
+            i++;
+        });
+    }
 
 //====================================================================
     public void setComputerChoice() {
