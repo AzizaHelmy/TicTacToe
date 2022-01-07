@@ -1,7 +1,15 @@
 package Controller;
 
+import java.io.EOFException;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
+import java.net.SocketException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -22,10 +30,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import model.LogOut;
+import model.Player;
 
 public class PopUp {
 
-    Navigation nav = new Navigation();
+    protected Navigation nav = new Navigation();
+    protected LogOut logOut;
+    protected ObjectInputStream objectInputStream;
+    protected ObjectOutputStream objectOutputStream;
+
     /////////   Server is under maintenance 
     public void showErrorInServer() {
         Dialog dialog = new Dialog();
@@ -72,24 +86,26 @@ public class PopUp {
         alert.showAndWait();
     }
 
-    public void waitForRsponse() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Title");
-        alert.setContentText("waiting for response");
-        alert.setResult(ButtonType.CANCEL);
+    public void waitForRsponse(boolean response) {
+        if (!response) {
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Title");
+            alert.setContentText("waiting for response");
+            alert.setResult(ButtonType.CANCEL);
 
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(10000);
-                if (alert.isShowing()) {
-                    Platform.runLater(() -> alert.close());
+            Thread thread = new Thread(() -> {
+                try {
+                    Thread.sleep(10000);
+                    if (alert.isShowing()) {
+                        Platform.runLater(() -> alert.close());
+                    }
+                } catch (Exception exp) {
+                    exp.printStackTrace();
                 }
-            } catch (Exception exp) {
-                exp.printStackTrace();
-            }
-        });
-        thread.start();
-        alert.showAndWait();
+            });
+            thread.start();
+            alert.showAndWait();
+        }
     }
 
     //    exit game        
@@ -107,7 +123,8 @@ public class PopUp {
     }
 
     ///  sign out
-    public void signOut() {
+    public void signOut(Player p) {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -116,7 +133,18 @@ public class PopUp {
         alert.getButtonTypes().setAll(yes, no);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == yes) {
-            nav.navigateToWelcome();
+            try {
+                objectInputStream = ClientSocket.getObjectInputStreamInstance();
+                objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
+                logOut = new LogOut(p.getUserName());
+                objectOutputStream.writeObject(logOut);
+                objectOutputStream.flush();
+            } catch (StreamCorruptedException | EOFException | SocketException s) {
+                showErrorInServer();
+            } catch (IOException ex) {
+                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//            nav.navigateToWelcome();
         }
     }
 
@@ -193,7 +221,7 @@ public class PopUp {
         });
 
      */
-    public  void closeOnLineScreen() {
+    public void closeOnLineScreen() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);

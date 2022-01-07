@@ -1,5 +1,6 @@
 package Controller;
 
+import static java.awt.Color.white;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -84,7 +86,8 @@ public class WelcomeBase extends GridPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(402.0);
         setPrefWidth(600.0);
-        getStyleClass().add("cardpane");
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMaxWidth(194.0);
@@ -154,6 +157,8 @@ public class WelcomeBase extends GridPane {
         GridPane.setColumnIndex(txt_name, 2);
         GridPane.setHalignment(txt_name, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(txt_name, javafx.geometry.VPos.CENTER);
+        txt_name.setFill(javafx.scene.paint.Color.valueOf("#ffff"));
+        
         txt_name.setLineSpacing(7.0);
         txt_name.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txt_name.setStrokeWidth(0.0);
@@ -161,6 +166,10 @@ public class WelcomeBase extends GridPane {
         txt_name.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         txt_name.setWrappingWidth(181.13671875);
         txt_name.setFont(new Font("Bodoni MT", 32.0));
+        txt_name.getStyleClass().add("txt");
+        
+        //txt_name.setFill(Color.white);
+      
 //=================================================
         GridPane.setColumnIndex(btnWithComputer, 2);
         GridPane.setRowIndex(btnWithComputer, 1);
@@ -168,15 +177,12 @@ public class WelcomeBase extends GridPane {
         btnWithComputer.setMnemonicParsing(false);
         btnWithComputer.setPrefHeight(42.0);
         btnWithComputer.setPrefWidth(221.0);
-        btnWithComputer.getStyleClass().add("anchor");
         btnWithComputer.setText(" With Computer");
         btnWithComputer.setFont(new Font("Colonna MT", 24.0));
-        btnWithComputer.getStylesheets().add("/Welcome/welcome.css");
-        btnWithComputer.getStylesheets().add("/Welcome/welcome.css");
+
         btnWithComputer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
                 nav.navigateToLevelScreen();
             }
         });
@@ -187,10 +193,7 @@ public class WelcomeBase extends GridPane {
         btnWithFriends.setMnemonicParsing(false);
         btnWithFriends.setPrefHeight(42.0);
         btnWithFriends.setPrefWidth(221.0);
-        btnWithFriends.getStyleClass().add("anchor");
-        btnWithFriends.getStylesheets().add("/Welcome/welcome.css");
         btnWithFriends.setText(" With Friends");
-        btnWithFriends.setFont(new Font("Colonna MT", 26.0));
         btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -204,11 +207,9 @@ public class WelcomeBase extends GridPane {
         btnOnline.setMnemonicParsing(false);
         btnOnline.setPrefHeight(42.0);
         btnOnline.setPrefWidth(221.0);
-        btnOnline.getStyleClass().add("anchor");
         btnOnline.setText("Play OnLine");
         btnOnline.setFont(new Font("Colonna MT", 24.0));
-        btnOnline.getStylesheets().add("/Welcome/../PlayWithFriend/withfriend.css");
-        btnOnline.getStylesheets().add("/Welcome/welcome.css");
+
         btnOnline.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -250,7 +251,7 @@ public class WelcomeBase extends GridPane {
         }
 //=======================================================
         GridPane.setColumnIndex(txt_play, 3);
-        txt_play.setFill(javafx.scene.paint.Color.valueOf("#04062f"));
+        txt_play.setFill(javafx.scene.paint.Color.valueOf("#ffff"));
         txt_play.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
         txt_play.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txt_play.setStrokeWidth(0.0);
@@ -261,11 +262,11 @@ public class WelcomeBase extends GridPane {
 //================================================
         GridPane.setColumnIndex(img_icon, 1);
         img_icon.setFitHeight(93.0);
-        img_icon.setFitWidth(82.0);
+        img_icon.setFitWidth(382.0);
         img_icon.setPickOnBounds(true);
         img_icon.setPreserveRatio(true);
         try {
-            img_icon.setImage(new Image(getClass().getResource("/assets/arcade-game.png").toExternalForm()));
+            img_icon.setImage(new Image(getClass().getResource("/assets/tic8.png").toExternalForm()));
         } catch (Exception e) {
         }
 //====================================================
@@ -275,6 +276,7 @@ public class WelcomeBase extends GridPane {
         btnBack.setMnemonicParsing(false);
         btnBack.setPrefHeight(45.0);
         btnBack.setPrefWidth(46.0);
+
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -287,13 +289,12 @@ public class WelcomeBase extends GridPane {
         imgBack.setPickOnBounds(true);
         imgBack.setPreserveRatio(true);
         try {
-            imgBack.setImage(new Image(getClass().getResource("/assets/exitButt.png").toExternalForm()));
+            imgBack.setImage(new Image(getClass().getResource("/assets/logout.png").toExternalForm()));
         } catch (Exception e) {
         }
         btnBack.setGraphic(imgBack);
         btnBack.setEffect(glow);
-        getStylesheets().add("/Welcome/welcome.css");
-        getStylesheets().add("/Welcome/../PlayWithFriend/withfriend.css");
+        //  getStylesheets().add("/assets/style.css");
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
@@ -316,6 +317,19 @@ public class WelcomeBase extends GridPane {
         getChildren().add(txt_play);
         getChildren().add(img_icon);
         getChildren().add(btnBack);
+//==============================================================
+        btnBack.getStyleClass().add("backg");
+        btnBack.getStylesheets().add("/assets/style.css");
+        
+        btnWithComputer.getStyleClass().add("border");
+        btnWithComputer.getStylesheets().add("/assets/style.css");
+        btnWithComputer.setFont(new Font("Colonna MT", 24.0));
+        
+        btnWithFriends.getStyleClass().add("border");
+        btnWithFriends.setFont(new Font("Colonna MT", 26.0));
+      
+        btnOnline.getStyleClass().add("border");
+        btnOnline.getStylesheets().add("/assets/style.css");
 
     }
 

@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -57,6 +58,7 @@ public class GameHelper {
     protected String Player2Score;
     protected Label player1Name;
     protected Label player2Name;
+    protected AnchorPane xoPane;
 
     protected Vector<Button> buttons = new Vector<>();
     protected Vector<ImageView> imags = new Vector<>();
@@ -80,6 +82,10 @@ public class GameHelper {
         for (int i = 0; i < l.size(); i++) {
             labels.add(i, l.get(i));
         }
+    }
+
+    public void setPane(AnchorPane a) {
+        xoPane = a;
     }
 //==================================================================
 
@@ -149,7 +155,7 @@ public class GameHelper {
     }
 //================================================================
 
-    public void WinnerWinnerChickenDinner() {
+    public void checkWinning() {
         if (isWinning(player1)) {
             score1++;
             pop.annimation();
@@ -286,6 +292,12 @@ public class GameHelper {
 
 //====================================================================
     public void setComputerChoice() {
+    }
+
+    public void setPosition(int position) {
+    }
+
+    public void GameSession() {
     }
 
 }

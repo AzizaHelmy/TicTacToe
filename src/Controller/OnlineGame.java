@@ -8,6 +8,7 @@ package Controller;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,45 +22,57 @@ import model.Player;
 public class OnlineGame extends GameHelper {
 
     private ObjectInputStream objectInputStream;
-
+    private PopUp pop;
+    private ObjectOutputStream objectOutputStream;
     private Thread th;
     public static Player player;
-    private PopUp pop = new PopUp();
+    public Move move;
+
     public OnlineGame(Player p) {
         player = p;
+        pop = new PopUp();
         try {
             objectInputStream = ClientSocket.getObjectInputStreamInstance();
+            objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
+            move = new Move();
         } catch (IOException ex) {
             Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    @Override
+    public void setPosition(int position) {
+        setPlayingIcon(imags.get(position), buttons.get(position));
+        xoPane.setDisable(true);
+        move.setX(position);
+        move.setTurn(changeTurn);
+        System.out.println("sent move: " + move);
+        try {
+            objectOutputStream.writeObject(move);
+            objectOutputStream.flush();
+        } catch (SocketException | EOFException s) {
+            s.printStackTrace();
+            pop.showErrorInServer();
+        } catch (IOException ex) {
+            Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
     public void GameSession() {
         th = new Thread() {
             @Override
             public void run() {
                 while (true) {
                     try {
-                        Object readObj = objectInputStream.readObject();
-                        System.out.println("received move: " + readObj);
-                        if (readObj instanceof Move) {
-                            Move move = (Move) readObj;
-                            System.out.println(move.getPlayer1() + " , " + move.getPlayer2());
-                            if (player.getUserName().equals(onlinePlayersScreenBase.nameOfPlayer1) && move.isTurn()) {
-                                setPlayingIcon(imags.get(move.getX()), buttons.get(move.getX()));
-//                                xoPane.setDisable(false);
-                            } else if (player.getUserName().equals(onlinePlayersScreenBase.nameOfPlayer2) && move.isTurn()) {
-                                setPlayingIcon(imags.get(move.getX()), buttons.get(move.getX()));
-//                                xoPane.setDisable(false);
-                            }
-                        }
-                    } catch (SocketException s) {
+                        Move move = (Move) objectInputStream.readObject();
+                        setPlayingIcon(imags.get(move.getX()), buttons.get(move.getX()));
+                        xoPane.setDisable(false);
+                        th.suspend();
+                    } catch (SocketException | EOFException s) {
                         pop.showErrorInServer();
-                    } catch (EOFException e) {
-                        pop.showErrorInServer();
-                    } catch (IOException ex) {
-                        Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
+                        s.printStackTrace();
+                    } catch (IOException | ClassNotFoundException ex) {
                         Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }

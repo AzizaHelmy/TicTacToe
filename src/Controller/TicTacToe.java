@@ -5,8 +5,6 @@
  */
 package Controller;
 
-import static Controller.Navigation.stage;
-import Controller.WelcomeBase;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -18,6 +16,7 @@ import javafx.stage.WindowEvent;
  *
  * @author Azza Helmy
  */
+
 public class TicTacToe extends Application {
 
     @Override
@@ -27,7 +26,7 @@ public class TicTacToe extends Application {
         nav.setStage(stage);
         Scene scene = new Scene(root, 600, 630);
         stage.setScene(scene);
-        stage.setMinHeight(630);
+        stage.setMinHeight(402);
         stage.setMinWidth(600);
         stage.show();
         PopUp pop = new PopUp();

@@ -48,7 +48,7 @@ public class registerscreenBase extends GridPane {
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
     private PopUp pop;
-    
+
     public registerscreenBase() {
 
         columnConstraints = new ColumnConstraints();
@@ -206,7 +206,6 @@ public class registerscreenBase extends GridPane {
                             System.out.println("error");
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
-           
                             nav.navigateToOnlineScreen(p);
                         }
 

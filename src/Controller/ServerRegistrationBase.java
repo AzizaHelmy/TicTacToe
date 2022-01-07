@@ -57,7 +57,8 @@ public class ServerRegistrationBase extends FlowPane {
     protected Socket socket;
     protected Navigation nav;
     protected PopUp pop;
-    
+    protected boolean checkConnection;
+
     public ServerRegistrationBase() {
 
         borderPane = new BorderPane();
@@ -87,6 +88,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack = new Button();
         nav = new Navigation();
         pop = new PopUp();
+        checkConnection = false;
 
         setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -96,6 +98,8 @@ public class ServerRegistrationBase extends FlowPane {
         borderPane.setMinWidth(USE_PREF_SIZE);
         borderPane.setPrefHeight(400.0);
         borderPane.setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setPrefHeight(230.0);
@@ -264,17 +268,14 @@ public class ServerRegistrationBase extends FlowPane {
                     ClientSocket.setIp(txtFieldIP.getText());
                     try {
                         socket = ClientSocket.getInstance();
-                        if(!socket.isConnected())
-                            pop.waitForRsponse();
-                        
+//                        pop.waitForRsponse(socket.isConnected());
+
                         System.out.println("Connected");
                         nav.navigateToLoginScreen();
-                    }catch(SocketException s){
-                        pop.showErrorInServer();
+                    } catch (SocketException s) {
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         Logger.getLogger(ServerRegistrationBase.class.getName()).log(Level.SEVERE, null, ex);
 
                     }
