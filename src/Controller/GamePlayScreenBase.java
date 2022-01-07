@@ -162,6 +162,8 @@ public class GamePlayScreenBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(infomationPane, javafx.geometry.Pos.CENTER);
 
@@ -207,8 +209,8 @@ public class GamePlayScreenBase extends BorderPane {
         player1Image.setPickOnBounds(true);
         player1Image.setPreserveRatio(true);
         player1Name.setGraphic(player1Image);
-        player1Name.setFont(new Font("Book Antiqua", 18.0));
-
+        player1Name.setFont(new Font("Book Antiqua", 21.0));
+        player1Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
         GridPane.setColumnIndex(player2Name, 4);
         GridPane.setHalignment(player2Name, javafx.geometry.HPos.LEFT);
         GridPane.setRowIndex(player2Name, 1);
@@ -247,14 +249,15 @@ public class GamePlayScreenBase extends BorderPane {
             System.out.println("can't load player images");
         }
         player2Name.setGraphic(player2Image);
-        player2Name.setFont(new Font("Book Antiqua", 18.0));
-
+        player2Name.setFont(new Font("Book Antiqua", 21.0));
+        player2Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
         GridPane.setColumnIndex(scoreLabel, 2);
         GridPane.setHalignment(scoreLabel, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(scoreLabel, 1);
         GridPane.setValignment(scoreLabel, javafx.geometry.VPos.CENTER);
         scoreLabel.setText("Score");
-        scoreLabel.setFont(new Font("System Bold", 16.0));
+        scoreLabel.setFont(new Font("Book Antiqua", 27.0));
+        scoreLabel.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
 
         GridPane.setColumnIndex(colonLabel, 2);
         GridPane.setHalignment(colonLabel, javafx.geometry.HPos.CENTER);
@@ -268,14 +271,16 @@ public class GamePlayScreenBase extends BorderPane {
         GridPane.setRowIndex(player1Score, 2);
         GridPane.setValignment(player1Score, javafx.geometry.VPos.CENTER);
         player1Score.setText("0");
-        player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#1800f5"));
-        player1Score.setFont(new Font(16.0));
+        // player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#1800f5"));
+
+        player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#FFCC1D"));
+        player1Score.setFont(new Font(19.0));
 
         GridPane.setColumnIndex(player2Score, 3);
         GridPane.setRowIndex(player2Score, 2);
         player2Score.setText("0");
         player2Score.setTextFill(javafx.scene.paint.Color.RED);
-        player2Score.setFont(new Font(16.0));
+        player2Score.setFont(new Font(19.0));
 
         GridPane.setHalignment(player1PlayingLogo, javafx.geometry.HPos.RIGHT);
         GridPane.setRowIndex(player1PlayingLogo, 2);

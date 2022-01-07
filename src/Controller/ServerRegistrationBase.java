@@ -94,6 +94,8 @@ public class ServerRegistrationBase extends FlowPane {
         borderPane.setMinWidth(USE_PREF_SIZE);
         borderPane.setPrefHeight(400.0);
         borderPane.setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setPrefHeight(230.0);
@@ -267,8 +269,7 @@ public class ServerRegistrationBase extends FlowPane {
                     }catch(SocketException s){
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         Logger.getLogger(ServerRegistrationBase.class.getName()).log(Level.SEVERE, null, ex);
 
                     }

@@ -3,15 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/ComputerEasyLevel.java</file>
-            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/OnlineGame.java</file>
-        </group>
-        <group>
             <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/onlinePlayersScreenBase.java</file>
             <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/LocalGame.java</file>
             <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/GamePlayScreenBase.java</file>
             <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/ComputerEasyLevel.java</file>
             <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/OnlineGame.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/ClientSocket.java</file>
+            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/onlinePlayersScreenBase.java</file>
+            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/ComputerEasyLevel.java</file>
+            <file>file:/C:/Users/United/Desktop/github/TicTacToe/src/Controller/Navigation.java</file>
         </group>
     </open-files>
 </project-private>

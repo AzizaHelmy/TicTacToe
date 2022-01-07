@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class ComputerEasyLevel extends GameHelper {
 
-    //==================================================
+//==================================================
     @Override
     public void setComputerChoice() {
         int[] buttons2 = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
@@ -47,8 +47,7 @@ public class ComputerEasyLevel extends GameHelper {
                     break;
               } else if (rnd == 8 && !buttons.get(8).isDisabled()) {
                     setPlayingIcon(imags.get(8), buttons.get(8));
-                    break;
-                    
+                    break;                  
                 }               
             }
 

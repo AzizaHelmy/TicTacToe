@@ -41,8 +41,8 @@ public class Navigation {
         scene = new Scene(root, 700, 500);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToLoginScreen() {
@@ -51,8 +51,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToRegisterScreen() {
@@ -61,8 +61,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateTowithFriendsScreen() {
@@ -71,8 +71,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToGameScreen(GameHelper g) {
@@ -81,8 +81,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToOnlineScreen(Player player) {
@@ -91,8 +91,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToLevelScreen() {
@@ -101,8 +101,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToRegistrationScreen() {
@@ -111,8 +111,8 @@ public class Navigation {
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
 }

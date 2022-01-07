@@ -11,13 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane id="playWithFriendsScreen" fx:id="playFriends_screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cardpane" stylesheets="@withfriend.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayWithFriend.WithFriendController">
+<GridPane id="playWithFriendsScreen" fx:id="playFriends_screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="800.0" styleClass="cardpane" stylesheets="@withfriend.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayWithFriend.WithFriendController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="49.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="62.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="76.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="10.0" prefWidth="298.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="151.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="134.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="10.0" prefWidth="271.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" prefWidth="264.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,7 +27,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button id="startButt" fx:id="btnstart" mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" stylesheets="@withfriend.css" text="Start" GridPane.columnIndex="3" GridPane.rowIndex="3">
+      <Button id="startButt" fx:id="btnstart" mnemonicParsing="false" prefHeight="32.0" prefWidth="283.0" styleClass="border" stylesheets="@../assets/style.css" text="Start" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font name="Copperplate Gothic Bold" size="19.0" />
          </font>
@@ -47,12 +47,12 @@
             <Image url="@../assets/icons8-user-groups-100.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_player2" fitHeight="47.0" fitWidth="81.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <ImageView fx:id="img_player2" fitHeight="47.0" fitWidth="81.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <image>
             <Image url="@../assets/icons8-football-team-48.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_player1" fitHeight="50.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+      <ImageView fx:id="img_player1" fitHeight="50.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <image>
             <Image url="@../assets/icons8-team-96.png" />
          </image>
@@ -62,7 +62,7 @@
             <Image url="@../assets/icons8-game-controller-96.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnBack" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" stylesheets="@withfriend.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Button fx:id="btnBack" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" styleClass="border" stylesheets="@../assets/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <graphic>
             <ImageView fx:id="imgBack" fitHeight="36.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

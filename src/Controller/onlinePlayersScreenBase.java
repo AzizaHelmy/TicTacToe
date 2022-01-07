@@ -9,7 +9,9 @@ import java.io.OutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Vector;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +49,7 @@ import model.Player;
 import model.TopOnlinePlayers;
 import model.LogOut;
 import model.Request;
+import model.TopPlayers;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -92,8 +95,12 @@ public class onlinePlayersScreenBase extends BorderPane {
 
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-    ObservableList onlineObservableList;
-    ObservableList topObservableList;
+
+    ObservableList<String> onlineObservableList;
+    ObservableList<TopPlayers> topObservableList;
+
+    Vector<Player> players;
+    Vector<Player> topPlayers;
 
     protected LogOut logOut;
     protected Thread th;
@@ -139,9 +146,8 @@ public class onlinePlayersScreenBase extends BorderPane {
 
         imgSignOut = new ImageView();
 
-        topObservableList = FXCollections.observableArrayList();
-        onlineObservableList = FXCollections.observableArrayList();
-
+//        topObservableList = FXCollections.observableArrayList();
+//        onlineObservableList = FXCollections.observableArrayList();
         Stop[] stops = new Stop[]{
             new Stop(0, Color.GRAY),
             new Stop(1, Color.BLACK)
@@ -397,7 +403,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
-
+//=====================================================================
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -432,7 +438,7 @@ public class onlinePlayersScreenBase extends BorderPane {
 
             }
         });
-
+//=====================================================================
         th = new Thread() {
             @Override
             public void run() {
@@ -484,31 +490,42 @@ public class onlinePlayersScreenBase extends BorderPane {
                                     nav.navigateToWelcome();
                                 });
                             }
-                        } else if (readObj instanceof TopOnlinePlayers) {
-                            TopOnlinePlayers topplayer = (TopOnlinePlayers) readObj;
-                            for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
-                                listViewTopPlayers.getItems().add((topplayer.getTopPlayers().get(i).getUserName()) + (topplayer.getTopPlayers().get(i).getTotalScore()));
+                        } //=============================ObservableList============================//                       
+                        else if (readObj instanceof TopOnlinePlayers) {
+                            TopOnlinePlayers topOnlineplayer = (TopOnlinePlayers) readObj;
 
+                            players = topOnlineplayer.getOnlinePlayers();
+                            ArrayList<String> playerName = new ArrayList<>();
+                            for (Player p : players) {
+                                playerName.add(p.getUserName());
                             }
-                            for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
-                                listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
+                            onlineObservableList = FXCollections.observableArrayList(playerName);
+                            listViewOnlinePlayers.refresh();
+                            listViewOnlinePlayers.setItems(onlineObservableList);
+
+                            //==================for Top Players===============
+                            topPlayers = topOnlineplayer.getTopPlayers();
+                            ArrayList<TopPlayers> topList = new ArrayList<>();
+                            for (Player p : topPlayers) {
+                                topList.add(new TopPlayers(p.getUserName(), p.getTotalScore()));
                             }
+                            topObservableList = FXCollections.observableArrayList(topList);
+                            listViewTopPlayers.refresh();
+                            listViewTopPlayers.setItems(topObservableList);
                         }
-                    } catch (SocketException s) {
 
-                    } catch (EOFException d) {
-
-                    } catch (IOException ex) {
-                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
+                    } catch (EOFException | SocketException s) {
+                        th.stop();
+                    } catch (ClassNotFoundException | IOException ex) {
                         Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                 }
             }
         };
 
         th.start();
-
+//===================================================================
         listViewOnlinePlayers.getSelectionModel()
                 .selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -533,6 +550,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                 }
                 );
     }
+//====================================================================
 
     public static boolean askForResponse(String name) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -24,7 +24,7 @@ public class TicTacToe extends Application {
         nav.setStage(stage);
         Scene scene = new Scene(root, 600, 630);
         stage.setScene(scene);
-        stage.setMinHeight(630);
+        stage.setMinHeight(402);
         stage.setMinWidth(600);
         stage.show();
     }
