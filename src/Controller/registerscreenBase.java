@@ -46,6 +46,7 @@ public class registerscreenBase extends GridPane {
     protected final ImageView btnbackreg;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
+    protected Navigation nav;
 
     public registerscreenBase() {
 
@@ -66,7 +67,7 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
-
+        nav = new Navigation();
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -202,8 +203,7 @@ public class registerscreenBase extends GridPane {
                             System.out.println("error");
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
-                            Navigation nav = new Navigation();
-                            nav.navigateToOnlineScreen(event, p);
+                            nav.navigateToOnlineScreen(p);
                         }
 
                     } else {
@@ -225,8 +225,7 @@ public class registerscreenBase extends GridPane {
             @Override
             public void handle(ActionEvent event
             ) {
-                Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+                nav.navigateToLoginScreen();
             }
         }
         );

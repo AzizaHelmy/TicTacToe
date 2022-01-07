@@ -27,14 +27,17 @@ public class Navigation {
     protected ServerRegistrationBase serverRegistrationScreen;
     protected GamePlayScreenBase gameScreen;
     protected Parent root;
-    protected Stage stage;
+    protected static Stage stage;
     protected Scene scene;
 
-    public void navigateToWelcome(ActionEvent event) {
-              
+    public void setStage(Stage stage) {
+        Navigation.stage = stage;
+    }
+
+    public void navigateToWelcome() {
+
         welcomeScreen = new WelcomeBase();
         root = welcomeScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 700, 500);
         stage.setScene(scene);
         stage.show();
@@ -42,10 +45,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToLoginScreen(ActionEvent event) {
+    public void navigateToLoginScreen() {
         loginScreen = new loginscreenBase();
         root = loginScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -53,10 +55,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToRegisterScreen(ActionEvent event) {
+    public void navigateToRegisterScreen() {
         registerScreen = new registerscreenBase();
         root = registerScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -64,10 +65,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateTowithFriendsScreen(ActionEvent event) {
+    public void navigateTowithFriendsScreen() {
         withFriendScreen = new WithFriendBase();
         root = withFriendScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -75,12 +75,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToGameScreen(ActionEvent event, GameHelper g) {
+    public void navigateToGameScreen(GameHelper g) {
         gameScreen = new GamePlayScreenBase(g);
-       
         root = gameScreen;
-        System.out.println(gameScreen.toString());
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -88,10 +85,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToOnlineScreen(ActionEvent event, Player player) {
+    public void navigateToOnlineScreen(Player player) {
         onlineScreen = new onlinePlayersScreenBase(player);
         root = onlineScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -99,10 +95,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToLevelScreen(ActionEvent event) {
+    public void navigateToLevelScreen() {
         levelScreen = new LevelScreenBase();
         root = levelScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();
@@ -110,10 +105,9 @@ public class Navigation {
         stage.setMinWidth(600);
     }
 
-    public void navigateToRegistrationScreen(ActionEvent event) {
+    public void navigateToRegistrationScreen() {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.show();

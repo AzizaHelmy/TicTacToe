@@ -84,11 +84,12 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Glow glow;
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
+    protected Navigation nav;
+
     protected Player player;
     public static String nameOfPlayer1;
     public static String nameOfPlayer2;
 
-    private Socket socket;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
     ObservableList onlineObservableList;
@@ -96,11 +97,6 @@ public class onlinePlayersScreenBase extends BorderPane {
 
     protected LogOut logOut;
     protected Thread th;
-    private ActionEvent signOutEvent;
-    protected WelcomeBase welcomeScreen;
-    protected Parent root;
-    protected Stage stage;
-    protected Scene scene;
 
     public onlinePlayersScreenBase(Player p) {
 
@@ -138,19 +134,10 @@ public class onlinePlayersScreenBase extends BorderPane {
         imgBack = new ImageView();
         glow = new Glow();
         btnSignOut = new Button();
-        signOutEvent = new ActionEvent();
         btnBack.setVisible(false);
+        nav = new Navigation();
 
         imgSignOut = new ImageView();
-        try {
-            socket = ClientSocket.getInstance();
-        } catch (SocketException s) {
-            // alert server under mintatnce got to welcome screen
-        } catch (IOException ex) {
-            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        System.out.println(socket);
 
         topObservableList = FXCollections.observableArrayList();
         onlineObservableList = FXCollections.observableArrayList();
@@ -414,19 +401,27 @@ public class onlinePlayersScreenBase extends BorderPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
+
+        try {
+            ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
+            ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
+            System.out.println(ObjectinputStream);
+            System.out.println("2");
+            TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
+            ObjectoutputStream.writeObject(toponline);
+            ObjectoutputStream.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent btnevent) {
-                signOutEvent = btnevent;
-                System.out.println(signOutEvent);
                 logOut = new LogOut(player.getUserName());
                 try {
-                    ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
                     System.out.println("1");
                     ObjectoutputStream.writeObject(logOut);
                     ObjectoutputStream.flush();
@@ -441,100 +436,73 @@ public class onlinePlayersScreenBase extends BorderPane {
         th = new Thread() {
             @Override
             public void run() {
-
-                try {
-                    System.out.println("2");
-                    TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
-                    ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-                    ObjectoutputStream.writeObject(toponline);
-                    ObjectoutputStream.flush();
-                    while (true) {
-                        ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
+                while (true) {
+                    try {
                         System.out.println("3");
-                        try {
-                            Object obj = ObjectinputStream.readObject();
-                            System.out.println(obj);
-                            if (obj instanceof Request) {
-                                Request r = (Request) obj;
-                                System.out.println(r.getSendingUserName());
-                                if (r.isRequest()) {
-                                    Platform.runLater(() -> {
-                                        try {
-                                            r.setRequest(false);
-                                            boolean response = askForResponse(r.getSendingUserName());
-                                            r.setResponse(response);
-                                            ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-                                            ObjectoutputStream.writeObject(r);
-                                            ObjectoutputStream.flush();
-                                            if (response) {
-                                                nameOfPlayer1 = r.getSendingUserName();
-                                                nameOfPlayer2 = r.getReceiverUserName();
-                                                th.stop();
-                                                GamePlayScreenBase gameScreen = new GamePlayScreenBase(new OnlineGame(player));
-                                                root = gameScreen;
-                                                System.out.println(gameScreen.toString());
-                                                stage = (Stage) listViewOnlinePlayers.getScene().getWindow();
-                                                scene = new Scene(root, 600, 630);
-                                                stage.setScene(scene);
-                                                stage.show();
-                                                stage.setMinHeight(630);
-                                                stage.setMinWidth(600);
-                                            }
-                                        } catch (StreamCorruptedException | EOFException | SocketException s) {
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                    });
-                                } else {
-                                    System.out.println(r.isResponse());
-                                    if (r.isResponse()) {
-                                        Platform.runLater(() -> {
-                                            nameOfPlayer1 = r.getSendingUserName();
-                                            nameOfPlayer2 = r.getReceiverUserName();
-                                            th.stop();
-                                            GamePlayScreenBase gameScreen = new GamePlayScreenBase(new OnlineGame(player));
-                                            root = gameScreen;
-                                            System.out.println(gameScreen.toString());
-                                            stage = (Stage) listViewOnlinePlayers.getScene().getWindow();
-                                            scene = new Scene(root, 600, 630);
-                                            stage.setScene(scene);
-                                            stage.show();
-                                            stage.setMinHeight(630);
-                                            stage.setMinWidth(600);
-
-                                        });
+                        Object readObj = ObjectinputStream.readObject();
+                        System.out.println(readObj);
+                        if (readObj instanceof Request) {
+                            Request r = (Request) readObj;
+                            System.out.println(r.getSendingUserName());
+                            if (r.isRequest()) {
+                                Platform.runLater(() -> {
+                                    r.setRequest(false);
+                                    boolean response = askForResponse(r.getSendingUserName());
+                                    r.setResponse(response);
+                                    try {
+                                        ObjectoutputStream.writeObject(r);
+                                        ObjectoutputStream.flush();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-                                }
-
-                            } else if (obj instanceof String) {
-                                String msg = (String) obj;
-                                System.out.print(msg);
-                                if (msg.equals("LoggedOut")) {
-                                    ClientSocket.closeConnection();
-                                    Platform.runLater(() -> {
+                                    if (response) {
+                                        nameOfPlayer1 = r.getSendingUserName();
+                                        nameOfPlayer2 = r.getReceiverUserName();
                                         th.stop();
-                                        Navigation nav = new Navigation();
-                                        nav.navigateToWelcome(signOutEvent);
+                                        nav.navigateToGameScreen(new OnlineGame(player));
+                                    }
+                                });
+                            } else {
+                                System.out.println(r.isResponse());
+                                if (r.isResponse()) {
+                                    Platform.runLater(() -> {
+                                        nameOfPlayer1 = r.getSendingUserName();
+                                        nameOfPlayer2 = r.getReceiverUserName();
+                                        th.stop();
+                                        nav.navigateToGameScreen(new OnlineGame(player));
                                     });
-                                }
-                            } else if (obj instanceof TopOnlinePlayers) {
-                                TopOnlinePlayers topplayer = (TopOnlinePlayers) obj;
-                                for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
-                                    listViewTopPlayers.getItems().add(topplayer.getTopPlayers().get(i).getUserName() + "\t\t" + topplayer.getTopPlayers().get(i).getTotalScore());
-
-                                }
-                                for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
-                                    listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
                                 }
                             }
-                        } catch (EOFException | SocketException s) {
-                            th.stop();
-                        } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+
+                        } else if (readObj instanceof String) {
+                            String msg = (String) readObj;
+                            System.out.print(msg);
+                            if (msg.equals("LoggedOut")) {
+                                ClientSocket.closeConnection();
+                                Platform.runLater(() -> {
+                                    th.stop();
+                                    nav.navigateToWelcome();
+                                });
+                            }
+                        } else if (readObj instanceof TopOnlinePlayers) {
+                            TopOnlinePlayers topplayer = (TopOnlinePlayers) readObj;
+                            for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
+                                listViewTopPlayers.getItems().add((topplayer.getTopPlayers().get(i).getUserName()) + (topplayer.getTopPlayers().get(i).getTotalScore()));
+
+                            }
+                            for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
+                                listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
+                            }
                         }
+                    } catch (SocketException s) {
+
+                    } catch (EOFException d) {
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         };
@@ -549,12 +517,11 @@ public class onlinePlayersScreenBase extends BorderPane {
                             String newValue
                     ) {
                         try {
-                            ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
                             Request req = new Request();
                             req.setSendingUserName(player.getUserName());
                             req.setRequest(true);
-                            System.out.println(req.getSendingUserName());
                             req.setReceiverUserName(newValue);
+                            System.out.println(req.getReceiverUserName());
                             ObjectoutputStream.writeObject(req);
                             ObjectoutputStream.flush();
                         } catch (SocketException | EOFException s) {

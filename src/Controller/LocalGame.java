@@ -9,7 +9,5 @@ package Controller;
  *
  * @author Azza Helmy
  */
-public class LocalGame extends GameHelper{
-    
-    
+public class LocalGame extends GameHelper {
 }

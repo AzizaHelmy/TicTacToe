@@ -45,6 +45,7 @@ public class WelcomeBase extends GridPane {
     protected final Button btnBack;
     protected final ImageView imgBack;
     protected final Glow glow;
+    protected Navigation nav;
 
     public WelcomeBase() {
 
@@ -73,6 +74,7 @@ public class WelcomeBase extends GridPane {
         btnBack = new Button();
         imgBack = new ImageView();
         glow = new Glow();
+        nav = new Navigation();
 
         setId("welcomScreen");
         setMaxHeight(USE_PREF_SIZE);
@@ -173,8 +175,7 @@ public class WelcomeBase extends GridPane {
         btnWithComputer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToLevelScreen(event);
+                nav.navigateToLevelScreen();
             }
         });
 //===================================
@@ -191,8 +192,7 @@ public class WelcomeBase extends GridPane {
         btnWithFriends.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateTowithFriendsScreen(event);
+                nav.navigateTowithFriendsScreen();
             }
         });
 //===================================================
@@ -210,8 +210,7 @@ public class WelcomeBase extends GridPane {
         btnOnline.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToRegistrationScreen(event);
+                nav.navigateToRegistrationScreen();
             }
         });
 //===============================================

@@ -1,15 +1,14 @@
 package Controller;
 
+import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.SocketException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,8 +20,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import model.Move;
 
 public class GamePlayScreenBase extends BorderPane {
 
@@ -90,18 +91,17 @@ public class GamePlayScreenBase extends BorderPane {
     protected Vector<ImageView> imgs;
     protected Vector<Label> labels;
 
-    protected GameHelper game;
+    protected Navigation nav;
 
-    private Socket socket;
-    private ObjectInputStream ObjectinputStream;
-    private ObjectOutputStream ObjectoutputStream;
+    protected Move move;
+    protected ObjectInputStream objectInputStream;
+    protected ObjectOutputStream objectOutputStream;
 
     public GamePlayScreenBase(GameHelper g) {
 
         buttons = new Vector<>();
         imgs = new Vector<>();
         labels = new Vector<>();
-        game = g;
 
         infomationPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -154,6 +154,7 @@ public class GamePlayScreenBase extends BorderPane {
         imageView = new ImageView();
         btnExit = new Button();
         imageView0 = new ImageView();
+        nav = new Navigation();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -228,15 +229,22 @@ public class GamePlayScreenBase extends BorderPane {
 
                 player2Name.setText("Computer");
                 player1Name.setText("You");
-            } else {
+            } else if (g instanceof LocalGame) {
                 player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
                 player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
 
                 player1Name.setText(WithFriendBase.nameOfPlayer1);
                 player2Name.setText(WithFriendBase.nameOfPlayer2);
 
+            } else {
+                player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
+                player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
+
+                player1Name.setText(onlinePlayersScreenBase.nameOfPlayer1);
+                player2Name.setText(onlinePlayersScreenBase.nameOfPlayer2);
             }
         } catch (Exception e) {
+            System.out.println("can't load player images");
         }
         player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font("Book Antiqua", 18.0));
@@ -341,6 +349,7 @@ public class GamePlayScreenBase extends BorderPane {
         topRight.setPrefWidth(79.0);
         topRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topRight.setTextFill(javafx.scene.paint.Color.WHITE);
+        topRight.setFont(Font.font(1.0));
 
         topRightIcon.setDisable(true);
         topRightIcon.setFitHeight(60.0);
@@ -359,6 +368,7 @@ public class GamePlayScreenBase extends BorderPane {
         centerRight.setPrefWidth(79.0);
         centerRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         centerRight.setTextFill(javafx.scene.paint.Color.WHITE);
+        centerRight.setFont(Font.font(1.0));
 
         centerRightIcon.setDisable(true);
         centerRightIcon.setFitHeight(60.0);
@@ -377,6 +387,7 @@ public class GamePlayScreenBase extends BorderPane {
         bottomRight.setPrefWidth(79.0);
         bottomRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomRight.setTextFill(javafx.scene.paint.Color.WHITE);
+        bottomRight.setFont(Font.font(1.0));
 
         bottomRightIcon.setDisable(true);
         bottomRightIcon.setFitHeight(60.0);
@@ -395,6 +406,7 @@ public class GamePlayScreenBase extends BorderPane {
         topCenter.setPrefWidth(79.0);
         topCenter.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topCenter.setTextFill(javafx.scene.paint.Color.WHITE);
+        topCenter.setFont(Font.font(1.0));
 
         topCenterIcon.setDisable(true);
         topCenterIcon.setFitHeight(60.0);
@@ -412,6 +424,7 @@ public class GamePlayScreenBase extends BorderPane {
         centerCenter.setPrefHeight(71.0);
         centerCenter.setPrefWidth(79.0);
         centerCenter.setTextFill(javafx.scene.paint.Color.WHITE);
+        centerCenter.setFont(Font.font(1.0));
 
         centerCenterIcon.setDisable(true);
         centerCenterIcon.setFitHeight(60.0);
@@ -430,6 +443,7 @@ public class GamePlayScreenBase extends BorderPane {
         bottomCenter.setPrefWidth(79.0);
         bottomCenter.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomCenter.setTextFill(javafx.scene.paint.Color.WHITE);
+        bottomCenter.setFont(Font.font(1.0));
 
         bottomCenterIcon.setDisable(true);
         bottomCenterIcon.setFitHeight(60.0);
@@ -447,6 +461,7 @@ public class GamePlayScreenBase extends BorderPane {
         topLeft.setPrefWidth(79.0);
         topLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topLeft.setTextFill(javafx.scene.paint.Color.WHITE);
+        topLeft.setFont(Font.font(1.0));
 
         topLeftIcon.setDisable(true);
         topLeftIcon.setFitHeight(60.0);
@@ -464,6 +479,7 @@ public class GamePlayScreenBase extends BorderPane {
         centerLeft.setPrefWidth(79.0);
         centerLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         centerLeft.setTextFill(javafx.scene.paint.Color.WHITE);
+        centerLeft.setFont(Font.font(1.0));
 
         centerLeftIcon.setDisable(true);
         centerLeftIcon.setFitHeight(60.0);
@@ -481,6 +497,7 @@ public class GamePlayScreenBase extends BorderPane {
         bottomLeft.setPrefWidth(79.0);
         bottomLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomLeft.setTextFill(javafx.scene.paint.Color.WHITE);
+        bottomLeft.setFont(Font.font(1.0));
 
         bottomLeftIcon.setDisable(true);
         bottomLeftIcon.setFitHeight(60.0);
@@ -575,15 +592,34 @@ public class GamePlayScreenBase extends BorderPane {
         playingPane.getChildren().add(btnRestart);
         playingPane.getChildren().add(btnExit);
 
-//        player1Name.setText(friend.player1.getText());
-//        System.out.println("your Name"+friend.player1.getText());
-//        player2Name.setText(friend.player2.getText());
-//        System.out.println("friend"+friend.player2.getText());
+        if (g instanceof OnlineGame) {
+            try {
+                objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
+                move = new Move();
+                Platform.runLater(() -> {
+                    ((OnlineGame) g).GameSession();
+                });
+                if (OnlineGame.player.getUserName().equals(onlinePlayersScreenBase.nameOfPlayer1)) {
+                    xoPane.setDisable(false);
+                } else {
+                    xoPane.setDisable(true);
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(GamePlayScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                if (g instanceof LocalGame) {
+                    nav.navigateTowithFriendsScreen();
+                } else if (g instanceof OnlineGame) {
+                    nav.navigateToOnlineScreen(OnlineGame.player);
+                } else {
+                    nav.navigateToWelcome();
+                }
             }
         });
 
@@ -598,114 +634,157 @@ public class GamePlayScreenBase extends BorderPane {
         topLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(topLeftIcon, topLeft);
 
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(topLeftIcon, topLeft);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(0);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(topLeftIcon, topLeft);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //==============================================================
         topCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(topCenterIcon, topCenter);
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(topCenterIcon, topCenter);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(1);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(topCenterIcon, topCenter);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //==========================================================
         topRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(topRightIcon, topRight);
 
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(topRightIcon, topRight);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(2);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(topRightIcon, topRight);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //=============================================================
         centerLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(centerLeftIcon, centerLeft);
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(centerLeftIcon, centerLeft);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(3);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(centerLeftIcon, centerLeft);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //=========================================================
         centerCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(centerCenterIcon, centerCenter);
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(centerCenterIcon, centerCenter);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(4);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(centerCenterIcon, centerCenter);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //======================================================
         centerRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(centerRightIcon, centerRight);
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(centerRightIcon, centerRight);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(5);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(centerRightIcon, centerRight);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //============================================================
         bottomLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(bottomLeftIcon, bottomLeft);
 
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(bottomLeftIcon, bottomLeft);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
 
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(6);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(bottomLeftIcon, bottomLeft);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
         //========================================================       
         bottomCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(bottomCenterIcon, bottomCenter);
-
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(bottomCenterIcon, bottomCenter);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(7);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(bottomCenterIcon, bottomCenter);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //===========================================================
         bottomRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.setPlayingIcon(bottomRightIcon, bottomRight);
-
-                if (!g.isWinning(player1) && g instanceof ComputerEasyLevel) {
-
-                    g.setComputerChoice();
-
+                if (g instanceof ComputerEasyLevel) {
+                    g.setPlayingIcon(bottomRightIcon, bottomRight);
+                    if (!g.isWinning(player1)) {
+                        g.setComputerChoice();
+                    }
+                } else if (g instanceof OnlineGame) {
+                    g.setPosition(8);
+                } else if (g instanceof LocalGame) {
+                    g.setPlayingIcon(bottomRightIcon, bottomRight);
                 }
-                g.WinnerWinnerChickenDinner();
+                g.checkWinning();
             }
         });
 //===========================================================
@@ -741,20 +820,7 @@ public class GamePlayScreenBase extends BorderPane {
         g.setButtons(buttons);
         g.setImages(imgs);
         g.setLabels(labels);
+        g.setPane(xoPane);
         g.changeXO();
-
-        if (g instanceof OnlineGame) {
-            try {
-                socket = ClientSocket.getInstance();
-                ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
-                ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-            } catch (SocketException s) {
-                // alert server under mintatnce got to welcome screen
-            } catch (IOException ex) {
-                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-        }
-
     }
 }

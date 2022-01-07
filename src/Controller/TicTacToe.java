@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import Controller.WelcomeBase;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,11 +14,14 @@ import javafx.stage.Stage;
  *
  * @author Azza Helmy
  */
+
 public class TicTacToe extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = new WelcomeBase();
+        Navigation nav = new Navigation();
+        nav.setStage(stage);
         Scene scene = new Scene(root, 600, 630);
         stage.setScene(scene);
         stage.setMinHeight(630);

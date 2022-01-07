@@ -30,6 +30,7 @@ public class LevelScreenBase extends GridPane {
     protected final Button btnBack;
     protected final ImageView imgBack;
     protected final Glow glow;
+    protected Navigation nav;
 
     public LevelScreenBase() {
 
@@ -48,6 +49,7 @@ public class LevelScreenBase extends GridPane {
         btnBack = new Button();
         imgBack = new ImageView();
         glow = new Glow();
+        nav = new Navigation();
         
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -104,8 +106,8 @@ public class LevelScreenBase extends GridPane {
         btnDifficullt.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToGameScreen(event, new ComputerEasyLevel());
+                
+                nav.navigateToGameScreen(new ComputerEasyLevel());
             }
         });
 //====================================
@@ -121,8 +123,7 @@ public class LevelScreenBase extends GridPane {
         btnEasy.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToGameScreen(event, new ComputerEasyLevel());
+                nav.navigateToGameScreen(new ComputerEasyLevel());
             }
         });
         //==========================================
@@ -144,8 +145,7 @@ public class LevelScreenBase extends GridPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
         //==========================================

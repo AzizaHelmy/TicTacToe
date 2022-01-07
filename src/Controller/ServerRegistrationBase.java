@@ -263,7 +263,7 @@ public class ServerRegistrationBase extends FlowPane {
                     try {
                         socket = ClientSocket.getInstance();
                         System.out.println("Connected");
-                        nav.navigateToLoginScreen(event);
+                        nav.navigateToLoginScreen();
                     }catch(SocketException s){
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
@@ -284,7 +284,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
 
