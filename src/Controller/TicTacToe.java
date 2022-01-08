@@ -20,9 +20,9 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = new WelcomeBase();
-       Scene scene = new Scene(root, 800, 600);
+       Scene scene = new Scene(root, 800,570);
         stage.setScene(scene);
-        stage.setMinHeight(500);
+        stage.setMinHeight(402);
         stage.setMinWidth(600);
         stage.show();
     }

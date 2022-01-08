@@ -2,54 +2,47 @@
 /*#7C99AC غامق*/
 /*D3DEDC فاتح*/
 /*92A9BD*/
+/*beige بيج كده
+#ffffe3 اصفر*/
 .cardpane{
     -fx-background-color: #92A9BD;
     -fx-background-radius: 15px;
     -fx-text-fill:black;
 }
 .butt{
-   -fx-background-color:#F4EEA9;
-   -fx-text-color:#fffff;   
+    -fx-background-color:#F4EEA9;
+    -fx-text-color:#fffff;   
+}
+.backFriend{
+    -fx-background-color:beige;
 }
 .buttn{
-   -fx-background-color:white;
-   -fx-text-color:#fffff;   
+    -fx-background-color:white;
+    -fx-text-color:#fffff;   
 }
 .backg{
--fx-background-color:#ffffe3;
- -fx-background-radius: 15px;
+
+    -fx-background-color:#ffffe3;
+    -fx-background-radius: 25px;
 }
 .back{
--fx-background-color:#7C99AC;
+    -fx-background-color:#7C99AC;
 }
-.pane{
-      -fx-background-image: url("/assets/hard.png");
+.img{
+    -fx-background-image: url("/assets/imge9.jpg");
+    -fx-width: auto;
+    -fx-height: 100%;
 }
-.grand{
-/*     -fx-background-image: url(""); */
-    -fx-background-image: linear-gradient(red, yellow, green);   
+/*=========================================*/
+.imgFirend{
+    -fx-background-image: url("/assets/im.jpg");
 }
-.gradi{
-  
--fx-background: linear-gradient(90deg,#ff0000 0%, #00ff00 80%);
-
+.imgWelcome{
+    
 }
-#welcomePane{
-    -fx-background-image: url("/assets/hard.png") !important;  
+.txt{
+   -fx-text-fill:white;
 }
-/*.anchor{
-    -fx-background-color: azure;
+.border{
+     -fx-background-radius: 15px;
 }
-
-.button{
-    -fx-background-color: cornflowerblue;
-    -fx-text-color:white;   
-}
-
-.shadow{
-    -fx-color: yellow;
-    -fx-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-.text{
-    text-width:20;
-}*/

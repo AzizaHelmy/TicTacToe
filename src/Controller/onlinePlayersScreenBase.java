@@ -538,7 +538,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                                 listViewOnlinePlayers.refresh();
                                 listViewOnlinePlayers.setItems(onlineObservableList);
 
-                                //==================for Top Players===============
+            //==================for Top Players===============
                                 topPlayers = topOnlineplayer.getTopPlayers();
                                 ArrayList<TopPlayers> topList = new ArrayList<>();
                                 for (Player p : topPlayers) {

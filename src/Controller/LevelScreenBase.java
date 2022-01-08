@@ -54,14 +54,16 @@ public class LevelScreenBase extends GridPane {
         imageView = new ImageView();
         imageView0 = new ImageView();
 
+        setId("selectLevelScreen");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-        getStyleClass().add("cardpane");
-        getStylesheets().add("/view/../assets/style.css");
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
+
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMinWidth(10.0);
         columnConstraints.setPrefWidth(100.0);
@@ -112,7 +114,7 @@ public class LevelScreenBase extends GridPane {
         btnDifficullt.setPrefWidth(180.0);
         btnDifficullt.setText("Difficult");
         btnDifficullt.setTextFill(javafx.scene.paint.Color.valueOf("#0d0000"));
-        btnDifficullt.setFont(new Font("Colonna MT", 27.0));
+
         btnDifficullt.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -133,7 +135,6 @@ public class LevelScreenBase extends GridPane {
         btnEasy.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btnEasy.setTextFill(javafx.scene.paint.Color.valueOf("#430505"));
         btnEasy.setTextOverrun(javafx.scene.control.OverrunStyle.CLIP);
-        btnEasy.setFont(new Font("Colonna MT", 27.0));
 
         btnEasy.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
@@ -151,8 +152,6 @@ public class LevelScreenBase extends GridPane {
         textSelsctLevel.setPrefHeight(32.0);
         textSelsctLevel.setPrefWidth(209.0);
         textSelsctLevel.setText("SELECT LEVEL");
-        textSelsctLevel.setTextFill(javafx.scene.paint.Color.valueOf("#300606"));
-        textSelsctLevel.setFont(new Font("Kristen ITC", 20.0));
 
         GridPane.setHalignment(btnBack, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(btnBack, 5);
@@ -161,8 +160,6 @@ public class LevelScreenBase extends GridPane {
         btnBack.setMnemonicParsing(false);
         btnBack.setPrefHeight(45.0);
         btnBack.setPrefWidth(63.0);
-        btnBack.getStyleClass().add("cardpane");
-
         imgBack.setFitHeight(37.0);
         imgBack.setFitWidth(71.0);
         imgBack.setPickOnBounds(true);
@@ -219,6 +216,21 @@ public class LevelScreenBase extends GridPane {
         getChildren().add(btnBack);
         getChildren().add(imageView);
         getChildren().add(imageView0);
+        //==========================================================       
+        btnBack.getStyleClass().add("backg");
+        btnBack.getStylesheets().add("/assets/style.css");
+        
+        btnDifficullt.setFont(new Font("Colonna MT", 27.0));
+        btnDifficullt.getStyleClass().add("border");
+         btnDifficullt.getStylesheets().add("/assets/style.css");
+         
+        btnEasy.getStyleClass().add("border");
+        btnEasy.getStylesheets().add("/assets/style.css");
+         
+        textSelsctLevel.setFont(new Font("Kristen ITC", 20.0));
+        //textSelsctLevel.setTextFill(javafx.scene.paint.Color.valueOf("#300606"));
+        textSelsctLevel.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
+        btnEasy.setFont(new Font("Colonna MT", 27.0));
 
     }
 }
