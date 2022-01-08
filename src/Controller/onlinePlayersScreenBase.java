@@ -152,6 +152,8 @@ public class onlinePlayersScreenBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+         getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(mainGridPane, javafx.geometry.Pos.CENTER);
         mainGridPane.setAlignment(javafx.geometry.Pos.CENTER);

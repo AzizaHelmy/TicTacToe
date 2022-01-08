@@ -5,7 +5,7 @@
 /*beige بيج كده
 #ffffe3 اصفر*/
 .cardpane{
-    -fx-background-color: #92A9BD;
+    -fx-background-color: #ffff;
     -fx-background-radius: 15px;
     -fx-text-fill:black;
 }
@@ -49,4 +49,8 @@
 
 .but{
     -fx-background-color: #142F43;
+}
+.login{
+     -fx-background-color: #142F43;
+       -fx-background-radius: 15px;
 }

@@ -210,7 +210,7 @@ public class ServerRegistrationBase extends FlowPane {
         imgInvalid.setPickOnBounds(true);
         imgInvalid.setPreserveRatio(true);
         imgInvalid.setVisible(false);
-        imgInvalid.setImage(new Image(getClass().getResource("/assets/frogFace.png").toExternalForm()));
+        imgInvalid.setImage(new Image(getClass().getResource("/assets/forgFace.png").toExternalForm()));
 
         GridPane.setColumnIndex(btnConnect, 3);
         GridPane.setRowIndex(btnConnect, 1);
