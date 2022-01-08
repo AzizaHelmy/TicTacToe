@@ -743,18 +743,7 @@ public class GamePlayScreenBase extends BorderPane {
         g.setLabels(labels);
         g.changeXO();
 
-        if (g instanceof OnlineGame) {
-            try {
-                socket = ClientSocket.getInstance();
-                ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
-                ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-            } catch (SocketException s) {
-                // alert server under mintatnce got to welcome screen
-            } catch (IOException ex) {
-                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-        }
+       
 
     }
 }

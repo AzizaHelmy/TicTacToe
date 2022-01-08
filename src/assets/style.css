@@ -1,0 +1,55 @@
+
+/*#7C99AC غامق*/
+/*D3DEDC فاتح*/
+/*92A9BD*/
+.cardpane{
+    -fx-background-color: #92A9BD;
+    -fx-background-radius: 15px;
+    -fx-text-fill:black;
+}
+.butt{
+   -fx-background-color:#F4EEA9;
+   -fx-text-color:#fffff;   
+}
+.buttn{
+   -fx-background-color:white;
+   -fx-text-color:#fffff;   
+}
+.backg{
+-fx-background-color:#ffffe3;
+ -fx-background-radius: 15px;
+}
+.back{
+-fx-background-color:#7C99AC;
+}
+.pane{
+      -fx-background-image: url("/assets/hard.png");
+}
+.grand{
+/*     -fx-background-image: url(""); */
+    -fx-background-image: linear-gradient(red, yellow, green);   
+}
+.gradi{
+  
+-fx-background: linear-gradient(90deg,#ff0000 0%, #00ff00 80%);
+
+}
+#welcomePane{
+    -fx-background-image: url("/assets/hard.png") !important;  
+}
+/*.anchor{
+    -fx-background-color: azure;
+}
+
+.button{
+    -fx-background-color: cornflowerblue;
+    -fx-text-color:white;   
+}
+
+.shadow{
+    -fx-color: yellow;
+    -fx-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.text{
+    text-width:20;
+}*/

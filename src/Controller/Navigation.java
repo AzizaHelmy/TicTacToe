@@ -31,94 +31,94 @@ public class Navigation {
     protected Scene scene;
 
     public void navigateToWelcome(ActionEvent event) {
-              
+
         welcomeScreen = new WelcomeBase();
         root = welcomeScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToLoginScreen(ActionEvent event) {
         loginScreen = new loginscreenBase();
         root = loginScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToRegisterScreen(ActionEvent event) {
         registerScreen = new registerscreenBase();
         root = registerScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateTowithFriendsScreen(ActionEvent event) {
         withFriendScreen = new WithFriendBase();
         root = withFriendScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToGameScreen(ActionEvent event, GameHelper g) {
         gameScreen = new GamePlayScreenBase(g);
-       
+
         root = gameScreen;
         System.out.println(gameScreen.toString());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToOnlineScreen(ActionEvent event, Player player) {
         onlineScreen = new onlinePlayersScreenBase(player);
         root = onlineScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToLevelScreen(ActionEvent event) {
         levelScreen = new LevelScreenBase();
         root = levelScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public void navigateToRegistrationScreen(ActionEvent event) {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
 }

@@ -9,7 +9,9 @@ import java.io.OutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Vector;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +49,7 @@ import model.Player;
 import model.TopOnlinePlayers;
 import model.LogOut;
 import model.Request;
+import model.TopPlayers;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -89,10 +92,15 @@ public class onlinePlayersScreenBase extends BorderPane {
     public static String nameOfPlayer2;
 
     private Socket socket;
+
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-    ObservableList onlineObservableList;
-    ObservableList topObservableList;
+
+    ObservableList<String> onlineObservableList;
+    ObservableList<TopPlayers> topObservableList;
+
+    Vector<Player> players;
+    Vector<Player> topPlayers;
 
     protected LogOut logOut;
     protected Thread th;
@@ -142,6 +150,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         btnBack.setVisible(false);
 
         imgSignOut = new ImageView();
+
         try {
             socket = ClientSocket.getInstance();
         } catch (SocketException s) {
@@ -152,9 +161,8 @@ public class onlinePlayersScreenBase extends BorderPane {
         }
         System.out.println(socket);
 
-        topObservableList = FXCollections.observableArrayList();
-        onlineObservableList = FXCollections.observableArrayList();
-
+//        topObservableList = FXCollections.observableArrayList();
+//        onlineObservableList = FXCollections.observableArrayList();
         Stop[] stops = new Stop[]{
             new Stop(0, Color.GRAY),
             new Stop(1, Color.BLACK)
@@ -410,7 +418,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
-
+//=====================================================================
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -418,7 +426,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                 nav.navigateToWelcome(event);
             }
         });
-
+//==============================================================
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent btnevent) {
@@ -437,7 +445,7 @@ public class onlinePlayersScreenBase extends BorderPane {
 
             }
         });
-
+//=====================================================================
         th = new Thread() {
             @Override
             public void run() {
@@ -517,16 +525,30 @@ public class onlinePlayersScreenBase extends BorderPane {
                                         nav.navigateToWelcome(signOutEvent);
                                     });
                                 }
+//=============================ObservableList============================//                       
                             } else if (obj instanceof TopOnlinePlayers) {
-                                TopOnlinePlayers topplayer = (TopOnlinePlayers) obj;
-                                for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
-                                    listViewTopPlayers.getItems().add(topplayer.getTopPlayers().get(i).getUserName() + "\t\t" + topplayer.getTopPlayers().get(i).getTotalScore());
+                                TopOnlinePlayers topOnlineplayer = (TopOnlinePlayers) obj;
 
+                                players = topOnlineplayer.getOnlinePlayers();
+                                ArrayList<String> playerName = new ArrayList<>();
+                                for (Player p : players) {
+                                    playerName.add(p.getUserName());
                                 }
-                                for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
-                                    listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
+                                onlineObservableList = FXCollections.observableArrayList(playerName);
+                                listViewOnlinePlayers.refresh();
+                                listViewOnlinePlayers.setItems(onlineObservableList);
+
+                                //==================for Top Players===============
+                                topPlayers = topOnlineplayer.getTopPlayers();
+                                ArrayList<TopPlayers> topList = new ArrayList<>();
+                                for (Player p : topPlayers) {
+                                    topList.add(new TopPlayers(p.getUserName(), p.getTotalScore()));
                                 }
+                                topObservableList = FXCollections.observableArrayList(topList);
+                                listViewTopPlayers.refresh();
+                                listViewTopPlayers.setItems(topObservableList);
                             }
+
                         } catch (EOFException | SocketException s) {
                             th.stop();
                         } catch (ClassNotFoundException ex) {
@@ -540,7 +562,7 @@ public class onlinePlayersScreenBase extends BorderPane {
         };
 
         th.start();
-
+//===================================================================
         listViewOnlinePlayers.getSelectionModel()
                 .selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -566,6 +588,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                 }
                 );
     }
+//====================================================================
 
     public static boolean askForResponse(String name) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
