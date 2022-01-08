@@ -235,7 +235,7 @@ public class WelcomeBase extends GridPane {
         img_friends.setPickOnBounds(true);
         img_friends.setPreserveRatio(true);
         try {
-            img_friends.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
+            img_friends.setImage(new Image(getClass().getResource("/assets/friends2.png").toExternalForm()));
         } catch (Exception e) {
         }
 //==================================================
