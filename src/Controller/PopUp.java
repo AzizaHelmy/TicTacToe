@@ -1,5 +1,6 @@
 package Controller;
 
+import static Controller.onlinePlayersScreenBase.player;
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +15,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -27,11 +24,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.LogOut;
 import model.Player;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class PopUp {
 
@@ -39,6 +40,7 @@ public class PopUp {
     protected LogOut logOut;
     protected ObjectInputStream objectInputStream;
     protected ObjectOutputStream objectOutputStream;
+    protected Stage stage;
 
     /////////   Server is under maintenance 
     public void showErrorInServer() {
@@ -65,7 +67,7 @@ public class PopUp {
         );
     }
 
-    ///      waitForConnecting         waitForRsponse
+    //    waitForConnecting         
     public void waitForConnecting() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Connect to server");
@@ -74,7 +76,7 @@ public class PopUp {
 
         Thread thread = new Thread(() -> {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(19000);
                 if (alert.isShowing()) {
                     Platform.runLater(() -> alert.close());
                 }
@@ -134,7 +136,6 @@ public class PopUp {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == yes) {
             try {
-                objectInputStream = ClientSocket.getObjectInputStreamInstance();
                 objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
                 logOut = new LogOut(p.getUserName());
                 objectOutputStream.writeObject(logOut);
@@ -188,6 +189,7 @@ public class PopUp {
     }
 
     public void closeTheGame() {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -197,8 +199,50 @@ public class PopUp {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == yes) {
             System.exit(0);
-
         }
+    }
+
+    public void close(Stage s) {
+        stage = s;
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.setTitle("Exit");
+                alert.setHeaderText("Are you Sure that you need to exit?");
+                alert.getButtonTypes().setAll(yes, no);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == yes) {
+                    try {
+                        System.out.println("testing");
+                        if (player != null && ClientSocket.getInstance().isConnected()) {
+                            System.out.println("x:logout");
+                            try {
+                                objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
+                                logOut = new LogOut(player.getUserName());
+                                System.out.println(player.getUserName());
+                                objectOutputStream.writeObject(logOut);
+                                objectOutputStream.flush();
+                                ClientSocket.closeConnection();
+                                System.exit(0);
+                            } catch (StreamCorruptedException | EOFException | SocketException s) {
+                            } catch (IOException ex) {
+                                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            System.exit(0);
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+                if (result.get() == no) {
+                    we.consume();
+                }
+            }
+        });
     }
 
     public boolean askForResponse(String name) {
@@ -210,28 +254,6 @@ public class PopUp {
         alert.getButtonTypes().setAll(yes, no);
         Optional<ButtonType> result = alert.showAndWait();
         return result.get() == yes;
-    }
-
-    /*
-     
-      stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                closeOnLineScreen();
-            }
-        });
-
-     */
-    public void closeOnLineScreen() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.setTitle("Eixt game");
-        alert.setHeaderText("Do you want to exit the game");
-        alert.getButtonTypes().setAll(yes, no);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == yes) {
-            System.out.println("asd");
-        }
     }
 
     public boolean recordGame() {

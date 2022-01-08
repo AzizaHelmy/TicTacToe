@@ -204,12 +204,15 @@ public class loginscreenBase extends AnchorPane {
         }
         );
 //=======================================================       
-        button.addEventHandler(ActionEvent.ACTION,
-                new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event
-            ) {
-                nav.navigateToWelcome();
+            public void handle(ActionEvent event) {
+                try {
+                    ClientSocket.closeSocket();
+                    nav.navigateToWelcome();
+                } catch (IOException ex) {
+                    Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         );

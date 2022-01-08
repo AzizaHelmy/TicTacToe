@@ -59,5 +59,11 @@ public class ClientSocket {
         inputStream.close();
         socket.close();
     }
+    
+    public static void closeSocket() throws IOException {
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+    }
 
 }

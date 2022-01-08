@@ -79,7 +79,7 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected Navigation nav;
     protected PopUp pop;
 
-    protected Player player;
+    public static Player player;
     public static String nameOfPlayer1;
     public static String nameOfPlayer2;
 
@@ -418,17 +418,6 @@ public class onlinePlayersScreenBase extends BorderPane {
             @Override
             public void handle(ActionEvent btnevent) {
                 pop.signOut(player);
-//                logOut = new LogOut(player.getUserName());
-//                try {
-//                    System.out.println("1");
-//                    ObjectoutputStream.writeObject(logOut);
-//                    ObjectoutputStream.flush();
-//                } catch (StreamCorruptedException | EOFException | SocketException s) {
-//                    pop.showErrorInServer();
-//                } catch (IOException ex) {
-//                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-
             }
         });
 //=====================================================================
@@ -478,6 +467,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                             System.out.print(msg);
                             if (msg.equals("LoggedOut")) {
                                 ClientSocket.closeConnection();
+                                player = null;
                                 Platform.runLater(() -> {
                                     th.stop();
                                     nav.navigateToWelcome();
@@ -547,17 +537,4 @@ public class onlinePlayersScreenBase extends BorderPane {
                 }
                 );
     }
-//====================================================================
-
-//    public static boolean askForResponse(String name) {
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        ButtonType yes = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
-//        ButtonType no = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-//        alert.setTitle("Conformation Request");
-//        alert.setHeaderText(name + " sending you a game request,");
-//        alert.getButtonTypes().setAll(yes, no);
-//        Optional<ButtonType> result = alert.showAndWait();
-//        return result.get() == yes;
-//    }
-//======================================================================
 }
