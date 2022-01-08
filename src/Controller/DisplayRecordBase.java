@@ -1,12 +1,6 @@
 package Controller;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,13 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import model.Move;
 import model.buttonDetails;
 
-public class GamePlayScreenBase extends BorderPane {
+public class DisplayRecordBase extends BorderPane {
 
     protected final GridPane infomationPane;
     protected final ColumnConstraints columnConstraints;
@@ -36,7 +28,6 @@ public class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints;
     protected final RowConstraints rowConstraints0;
     protected final RowConstraints rowConstraints1;
-
     protected final Label player1Name;
     protected final ImageView player1Image;
     protected final Label player2Name;
@@ -56,7 +47,6 @@ public class GamePlayScreenBase extends BorderPane {
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
-
     protected final AnchorPane xoPane;
     protected final Button topRight;
     protected final ImageView topRightIcon;
@@ -76,38 +66,16 @@ public class GamePlayScreenBase extends BorderPane {
     protected final ImageView centerLeftIcon;
     protected final Button bottomLeft;
     protected final ImageView bottomLeftIcon;
-    protected final Button btnRestart;
+    protected final Button btnNext;
     protected final ImageView imageView;
-    protected final Button btnExit;
+    protected final Button btnBack;
     protected final ImageView imageView0;
-    protected final Button btnRecord;
-    protected final ImageView imgRecord;
+    protected final Image xImage;
+    protected final Image oImage;
+    protected int i = 0;
 
-    protected Image first;
-    protected Image second;
+    public DisplayRecordBase() {
 
-    protected String player1;
-    protected String player2;
-
-    protected Vector<Button> buttons;
-    protected Vector<ImageView> imgs;
-    protected Vector<Label> labels;
-    public static ArrayList<Object> detail;
-
-    protected Navigation nav;
-
-    protected PopUp pop;
-
-    protected Move move;
-    protected ObjectInputStream objectInputStream;
-    protected ObjectOutputStream objectOutputStream;
-
-    public GamePlayScreenBase(GameHelper g) {
-
-        buttons = new Vector<>();
-        imgs = new Vector<>();
-        labels = new Vector<>();
-        detail = null; 
         infomationPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
@@ -155,16 +123,10 @@ public class GamePlayScreenBase extends BorderPane {
         centerLeftIcon = new ImageView();
         bottomLeft = new Button();
         bottomLeftIcon = new ImageView();
-        btnRestart = new Button();
+        btnNext = new Button();
         imageView = new ImageView();
-        btnExit = new Button();
+        btnBack = new Button();
         imageView0 = new ImageView();
-        pop = new PopUp();
-        btnRecord = new Button();
-        imgRecord = new ImageView();
-        detail = new ArrayList<Object>();
-
-        nav = new Navigation();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -174,6 +136,10 @@ public class GamePlayScreenBase extends BorderPane {
         setPrefWidth(600.0);
         getStyleClass().add("img");
         getStylesheets().add("/assets/style.css");
+
+        xImage = new Image(getClass().getResource("/assets/gamePlay2.png").toExternalForm());
+
+        oImage = new Image(getClass().getResource("/assets/gamePlay1.png").toExternalForm());
 
         BorderPane.setAlignment(infomationPane, javafx.geometry.Pos.CENTER);
 
@@ -212,62 +178,44 @@ public class GamePlayScreenBase extends BorderPane {
         GridPane.setHalignment(player1Name, javafx.geometry.HPos.RIGHT);
         GridPane.setRowIndex(player1Name, 1);
         GridPane.setValignment(player1Name, javafx.geometry.VPos.CENTER);
+        player1Name.setText("Player1");
 
         player1Image.setFitHeight(42.0);
         player1Image.setFitWidth(43.0);
         player1Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player1Image.setPickOnBounds(true);
         player1Image.setPreserveRatio(true);
+//        player1Image.setImage(new Image(getClass().getResource("assets/player1.png").toExternalForm()));
         player1Name.setGraphic(player1Image);
         player1Name.setFont(new Font("Book Antiqua", 21.0));
         player1Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
+
         GridPane.setColumnIndex(player2Name, 4);
         GridPane.setHalignment(player2Name, javafx.geometry.HPos.LEFT);
         GridPane.setRowIndex(player2Name, 1);
-
         GridPane.setValignment(player2Name, javafx.geometry.VPos.CENTER);
         player2Name.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
+        player2Name.setText("Player2");
 
         player2Image.setFitHeight(42.0);
         player2Image.setFitWidth(43.0);
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
-
-        try {
-            if (g instanceof ComputerEasyLevel) {
-                player1Image.setImage(new Image(getClass().getResource("/assets/you.png").toExternalForm()));
-                player2Image.setImage(new Image(getClass().getResource("/assets/compute.png").toExternalForm()));
-
-                player2Name.setText("Computer");
-                player1Name.setText("You");
-            } else if (g instanceof LocalGame) {
-                player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
-                player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
-
-                player1Name.setText(WithFriendBase.nameOfPlayer1);
-                player2Name.setText(WithFriendBase.nameOfPlayer2);
-
-            } else {
-                player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
-                player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
-
-                player1Name.setText(onlinePlayersScreenBase.nameOfPlayer1);
-                player2Name.setText(onlinePlayersScreenBase.nameOfPlayer2);
-            }
-        } catch (Exception e) {
-            System.out.println("can't load player images");
-        }
+        // player2Image.setImage(new Image(getClass().getResource("assets/player2.png").toExternalForm()));
         player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font("Book Antiqua", 21.0));
         player2Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
+
+        player1Image.setImage(new Image(getClass().getResource("/assets/player1.png").toExternalForm()));
+        player2Image.setImage(new Image(getClass().getResource("/assets/player2.png").toExternalForm()));
+
         GridPane.setColumnIndex(scoreLabel, 2);
         GridPane.setHalignment(scoreLabel, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(scoreLabel, 1);
         GridPane.setValignment(scoreLabel, javafx.geometry.VPos.CENTER);
         scoreLabel.setText("Score");
-        scoreLabel.setFont(new Font("Book Antiqua", 27.0));
-        scoreLabel.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
+        scoreLabel.setFont(new Font("System Bold", 16.0));
 
         GridPane.setColumnIndex(colonLabel, 2);
         GridPane.setHalignment(colonLabel, javafx.geometry.HPos.CENTER);
@@ -281,8 +229,6 @@ public class GamePlayScreenBase extends BorderPane {
         GridPane.setRowIndex(player1Score, 2);
         GridPane.setValignment(player1Score, javafx.geometry.VPos.CENTER);
         player1Score.setText("0");
-        // player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#1800f5"));
-
         player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#FFCC1D"));
         player1Score.setFont(new Font(19.0));
 
@@ -300,7 +246,6 @@ public class GamePlayScreenBase extends BorderPane {
         player1PlayingLogo.setPickOnBounds(true);
         player1PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player1PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
-        //player1PlayingLogo.setImage(first);
 
         GridPane.setColumnIndex(player2PlayingLogo, 4);
         GridPane.setHalignment(player2PlayingLogo, javafx.geometry.HPos.LEFT);
@@ -311,7 +256,6 @@ public class GamePlayScreenBase extends BorderPane {
         player2PlayingLogo.setPickOnBounds(true);
         player2PlayingLogo.setPreserveRatio(true);
         GridPane.setMargin(player2PlayingLogo, new Insets(10.0, 0.0, 0.0, 0.0));
-        //player2PlayingLogo.setImage(second);
         setTop(infomationPane);
 
         BorderPane.setAlignment(playingPane, javafx.geometry.Pos.CENTER);
@@ -364,7 +308,6 @@ public class GamePlayScreenBase extends BorderPane {
         topRight.setPrefWidth(79.0);
         topRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topRight.setTextFill(javafx.scene.paint.Color.WHITE);
-        topRight.setFont(Font.font(1.0));
 
         topRightIcon.setDisable(true);
         topRightIcon.setFitHeight(60.0);
@@ -383,7 +326,6 @@ public class GamePlayScreenBase extends BorderPane {
         centerRight.setPrefWidth(79.0);
         centerRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         centerRight.setTextFill(javafx.scene.paint.Color.WHITE);
-        centerRight.setFont(Font.font(1.0));
 
         centerRightIcon.setDisable(true);
         centerRightIcon.setFitHeight(60.0);
@@ -402,7 +344,6 @@ public class GamePlayScreenBase extends BorderPane {
         bottomRight.setPrefWidth(79.0);
         bottomRight.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomRight.setTextFill(javafx.scene.paint.Color.WHITE);
-        bottomRight.setFont(Font.font(1.0));
 
         bottomRightIcon.setDisable(true);
         bottomRightIcon.setFitHeight(60.0);
@@ -421,7 +362,6 @@ public class GamePlayScreenBase extends BorderPane {
         topCenter.setPrefWidth(79.0);
         topCenter.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topCenter.setTextFill(javafx.scene.paint.Color.WHITE);
-        topCenter.setFont(Font.font(1.0));
 
         topCenterIcon.setDisable(true);
         topCenterIcon.setFitHeight(60.0);
@@ -439,7 +379,6 @@ public class GamePlayScreenBase extends BorderPane {
         centerCenter.setPrefHeight(71.0);
         centerCenter.setPrefWidth(79.0);
         centerCenter.setTextFill(javafx.scene.paint.Color.WHITE);
-        centerCenter.setFont(Font.font(1.0));
 
         centerCenterIcon.setDisable(true);
         centerCenterIcon.setFitHeight(60.0);
@@ -458,7 +397,6 @@ public class GamePlayScreenBase extends BorderPane {
         bottomCenter.setPrefWidth(79.0);
         bottomCenter.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomCenter.setTextFill(javafx.scene.paint.Color.WHITE);
-        bottomCenter.setFont(Font.font(1.0));
 
         bottomCenterIcon.setDisable(true);
         bottomCenterIcon.setFitHeight(60.0);
@@ -476,7 +414,6 @@ public class GamePlayScreenBase extends BorderPane {
         topLeft.setPrefWidth(79.0);
         topLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         topLeft.setTextFill(javafx.scene.paint.Color.WHITE);
-        topLeft.setFont(Font.font(1.0));
 
         topLeftIcon.setDisable(true);
         topLeftIcon.setFitHeight(60.0);
@@ -494,7 +431,6 @@ public class GamePlayScreenBase extends BorderPane {
         centerLeft.setPrefWidth(79.0);
         centerLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         centerLeft.setTextFill(javafx.scene.paint.Color.WHITE);
-        centerLeft.setFont(Font.font(1.0));
 
         centerLeftIcon.setDisable(true);
         centerLeftIcon.setFitHeight(60.0);
@@ -512,7 +448,6 @@ public class GamePlayScreenBase extends BorderPane {
         bottomLeft.setPrefWidth(79.0);
         bottomLeft.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         bottomLeft.setTextFill(javafx.scene.paint.Color.WHITE);
-        bottomLeft.setFont(Font.font(1.0));
 
         bottomLeftIcon.setDisable(true);
         bottomLeftIcon.setFitHeight(60.0);
@@ -523,74 +458,45 @@ public class GamePlayScreenBase extends BorderPane {
         bottomLeft.setGraphic(bottomLeftIcon);
         GridPane.setMargin(xoPane, new Insets(0.0, 0.0, 30.0, 0.0));
 
-        GridPane.setColumnIndex(btnRestart, 4);
-        GridPane.setHalignment(btnRestart, javafx.geometry.HPos.RIGHT);
-        GridPane.setRowIndex(btnRestart, 2);
-        GridPane.setValignment(btnRestart, javafx.geometry.VPos.BOTTOM);
-        btnRestart.setAlignment(javafx.geometry.Pos.CENTER);
-        btnRestart.setMnemonicParsing(false);
-        btnRestart.setPrefHeight(40.0);
-        btnRestart.setPrefWidth(50.0);
-        btnRestart.setText("Restart");
-        btnRestart.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btnRestart.setVisible(false);
-        GridPane.setMargin(btnRestart, new Insets(0.0, 20.0, 10.0, 0.0));
+        GridPane.setColumnIndex(btnNext, 4);
+        GridPane.setHalignment(btnNext, javafx.geometry.HPos.RIGHT);
+        GridPane.setRowIndex(btnNext, 2);
+        GridPane.setValignment(btnNext, javafx.geometry.VPos.BOTTOM);
+        btnNext.setAlignment(javafx.geometry.Pos.CENTER);
+        btnNext.setMnemonicParsing(false);
+        btnNext.setPrefHeight(40.0);
+        btnNext.setPrefWidth(50.0);
+        btnNext.setText("Restart");
+        btnNext.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        btnNext.setVisible(true);
+        GridPane.setMargin(btnNext, new Insets(0.0, 20.0, 10.0, 0.0));
 
         imageView.setFitHeight(37.0);
         imageView.setFitWidth(32.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        try {
-            imageView.setImage(new Image(getClass().getResource("/assets/reload.png").toExternalForm()));
-        } catch (Exception e) {
-        }
-        btnRestart.setGraphic(imageView);
-        btnRestart.setFont(new Font(0.1));
+        imageView.setImage(new Image(getClass().getResource("/assets/next.png").toExternalForm()));
+        btnNext.setGraphic(imageView);
+        btnNext.setFont(new Font(0.1));
 
-        GridPane.setRowIndex(btnExit, 2);
-        GridPane.setValignment(btnExit, javafx.geometry.VPos.BOTTOM);
-        btnExit.setAlignment(javafx.geometry.Pos.CENTER);
-        btnExit.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
-        btnExit.setMnemonicParsing(false);
-        btnExit.setPrefHeight(40.0);
-        btnExit.setPrefWidth(50.0);
-        btnExit.setText("Exit");
-        btnExit.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        GridPane.setMargin(btnExit, new Insets(0.0, 0.0, 10.0, 20.0));
-        btnExit.setFont(new Font(0.1));
+        GridPane.setRowIndex(btnBack, 2);
+        GridPane.setValignment(btnBack, javafx.geometry.VPos.BOTTOM);
+        btnBack.setAlignment(javafx.geometry.Pos.CENTER);
+        btnBack.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
+        btnBack.setMnemonicParsing(false);
+        btnBack.setPrefHeight(40.0);
+        btnBack.setPrefWidth(50.0);
+        btnBack.setText("Exit");
+        btnBack.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        GridPane.setMargin(btnBack, new Insets(0.0, 0.0, 10.0, 20.0));
+        btnBack.setFont(new Font(0.1));
 
         imageView0.setFitHeight(37.0);
         imageView0.setFitWidth(32.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        try {
-            imageView0.setImage(new Image(getClass().getResource("/assets/game.png").toExternalForm()));
-        } catch (Exception e) {
-        }
-        btnExit.setGraphic(imageView0);
-
-        GridPane.setColumnIndex(btnRecord, 2);
-        GridPane.setHalignment(btnRecord, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(btnRecord, 2);
-        GridPane.setValignment(btnRecord, javafx.geometry.VPos.BOTTOM);
-        btnRecord.setAlignment(javafx.geometry.Pos.CENTER);
-        btnRecord.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
-        btnRecord.setMnemonicParsing(false);
-        btnRecord.setPrefHeight(40.0);
-        btnRecord.setPrefWidth(50.0);
-        btnRecord.setText("Record");
-        btnRecord.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btnRecord.setFont(new Font(0.1));
-
-        imgRecord.setFitHeight(37.0);
-        imgRecord.setFitWidth(32.0);
-        imgRecord.setPickOnBounds(true);
-        imgRecord.setPreserveRatio(true);
-        imgRecord.setImage(new Image(getClass().getResource("/assets/record5.png").toExternalForm()));
-        btnRecord.setGraphic(imgRecord);
-        GridPane.setMargin(btnRecord, new Insets(0.0, 0.0, 10.0, 0.0));
-        setCenter(playingPane);
-
+        imageView0.setImage(new Image(getClass().getResource("/assets/game.png").toExternalForm()));
+        btnBack.setGraphic(imageView0);
         setCenter(playingPane);
 
         infomationPane.getColumnConstraints().add(columnConstraints);
@@ -627,309 +533,165 @@ public class GamePlayScreenBase extends BorderPane {
         xoPane.getChildren().add(centerLeft);
         xoPane.getChildren().add(bottomLeft);
         playingPane.getChildren().add(xoPane);
-        playingPane.getChildren().add(btnRestart);
-        playingPane.getChildren().add(btnExit);
-        playingPane.getChildren().add(btnRecord);
+        playingPane.getChildren().add(btnNext);
+        playingPane.getChildren().add(btnBack);
+        btnNext.getStyleClass().add("but");
+        btnNext.getStylesheets().add("/assets/style.css");
 
-        if (g instanceof OnlineGame) {
-            try {
-                objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
-                move = new Move();
-                Platform.runLater(() -> {
-                    ((OnlineGame) g).GameSession();
-                });
-                if (OnlineGame.player.getUserName().equals(onlinePlayersScreenBase.nameOfPlayer1)) {
-                    xoPane.setDisable(false);
-                } else {
-                    xoPane.setDisable(true);
-                }
+        btnBack.getStyleClass().add("but");
+        btnBack.getStylesheets().add("/assets/style.css");
+        setDisable();
 
-            } catch (IOException ex) {
-                Logger.getLogger(GamePlayScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (g instanceof ComputerEasyLevel) {
-            btnRecord.setVisible(false);
-        }
-
-        btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
-                if (g instanceof LocalGame) {
-                    pop.exitTheGame();
-                } else if (g instanceof OnlineGame) {
-                    nav.navigateToOnlineScreen(OnlineGame.player);
-                } else {
-                    pop.exitTheGame();
-                }
+                Navigation nav = new Navigation();
+                nav.navigateToWelcome();
             }
         });
 
-        btnRestart.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnNext.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                g.resetting();
-                btnRestart.setVisible(false);
+                displayRecorded();
             }
         });
-//==============================================================
-        topLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
 
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(topLeftIcon, topLeft);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(0);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(topLeftIcon, topLeft);
-                    detail.add(new buttonDetails(topLeft.getId(), topLeft.getText()));
-
-                }
-                g.checkWinning();
-
-            }
-        });
-//==============================================================
-        topCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(topCenterIcon, topCenter);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(1);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(topCenterIcon, topCenter);
-                    detail.add(new buttonDetails(topCenter.getId(), topCenter.getText()));
-
-                }
-                g.checkWinning();
-
-            }
-        });
-//==========================================================
-        topRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(topRightIcon, topRight);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(2);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(topRightIcon, topRight);
-                    detail.add(new buttonDetails(topRight.getId(), topRight.getText()));
-
-                }
-                g.checkWinning();
-
-            }
-        });
-//=============================================================
-        centerLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(centerLeftIcon, centerLeft);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(3);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(centerLeftIcon, centerLeft);
-                    detail.add(new buttonDetails(centerLeft.getId(), centerLeft.getText()));
-                }
-                g.checkWinning();
-
-            }
-        });
-//=========================================================
-        centerCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(centerCenterIcon, centerCenter);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(4);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(centerCenterIcon, centerCenter);
-                    detail.add(new buttonDetails(centerCenter.getId(), centerCenter.getText()));
-                }
-                g.checkWinning();
-
-            }
-        });
-//======================================================
-        centerRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(centerRightIcon, centerRight);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(5);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(centerRightIcon, centerRight);
-                    detail.add(new buttonDetails(centerRight.getId(), centerRight.getText()));
-
-                }
-                g.checkWinning();
-            }
-        });
-//============================================================
-        bottomLeft.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(bottomLeftIcon, bottomLeft);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(6);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(bottomLeftIcon, bottomLeft);
-                    detail.add(new buttonDetails(bottomLeft.getId(), bottomLeft.getText()));
-
-                }
-                g.checkWinning();
-
-            }
-        });
-        //========================================================       
-        bottomCenter.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(bottomCenterIcon, bottomCenter);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(7);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(bottomCenterIcon, bottomCenter);
-                    detail.add(new buttonDetails(bottomCenter.getId(), bottomCenter.getText()));
-
-                }
-                g.checkWinning();
-            }
-        });
-//===========================================================
-        bottomRight.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (g instanceof ComputerEasyLevel) {
-                    g.setPlayingIcon(bottomRightIcon, bottomRight);
-                    if (!g.isWinning(player1)) {
-                        g.setComputerChoice();
-                    }
-                } else if (g instanceof OnlineGame) {
-                    g.setPosition(8);
-                } else if (g instanceof LocalGame) {
-                    g.setPlayingIcon(bottomRightIcon, bottomRight);
-                    detail.add(new buttonDetails(bottomRight.getId(), bottomRight.getText()));
-                }
-                g.checkWinning();
-            }
-        });
-//===========================================================
-        buttons.add(0, topLeft);//0
-        buttons.add(1, topCenter);//1
-        buttons.add(2, topRight);//2
-        buttons.add(3, centerLeft);//3
-        buttons.add(4, centerCenter);//4
-        buttons.add(5, centerRight);//5
-        buttons.add(6, bottomLeft);//6
-        buttons.add(7, bottomCenter);//7
-        buttons.add(8, bottomRight);//8
-        buttons.add(9, btnRestart);//9
-        buttons.add(10, btnExit);//10
-        buttons.add(11, btnRecord);//11
-
-        imgs.add(0, topLeftIcon);
-        imgs.add(1, topCenterIcon);
-        imgs.add(2, topRightIcon);
-        imgs.add(3, centerLeftIcon);
-        imgs.add(4, centerCenterIcon);
-        imgs.add(5, centerRightIcon);
-        imgs.add(6, bottomLeftIcon);
-        imgs.add(7, bottomCenterIcon);
-        imgs.add(8, bottomRightIcon);
-        imgs.add(9, player1PlayingLogo);
-        imgs.add(10, player2PlayingLogo);
-        imgs.add(11, imgRecord);
-
-        labels.add(0, player1Name);//0       
-        labels.add(1, player2Name);//1
-        labels.add(2, player1Score);//2
-        labels.add(3, player2Score);//3
-
-        g.setButtons(buttons);
-        g.setImages(imgs);
-        g.setLabels(labels);
-        g.setPane(xoPane);
-        g.changeXO();
-
-        //===========================================================================
-        //Record
-        topLeft.setId("TopLeftButton");
-        topCenter.setId("TopCentertButton");
-        topRight.setId("TopRightButton");
-        centerLeft.setId("CenterLeftButton");
-        centerCenter.setId("CentercenterButton");
-        centerRight.setId("CenterRightButton");
-        bottomLeft.setId("BottomLeftButton");
-        bottomCenter.setId("BottomCenterButton");
-        bottomRight.setId("BottomRightButton");
-
-        btnRecord.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (btnRecord.getText().equals("Record")) {
-                    boolean response = pop.recordGame();
-                    if (response) {
-                        btnRecord.setText("Recording");
-                        imgRecord.setImage(new Image(getClass().getResource("/assets/record.png").toExternalForm()));
-                        btnRecord.setFont(new Font(0.1));
-                        btnRecord.setDisable(true);
-                    }
-                } else if (btnRecord.getText().equals("Save")) {
-                    g.save();
-                    btnRecord.setText("Record");
-                    imgRecord.setImage(new Image(getClass().getResource("/assets/record5.png").toExternalForm()));
-                    btnRecord.setDisable(true);
-                }
-            }
-        });
-        btnRestart.getStyleClass().add("but");
-        btnRestart.getStylesheets().add("/assets/style.css");
-        
-        btnExit.getStyleClass().add("but");
-        btnExit.getStylesheets().add("/assets/style.css");
-        
-        btnRecord.getStyleClass().add("but");
-        btnRecord.getStylesheets().add("/assets/style.css");
-        
     }
 
+    public void displayRecorded() {
+
+        List<buttonDetails> detailed;
+        saveSteps recordedSteps = new saveSteps();
+        detailed = recordedSteps.loadScreen();
+        Platform.runLater(() -> {
+//            System.out.println(detailed.get(i).getContent());
+//            System.out.println(detailed.get(i).getId());
+            if (i < detailed.size() ) {
+                if (detailed.get(i).getId().equals("TopLeftButton")) {
+                    topLeft.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        topLeftIcon.setImage(xImage);
+                        topLeftIcon.setVisible(true);
+                    } else {
+                        topLeftIcon.setImage(oImage);
+                        topLeftIcon.setVisible(true);
+                    }
+                    System.out.println("1");
+
+                    //setPlayingIcon(topLeftIcon, topLeft);
+                } else if (detailed.get(i).getId().equals("TopCentertButton")) {
+                    topCenter.setText(detailed.get(i).getContent());
+
+                    if (detailed.get(i).getContent().equals("x")) {
+                        topCenterIcon.setImage(xImage);
+                        topCenterIcon.setVisible(true);
+                    } else {
+                        topCenterIcon.setImage(oImage);
+                        topCenterIcon.setVisible(true);
+                    }
+                    System.out.println("2");
+
+                } else if (detailed.get(i).getId().equals("TopRightButton")) {
+                    topRight.setText(detailed.get(i).getContent());
+
+                    if (detailed.get(i).getContent().equals("x")) {
+                        topRightIcon.setImage(xImage);
+                        topRightIcon.setVisible(true);
+                    } else {
+                        topRightIcon.setImage(oImage);
+                        topRightIcon.setVisible(true);
+                    }
+                    System.out.println("3");
+                } else if (detailed.get(i).getId().equals("CenterLeftButton")) {
+                    centerLeft.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        centerLeftIcon.setImage(xImage);
+                        centerLeftIcon.setVisible(true);
+
+                    } else {
+                        centerLeftIcon.setImage(oImage);
+                        centerLeftIcon.setVisible(true);
+
+                    }
+
+                } else if (detailed.get(i).getId().equals("CentercenterButton")) {
+                    centerCenter.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        centerCenterIcon.setImage(xImage);
+                        centerCenterIcon.setVisible(true);
+
+                    } else {
+                        centerCenterIcon.setImage(oImage);
+                        centerCenterIcon.setVisible(true);
+
+                    }
+                    System.out.println("5");
+
+                } else if (detailed.get(i).getId().equals("CenterRightButton")) {
+                    centerRight.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        centerRightIcon.setImage(xImage);
+                        centerRightIcon.setVisible(true);
+
+                    } else {
+                        centerRightIcon.setImage(oImage);
+                        centerRightIcon.setVisible(true);
+
+                    }
+                    System.out.println("6");
+                } else if (detailed.get(i).getId().equals("BottomLeftButton")) {
+                    bottomLeft.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        bottomLeftIcon.setImage(xImage);
+                        bottomLeftIcon.setVisible(true);
+
+                    } else {
+                        bottomLeftIcon.setImage(oImage);
+                        bottomLeftIcon.setVisible(true);
+
+                    }
+                    System.out.println("7");
+                } else if (detailed.get(i).getId().equals("BottomCenterButton")) {
+                    System.out.println("test");
+                    bottomCenter.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        bottomCenterIcon.setImage(xImage);
+                        bottomCenterIcon.setVisible(true);
+                    } else {
+                        bottomCenterIcon.setImage(oImage);
+                        bottomCenterIcon.setVisible(true);
+                    }
+                    System.out.println("8");
+                } else if (detailed.get(i).getId().equals("BottomRightButton")) {
+                    bottomRight.setText(detailed.get(i).getContent());
+                    if (detailed.get(i).getContent().equals("x")) {
+                        bottomRightIcon.setImage(xImage);
+                        bottomRightIcon.setVisible(true);
+                    } else {
+                        bottomRightIcon.setImage(oImage);
+                        bottomRightIcon.setVisible(true);
+                    }
+                    System.out.println("9");
+                }
+            }
+            
+            i++;
+            if (i == detailed.size()) {
+                btnNext.setDisable(true);
+            }
+        });
+    }
+
+    public void setDisable() {
+        topRight.setDisable(true);
+        topCenter.setDisable(true);
+        topLeft.setDisable(true);
+        centerRight.setDisable(true);
+        centerCenter.setDisable(true);
+        centerLeft.setDisable(true);
+        bottomRight.setDisable(true);
+        bottomCenter.setDisable(true);
+        bottomLeft.setDisable(true);
+    }
 }

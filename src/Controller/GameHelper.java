@@ -164,7 +164,6 @@ public class GameHelper {
             labels.get(2).setText("" + score1);
 
             if (buttons.get(11).getText().equals("Recording")) {
-                save();
                 buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
                 imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
@@ -328,55 +327,7 @@ public class GameHelper {
         recordedSteps.recordSteps(GamePlayScreenBase.detail, fileName);
     }
 
-    public void displayRecorded() {
-
-        List<buttonDetails> detailed;
-        saveSteps recordedSteps = new saveSteps();
-        detailed = recordedSteps.loadScreen(fileName);
-        System.out.println(fileName);
-
-        Platform.runLater(() -> {
-//            System.out.println(detailed.get(i).getContent());
-//            System.out.println(detailed.get(i).getId());
-            if (i < detailed.size()) {
-                if (detailed.get(i).getId().equals("TopLeftButton")) {
-                    buttons.get(0).setText(detailed.get(i).getContent());
-
-                    System.out.println("1");
-
-                    //setPlayingIcon(topLeftIcon, topLeft);
-                } else if (detailed.get(i).getId().equals("TopCentertButton")) {
-                    buttons.get(1).setText(detailed.get(i).getContent());
-                    System.out.println("2");
-
-                } else if (detailed.get(i).getId().equals("TopRightButton")) {
-                    buttons.get(2).setText(detailed.get(i).getContent());
-                    System.out.println("3");
-                } else if (detailed.get(i).getId().equals("CenterLeftButton")) {
-                    buttons.get(3).setText(detailed.get(i).getContent());
-
-                } else if (detailed.get(i).getId().equals("CentercenterButton")) {
-                    buttons.get(4).setText(detailed.get(i).getContent());
-                    System.out.println("5");
-
-                } else if (detailed.get(i).getId().equals("CenterRightButton")) {
-                    buttons.get(5).setText(detailed.get(i).getContent());
-                    System.out.println("6");
-                } else if (detailed.get(i).getId().equals("BottomLeftButton")) {
-                    buttons.get(6).setText(detailed.get(i).getContent());
-                    System.out.println("7");
-                } else if (detailed.get(i).getId().equals("BottomCenterButton")) {
-                    buttons.get(7).setText(detailed.get(i).getContent());
-                    System.out.println("8");
-                } else if (detailed.get(i).getId().equals("BottomRightButton")) {
-                    buttons.get(8).setText(detailed.get(i).getContent());
-                    System.out.println("9");
-                }
-            }
-            setDisable();
-            i++;
-        });
-    }
+    
 
 //====================================================================
     public void setComputerChoice() {

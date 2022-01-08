@@ -235,7 +235,7 @@ public class WelcomeBase extends GridPane {
         img_friends.setPickOnBounds(true);
         img_friends.setPreserveRatio(true);
         try {
-            img_friends.setImage(new Image(getClass().getResource("/assets/icons8-user-groups-100.png").toExternalForm()));
+            img_friends.setImage(new Image(getClass().getResource("/assets/friends2.png").toExternalForm()));
         } catch (Exception e) {
         }
 //==================================================
@@ -303,7 +303,13 @@ public class WelcomeBase extends GridPane {
         btnRecordList.setMnemonicParsing(false);
         btnRecordList.setPrefHeight(45.0);
         btnRecordList.setPrefWidth(46.0);
-
+btnRecordList.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                nav.navigateToRecordescreen(); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        //=============================================================================================
         imgRecordList.setFitHeight(37.0);
         imgRecordList.setFitWidth(71.0);
         imgRecordList.setPickOnBounds(true);

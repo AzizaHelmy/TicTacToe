@@ -24,10 +24,12 @@ public class Navigation {
     protected LevelScreenBase levelScreen;
     protected ServerRegistrationBase serverRegistrationScreen;
     protected GamePlayScreenBase gameScreen;
+    protected Recordedfiles_screenBase recordList;
+    protected DisplayRecordBase displayRecord;
     protected Parent root;
     protected static Stage stage;
     protected Scene scene;
-    
+
     public void setStage(Stage stage) {
         Navigation.stage = stage;
     }
@@ -41,6 +43,30 @@ public class Navigation {
         stage.show();
         stage.setMinHeight(600);
         stage.setMinWidth(800);
+    }
+    //====================================================
+    public void navigateToDisplayRecord() {
+
+        displayRecord=new DisplayRecordBase();
+        root = displayRecord;
+        scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+    }
+    
+    //=================================================== 
+
+    public void navigateToRecordescreen() {
+        recordList = new Recordedfiles_screenBase();
+        root = recordList;
+        scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+
     }
 
     public void navigateToLoginScreen() {
@@ -102,7 +128,9 @@ public class Navigation {
         stage.setMinHeight(600);
         stage.setMinWidth(800);
     }
-
+//==========================================================
+    
+    //=========================================================
     public void navigateToRegistrationScreen() {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;

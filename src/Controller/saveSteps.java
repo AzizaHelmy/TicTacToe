@@ -8,6 +8,7 @@ package Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -33,17 +34,19 @@ public class saveSteps {
 
     GsonBuilder builder;
     Gson gson;
-    String date = Date.valueOf(LocalDate.now()).toString();
-    String time = Time.valueOf(LocalTime.now()).toString().replace(":", "-");
-    String fileName2 = date + "-" + time + ".json";
+    String direName = "src\\records\\";
+    public static String loadFileName;
+//    String date = Date.valueOf(LocalDate.now()).toString();
+//    String time = Time.valueOf(LocalTime.now()).toString().replace(":", "-");
+//    String 
 
     public void recordSteps(ArrayList<Object> details, String fileName) {
         builder = new GsonBuilder();
         gson = builder.create();
 
-        fileName = fileName2;
+//        fileName = fileName2;
         try {
-            FileOutputStream outputFile = new FileOutputStream(fileName);
+            FileOutputStream outputFile = new FileOutputStream(direName + fileName);
             JsonArray arr = gson.toJsonTree(details).getAsJsonArray();
             outputFile.write(arr.toString().getBytes());
             outputFile.close();
@@ -55,12 +58,12 @@ public class saveSteps {
 
     }
 
-    public List<buttonDetails> loadScreen(String fileName) {
+    public List<buttonDetails> loadScreen() {
         javax.json.JsonReader reader;
         List<buttonDetails> details = new ArrayList<>();
 
         try {
-            reader = Json.createReader(new FileReader(fileName));
+            reader = Json.createReader(new FileReader(direName + loadFileName));
             JsonStructure jsonst = reader.read();
             if (jsonst.getValueType() == JsonStructure.ValueType.ARRAY) {
                 javax.json.JsonArray array = (javax.json.JsonArray) jsonst;
@@ -75,12 +78,19 @@ public class saveSteps {
                     System.out.println(details.get(0).getContent() + "  " + details.get(0).getId());
 
                 }
-
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(saveSteps.class.getName()).log(Level.SEVERE, null, ex);
         }
         return details;
+
+    }
+
+    public String[] recordedFiles() {
+        File recordFolder = new File(direName);
+        String[] files = recordFolder.list();
+
+        return files;
 
     }
 
