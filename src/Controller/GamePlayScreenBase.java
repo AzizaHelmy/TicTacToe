@@ -1,14 +1,8 @@
 package Controller;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.SocketException;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -536,7 +530,7 @@ public class GamePlayScreenBase extends BorderPane {
         btnRestart.setAlignment(javafx.geometry.Pos.CENTER);
         btnRestart.setMnemonicParsing(false);
         btnRestart.setPrefHeight(40.0);
-        btnRestart.setPrefWidth(100.0);
+        btnRestart.setPrefWidth(50.0);
         btnRestart.setText("Restart");
         btnRestart.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         btnRestart.setVisible(false);
@@ -547,11 +541,11 @@ public class GamePlayScreenBase extends BorderPane {
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         try {
-            imageView.setImage(new Image(getClass().getResource("/assets/restart.png").toExternalForm()));
+            imageView.setImage(new Image(getClass().getResource("/assets/reload.png").toExternalForm()));
         } catch (Exception e) {
         }
         btnRestart.setGraphic(imageView);
-        btnRestart.setFont(new Font(13.0));
+        btnRestart.setFont(new Font(0.1));
 
         GridPane.setRowIndex(btnExit, 2);
         GridPane.setValignment(btnExit, javafx.geometry.VPos.BOTTOM);
@@ -559,18 +553,18 @@ public class GamePlayScreenBase extends BorderPane {
         btnExit.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         btnExit.setMnemonicParsing(false);
         btnExit.setPrefHeight(40.0);
-        btnExit.setPrefWidth(100.0);
+        btnExit.setPrefWidth(50.0);
         btnExit.setText("Exit");
         btnExit.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         GridPane.setMargin(btnExit, new Insets(0.0, 0.0, 10.0, 20.0));
-        btnExit.setFont(new Font(13.0));
+        btnExit.setFont(new Font(0.1));
 
         imageView0.setFitHeight(37.0);
         imageView0.setFitWidth(32.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
         try {
-            imageView0.setImage(new Image(getClass().getResource("/assets/exit.png").toExternalForm()));
+            imageView0.setImage(new Image(getClass().getResource("/assets/game.png").toExternalForm()));
         } catch (Exception e) {
         }
         btnExit.setGraphic(imageView0);
@@ -583,16 +577,16 @@ public class GamePlayScreenBase extends BorderPane {
         btnRecord.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         btnRecord.setMnemonicParsing(false);
         btnRecord.setPrefHeight(40.0);
-        btnRecord.setPrefWidth(100.0);
+        btnRecord.setPrefWidth(50.0);
         btnRecord.setText("Record");
         btnRecord.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        btnRecord.setFont(new Font(13.0));
+        btnRecord.setFont(new Font(0.1));
 
         imgRecord.setFitHeight(37.0);
         imgRecord.setFitWidth(32.0);
         imgRecord.setPickOnBounds(true);
         imgRecord.setPreserveRatio(true);
-        imgRecord.setImage(new Image(getClass().getResource("/assets/exit.png").toExternalForm()));
+        imgRecord.setImage(new Image(getClass().getResource("/assets/record5.png").toExternalForm()));
         btnRecord.setGraphic(imgRecord);
         GridPane.setMargin(btnRecord, new Insets(0.0, 0.0, 10.0, 0.0));
         setCenter(playingPane);
@@ -653,6 +647,10 @@ public class GamePlayScreenBase extends BorderPane {
             } catch (IOException ex) {
                 Logger.getLogger(GamePlayScreenBase.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+
+        if (g instanceof ComputerEasyLevel) {
+            btnRecord.setVisible(false);
         }
 
         btnExit.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -911,15 +909,26 @@ public class GamePlayScreenBase extends BorderPane {
                     boolean response = pop.recordGame();
                     if (response) {
                         btnRecord.setText("Recording");
+                        imgRecord.setImage(new Image(getClass().getResource("/assets/record.png").toExternalForm()));
                         btnRecord.setFont(new Font(0.1));
                         btnRecord.setDisable(true);
                     }
-                }else if(btnRecord.getText().equals("Load")){
-                    g.displayRecorded();
+                } else if (btnRecord.getText().equals("Save")) {
+                    g.save();
+                    btnRecord.setText("Record");
+                    imgRecord.setImage(new Image(getClass().getResource("/assets/record5.png").toExternalForm()));
                 }
-
             }
         });
+        btnRestart.getStyleClass().add("but");
+        btnRestart.getStylesheets().add("/assets/style.css");
+        
+        btnExit.getStyleClass().add("but");
+        btnExit.getStylesheets().add("/assets/style.css");
+        
+        btnRecord.getStyleClass().add("but");
+        btnRecord.getStylesheets().add("/assets/style.css");
+        
     }
 
 }

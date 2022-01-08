@@ -44,18 +44,7 @@ public class OnlineGame extends GameHelper {
     public void setPosition(int position) {
         setPlayingIcon(imags.get(position), buttons.get(position));
         xoPane.setDisable(true);
-        move.setX(position);
-        move.setTurn(changeTurn);
-        System.out.println("sent move: " + move);
-        try {
-            objectOutputStream.writeObject(move);
-            objectOutputStream.flush();
-        } catch (SocketException | EOFException s) {
-            s.printStackTrace();
-            pop.showErrorInServer();
-        } catch (IOException ex) {
-            Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        writeToServer(position);
     }
 
     @Override
@@ -68,7 +57,6 @@ public class OnlineGame extends GameHelper {
                         Move move = (Move) objectInputStream.readObject();
                         setPlayingIcon(imags.get(move.getX()), buttons.get(move.getX()));
                         xoPane.setDisable(false);
-                        th.suspend();
                     } catch (SocketException | EOFException s) {
                         pop.showErrorInServer();
                         s.printStackTrace();
@@ -79,5 +67,20 @@ public class OnlineGame extends GameHelper {
             }
         };
         th.start();
+    }
+    
+    public void writeToServer(int position){
+        move.setX(position);
+        move.setTurn(changeTurn);
+        System.out.println("sent move: " + move);
+        try {
+            objectOutputStream.writeObject(move);
+            objectOutputStream.flush();
+        } catch (SocketException | EOFException s) {
+            s.printStackTrace();
+            pop.showErrorInServer();
+        } catch (IOException ex) {
+            Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

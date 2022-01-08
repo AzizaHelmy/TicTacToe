@@ -5,13 +5,9 @@
  */
 package Controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.Player;
 
 /**
@@ -40,7 +36,7 @@ public class Navigation {
 
         welcomeScreen = new WelcomeBase();
         root = welcomeScreen;
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -50,7 +46,7 @@ public class Navigation {
     public void navigateToLoginScreen() {
         loginScreen = new loginscreenBase();
         root = loginScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -60,7 +56,7 @@ public class Navigation {
     public void navigateToRegisterScreen() {
         registerScreen = new registerscreenBase();
         root = registerScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -70,7 +66,7 @@ public class Navigation {
     public void navigateTowithFriendsScreen() {
         withFriendScreen = new WithFriendBase();
         root = withFriendScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -80,7 +76,7 @@ public class Navigation {
     public void navigateToGameScreen(GameHelper g) {
         gameScreen = new GamePlayScreenBase(g);
         root = gameScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -90,7 +86,7 @@ public class Navigation {
     public void navigateToOnlineScreen(Player player) {
         onlineScreen = new onlinePlayersScreenBase(player);
         root = onlineScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -100,7 +96,7 @@ public class Navigation {
     public void navigateToLevelScreen() {
         levelScreen = new LevelScreenBase();
         root = levelScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);
@@ -110,7 +106,7 @@ public class Navigation {
     public void navigateToRegistrationScreen() {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(600);

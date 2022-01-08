@@ -1,14 +1,9 @@
 package Controller;
 
-import static java.awt.Color.white;
-import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +11,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -49,6 +43,9 @@ public class WelcomeBase extends GridPane {
     protected final Glow glow;
     protected Navigation nav;
     protected PopUp pop;
+    protected final Button btnRecordList;
+    protected final ImageView imgRecordList;
+    protected final Glow glow0;
     public WelcomeBase() {
 
         columnConstraints = new ColumnConstraints();
@@ -78,6 +75,9 @@ public class WelcomeBase extends GridPane {
         glow = new Glow();
         nav = new Navigation();
         pop = new PopUp();
+        btnRecordList = new Button();
+        imgRecordList = new ImageView();
+        glow0 = new Glow();
 
         setId("welcomScreen");
         setMaxHeight(USE_PREF_SIZE);
@@ -295,6 +295,24 @@ public class WelcomeBase extends GridPane {
         btnBack.setGraphic(imgBack);
         btnBack.setEffect(glow);
         //  getStylesheets().add("/assets/style.css");
+        
+        GridPane.setColumnIndex(btnRecordList, 3);
+        GridPane.setHalignment(btnRecordList, javafx.geometry.HPos.RIGHT);
+        GridPane.setRowIndex(btnRecordList, 4);
+        btnRecordList.setAlignment(javafx.geometry.Pos.CENTER);
+        btnRecordList.setMnemonicParsing(false);
+        btnRecordList.setPrefHeight(45.0);
+        btnRecordList.setPrefWidth(46.0);
+
+        imgRecordList.setFitHeight(37.0);
+        imgRecordList.setFitWidth(71.0);
+        imgRecordList.setPickOnBounds(true);
+        imgRecordList.setPreserveRatio(true);
+        imgRecordList.setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+        btnRecordList.setGraphic(imgRecordList);
+
+        btnRecordList.setEffect(glow0);
+        GridPane.setMargin(btnRecordList, new Insets(0.0));
 
         getColumnConstraints().add(columnConstraints);
         getColumnConstraints().add(columnConstraints0);
@@ -317,8 +335,9 @@ public class WelcomeBase extends GridPane {
         getChildren().add(txt_play);
         getChildren().add(img_icon);
         getChildren().add(btnBack);
+        getChildren().add(btnRecordList);
 //==============================================================
-        btnBack.getStyleClass().add("backg");
+        btnBack.getStyleClass().add("but");
         btnBack.getStylesheets().add("/assets/style.css");
         
         btnWithComputer.getStyleClass().add("border");
@@ -330,6 +349,9 @@ public class WelcomeBase extends GridPane {
       
         btnOnline.getStyleClass().add("border");
         btnOnline.getStylesheets().add("/assets/style.css");
+        
+        btnRecordList.getStyleClass().add("but");
+        btnRecordList.getStylesheets().add("/assets/style.css");
 
     }
 

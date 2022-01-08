@@ -1,6 +1,5 @@
 package Controller;
 
-import Controller.ComputerEasyLevel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -53,7 +52,7 @@ public class LevelScreenBase extends GridPane {
         imgBack = new ImageView();
         glow = new Glow();
         nav = new Navigation();
-        
+
         imageView = new ImageView();
         imageView0 = new ImageView();
 
@@ -121,7 +120,7 @@ public class LevelScreenBase extends GridPane {
         btnDifficullt.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
+
                 nav.navigateToGameScreen(new ComputerEasyLevel());
             }
         });
@@ -227,14 +226,14 @@ public class LevelScreenBase extends GridPane {
         //==========================================================       
         btnBack.getStyleClass().add("backg");
         btnBack.getStylesheets().add("/assets/style.css");
-        
+
         btnDifficullt.setFont(new Font("Colonna MT", 27.0));
         btnDifficullt.getStyleClass().add("border");
-         btnDifficullt.getStylesheets().add("/assets/style.css");
-         
+        btnDifficullt.getStylesheets().add("/assets/style.css");
+
         btnEasy.getStyleClass().add("border");
         btnEasy.getStylesheets().add("/assets/style.css");
-         
+
         textSelsctLevel.setFont(new Font("Kristen ITC", 20.0));
         //textSelsctLevel.setTextFill(javafx.scene.paint.Color.valueOf("#300606"));
         textSelsctLevel.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));

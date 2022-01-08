@@ -1,7 +1,5 @@
 package Controller;
 
-import Controller.LocalGame;
-import Controller.Navigation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -15,7 +13,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public  class WithFriendBase extends GridPane {
+public class WithFriendBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -75,7 +73,7 @@ public  class WithFriendBase extends GridPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-       getStyleClass().add("img");
+        getStyleClass().add("img");
         getStylesheets().add("/assets/style.css");
 //=====================================================
 
@@ -131,9 +129,9 @@ public  class WithFriendBase extends GridPane {
         btnstart.setMnemonicParsing(false);
         btnstart.setPrefHeight(32.0);
         btnstart.setPrefWidth(283.0);
-        btnstart.getStyleClass().add("border");    
+        btnstart.getStyleClass().add("border");
         btnstart.setText("Start");
-        
+
         btnstart.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -156,7 +154,7 @@ public  class WithFriendBase extends GridPane {
         player2.setId("player2");
         player2.setPrefHeight(41.0);
         player2.setPrefWidth(280.0);
-        player2.setPromptText("            Enter Player2's Name :");
+        player2.setPromptText("Enter Player2's Name :");
         player2.getStylesheets().add("/view/withfriend.css");
 
         GridPane.setColumnIndex(player1, 3);
@@ -164,7 +162,7 @@ public  class WithFriendBase extends GridPane {
         player1.setId("player1");
         player1.setPrefHeight(41.0);
         player1.setPrefWidth(200.0);
-        player1.setPromptText("         Enter Player1's Name :");
+        player1.setPromptText("Enter Player1's Name :");
 
         GridPane.setColumnIndex(text, 3);
         text.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
@@ -175,7 +173,7 @@ public  class WithFriendBase extends GridPane {
         text.setWrappingWidth(242.50652313232422);
 
         text.setEffect(glow);
-       text.setFont(new Font("Berlin Sans FB Demi Bold", 25.0));
+        text.setFont(new Font("Berlin Sans FB Demi Bold", 25.0));
         text.setFill(javafx.scene.paint.Color.valueOf("#ffff"));
 
         GridPane.setColumnIndex(img_friends, 4);
@@ -184,7 +182,7 @@ public  class WithFriendBase extends GridPane {
         img_friends.setPickOnBounds(true);
         img_friends.setPreserveRatio(true);
         try {
-            img_friends.setImage(new Image(getClass().getResource("/assets/friends.png").toExternalForm()));
+            img_friends.setImage(new Image(getClass().getResource("/assets/friends2.png").toExternalForm()));
         } catch (Exception e) {
         }
 
@@ -207,7 +205,7 @@ public  class WithFriendBase extends GridPane {
         img_player1.setFitWidth(43.0);
         img_player1.setPickOnBounds(true);
         img_player1.setPreserveRatio(true);
-      try {
+        try {
             img_player1.setImage(new Image(getClass().getResource("/assets/icons8-team-96.png").toExternalForm()));
         } catch (Exception e) {
         }
@@ -220,7 +218,7 @@ public  class WithFriendBase extends GridPane {
         img_start.setFitWidth(108.0);
         img_start.setPickOnBounds(true);
         img_start.setPreserveRatio(true);
-          try {
+        try {
             img_start.setImage(new Image(getClass().getResource("/assets/icons8-game-controller-96.png").toExternalForm()));
         } catch (Exception e) {
         }
@@ -232,19 +230,19 @@ public  class WithFriendBase extends GridPane {
         btnBack.setMnemonicParsing(false);
         btnBack.setPrefHeight(37.0);
         btnBack.setPrefWidth(98.0);
-       
+
         imgBack.setFitHeight(36.0);
         imgBack.setFitWidth(40.0);
         imgBack.setPickOnBounds(true);
         imgBack.setPreserveRatio(true);
-         try {
+        try {
             imgBack.setImage(new Image(getClass().getResource("/assets/previous.png").toExternalForm()));
         } catch (Exception e) {
         }
         btnBack.setGraphic(imgBack);
 
         btnBack.setEffect(glow0);
-    btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 nav.navigateToWelcome();

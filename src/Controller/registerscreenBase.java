@@ -2,11 +2,8 @@ package Controller;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +67,7 @@ public class registerscreenBase extends GridPane {
         btnbackreg = new ImageView();
         nav = new Navigation();
         pop = new PopUp();
-        
+
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -224,8 +221,7 @@ public class registerscreenBase extends GridPane {
             }
         });
 //===========================================================        
-        button.addEventHandler(ActionEvent.ACTION,
-                new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event
             ) {

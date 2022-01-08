@@ -46,3 +46,7 @@
 .border{
      -fx-background-radius: 15px;
 }
+
+.but{
+    -fx-background-color: #142F43;
+}

@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
@@ -62,7 +61,7 @@ public class GameHelper {
     protected Vector<ImageView> imags = new Vector<>();
     protected Vector<Label> labels = new Vector<>();
     protected PopUp pop = new PopUp();
-    protected  String fileName;
+    protected String fileName;
     int i = 0;
 //=======================================================
 
@@ -121,7 +120,7 @@ public class GameHelper {
         imageView.setVisible(true);
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
-        
+        buttons.get(11).setDisable(true);
         changeTurn = !changeTurn;
 
     }
@@ -166,8 +165,9 @@ public class GameHelper {
 
             if (buttons.get(11).getText().equals("Recording")) {
                 save();
-                buttons.get(11).setText("Load");
+                buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
             }
         } else if (isWinning(player2)) {
             score2++;
@@ -176,19 +176,21 @@ public class GameHelper {
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
             if (buttons.get(11).getText().equals("Recording")) {
-                save();
-                buttons.get(11).setText("Load");
+                buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+
             }
         } else if (counter == 9) {//no one win ,
             // setEnable();
             setDisable();
             buttons.get(9).setVisible(true);
             if (buttons.get(11).getText().equals("Recording")) {
-                save();
-                buttons.get(11).setText("Load");
+
+                buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
-                
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+
             }
 
         }
@@ -223,15 +225,16 @@ public class GameHelper {
 
     public void resetting() {
 
-        for (int i = 0; i < imags.size() - 2; i++) {
+        for (int i = 0; i < imags.size() - 3; i++) {
             imags.get(i).setImage(null);
             imags.get(i).setVisible(false);
         }
-        for (int i = 0; i < buttons.size() - 2; i++) {
+        for (int i = 0; i < buttons.size() - 3; i++) {
             buttons.get(i).setText("");
             buttons.get(i).setDisable(false);
             buttons.get(i).setVisible(true);
         }
+        buttons.get(11).setDisable(false);
         counter = 0;
         changeTurn = true;
         removeColors();
@@ -338,7 +341,7 @@ public class GameHelper {
             if (i < detailed.size()) {
                 if (detailed.get(i).getId().equals("TopLeftButton")) {
                     buttons.get(0).setText(detailed.get(i).getContent());
-                    
+
                     System.out.println("1");
 
                     //setPlayingIcon(topLeftIcon, topLeft);
