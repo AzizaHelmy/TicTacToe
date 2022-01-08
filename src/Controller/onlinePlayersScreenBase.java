@@ -87,13 +87,15 @@ public class onlinePlayersScreenBase extends BorderPane {
     private ObjectOutputStream ObjectoutputStream;
 
     ObservableList<String> onlineObservableList;
-    ObservableList<TopPlayers> topObservableList;
+    ObservableList<String> topObservableList;
 
     Vector<Player> players;
     Vector<Player> topPlayers;
 
     protected LogOut logOut;
     protected Thread th;
+    ArrayList<String> topList;
+    ArrayList<String> playerName;
 
     public onlinePlayersScreenBase(Player p) {
 
@@ -152,6 +154,8 @@ public class onlinePlayersScreenBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(mainGridPane, javafx.geometry.Pos.CENTER);
         mainGridPane.setAlignment(javafx.geometry.Pos.CENTER);
@@ -476,9 +480,9 @@ public class onlinePlayersScreenBase extends BorderPane {
                         } //=============================ObservableList============================//                       
                         else if (readObj instanceof TopOnlinePlayers) {
                             TopOnlinePlayers topOnlineplayer = (TopOnlinePlayers) readObj;
-
                             players = topOnlineplayer.getOnlinePlayers();
-                            ArrayList<String> playerName = new ArrayList<>();
+                            playerName = new ArrayList<>();
+                            playerName.clear();
                             for (Player p : players) {
                                 playerName.add(p.getUserName());
                             }
@@ -488,9 +492,10 @@ public class onlinePlayersScreenBase extends BorderPane {
 
                             //==================for Top Players===============
                             topPlayers = topOnlineplayer.getTopPlayers();
-                            ArrayList<TopPlayers> topList = new ArrayList<>();
+                            topList = new ArrayList<>();
+                            topList.clear();
                             for (Player p : topPlayers) {
-                                topList.add(new TopPlayers(p.getUserName(), p.getTotalScore()));
+                                topList.add(p.getUserName() + "\t\t" + p.getTotalScore());
                             }
                             topObservableList = FXCollections.observableArrayList(topList);
                             listViewTopPlayers.refresh();
