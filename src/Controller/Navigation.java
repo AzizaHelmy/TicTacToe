@@ -5,8 +5,6 @@
  */
 package Controller;
 
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,99 +24,121 @@ public class Navigation {
     protected LevelScreenBase levelScreen;
     protected ServerRegistrationBase serverRegistrationScreen;
     protected GamePlayScreenBase gameScreen;
+    protected Recordedfiles_screenBase recordList;
+    protected DisplayRecordBase displayRecord;
     protected Parent root;
-    protected Stage stage;
+    protected static Stage stage;
     protected Scene scene;
 
-    public void navigateToWelcome(ActionEvent event) {
-              
+    public void setStage(Stage stage) {
+        Navigation.stage = stage;
+    }
+
+    public void navigateToWelcome() {
+
         welcomeScreen = new WelcomeBase();
         root = welcomeScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+    }
+    //====================================================
+    public void navigateToDisplayRecord() {
+
+        displayRecord=new DisplayRecordBase();
+        root = displayRecord;
+        scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+    }
+    
+    //=================================================== 
+
+    public void navigateToRecordescreen() {
+        recordList = new Recordedfiles_screenBase();
+        root = recordList;
+        scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+
     }
 
-    public void navigateToLoginScreen(ActionEvent event) {
+    public void navigateToLoginScreen() {
         loginScreen = new loginscreenBase();
         root = loginScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
-    public void navigateToRegisterScreen(ActionEvent event) {
+    public void navigateToRegisterScreen() {
         registerScreen = new registerscreenBase();
         root = registerScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
-    public void navigateTowithFriendsScreen(ActionEvent event) {
+    public void navigateTowithFriendsScreen() {
         withFriendScreen = new WithFriendBase();
         root = withFriendScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
-    public void navigateToGameScreen(ActionEvent event, GameHelper g) {
+    public void navigateToGameScreen(GameHelper g) {
         gameScreen = new GamePlayScreenBase(g);
-       
         root = gameScreen;
-        System.out.println(gameScreen.toString());
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
-    public void navigateToOnlineScreen(ActionEvent event, Player player) {
+    public void navigateToOnlineScreen(Player player) {
         onlineScreen = new onlinePlayersScreenBase(player);
         root = onlineScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
-    public void navigateToLevelScreen(ActionEvent event) {
+    public void navigateToLevelScreen() {
         levelScreen = new LevelScreenBase();
         root = levelScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
-
-    public void navigateToRegistrationScreen(ActionEvent event) {
+//==========================================================
+    
+    //=========================================================
+    public void navigateToRegistrationScreen() {
         serverRegistrationScreen = new ServerRegistrationBase();
         root = serverRegistrationScreen;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 600, 630);
+        scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(630);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
 }

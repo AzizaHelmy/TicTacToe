@@ -2,11 +2,8 @@ package Controller;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Player;
 import model.Register;
@@ -44,8 +42,10 @@ public class registerscreenBase extends GridPane {
     protected final Button button;
     protected final Button button0;
     protected final ImageView btnbackreg;
+    protected Navigation nav;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
+    private PopUp pop;
 
     public registerscreenBase() {
 
@@ -66,6 +66,8 @@ public class registerscreenBase extends GridPane {
         button = new Button();
         button0 = new Button();
         btnbackreg = new ImageView();
+        nav = new Navigation();
+        pop = new PopUp();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -73,6 +75,8 @@ public class registerscreenBase extends GridPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMinWidth(10.0);
@@ -117,13 +121,19 @@ public class registerscreenBase extends GridPane {
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.setText("Tic Tac Toe");
+        text.setFont(new Font("Bodoni MT", 27.0));
+        text.setFill(javafx.scene.paint.Color.valueOf("#ffff"));
 
         GridPane.setColumnIndex(regusername_field, 1);
         GridPane.setRowIndex(regusername_field, 1);
+        regusername_field.setPrefHeight(39.0);
+        regusername_field.setPrefWidth(207.0);
         regusername_field.setPromptText("Enter your name");
 
         GridPane.setColumnIndex(registerpass_field, 1);
         GridPane.setRowIndex(registerpass_field, 2);
+        registerpass_field.setPrefHeight(39.0);
+        registerpass_field.setPrefWidth(207.0);
         registerpass_field.setPromptText("Enter password");
 
         GridPane.setColumnIndex(btn_signupreg, 1);
@@ -131,11 +141,12 @@ public class registerscreenBase extends GridPane {
         GridPane.setRowIndex(btn_signupreg, 3);
         btn_signupreg.setMnemonicParsing(false);
         btn_signupreg.setPrefHeight(42.0);
-        btn_signupreg.setPrefWidth(97.0);
-        btn_signupreg.getStyleClass().add("cardpane");
-        btn_signupreg.getStylesheets().add("/registerpackage/login.css");
+        btn_signupreg.setPrefWidth(111.0);//here
+
+        btn_signupreg.setFont(new Font("Kristen ITC", 15.0));
+        btn_signupreg.getStylesheets().add("/assets/style.css");
         btn_signupreg.setText("Sign up");
-        btn_signupreg.setTextFill(javafx.scene.paint.Color.valueOf("#fffafa"));
+        btn_signupreg.setTextFill(javafx.scene.paint.Color.valueOf("#000000"));
 
         imageView.setFitHeight(20.0);
         imageView.setFitWidth(20.0);
@@ -147,9 +158,10 @@ public class registerscreenBase extends GridPane {
         GridPane.setColumnIndex(button, 2);
         GridPane.setRowIndex(button, 4);
         button.setMnemonicParsing(false);
-        button.getStyleClass().add("cardpane");
-        button.getStylesheets().add("/registerpackage/login.css");
+//        button.getStyleClass().add("cardpane");
+//        button.getStylesheets().add("/assets/style.css");
         button.setText("Already have an account?");
+         button.setFont(new Font("System", 13.0));
 
         GridPane.setHalignment(button0, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(button0, 4);
@@ -202,8 +214,7 @@ public class registerscreenBase extends GridPane {
                             System.out.println("error");
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
-                            Navigation nav = new Navigation();
-                            nav.navigateToOnlineScreen(event, p);
+                            nav.navigateToOnlineScreen(p);
                         }
 
                     } else {
@@ -211,6 +222,7 @@ public class registerscreenBase extends GridPane {
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                     }
                 } catch (SocketException s) {
+                    pop.showErrorInServer();
                 } catch (EOFException e) {
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,13 +232,11 @@ public class registerscreenBase extends GridPane {
             }
         });
 //===========================================================        
-        button.addEventHandler(ActionEvent.ACTION,
-                new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event
             ) {
-                Navigation nav = new Navigation();
-                nav.navigateToLoginScreen(event);
+                nav.navigateToLoginScreen();
             }
         }
         );

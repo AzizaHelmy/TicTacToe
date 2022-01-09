@@ -2,14 +2,11 @@ package Controller;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.StreamCorruptedException;
-import java.net.Socket;
 import java.net.SocketException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Vector;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,12 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.effect.Glow;
@@ -42,11 +34,11 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.Player;
 import model.TopOnlinePlayers;
 import model.LogOut;
 import model.Request;
+import model.TopPlayers;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -84,23 +76,26 @@ public class onlinePlayersScreenBase extends BorderPane {
     protected final Glow glow;
     protected final Button btnSignOut;
     protected final ImageView imgSignOut;
-    protected Player player;
+    protected Navigation nav;
+    protected PopUp pop;
+
+    public static Player player;
     public static String nameOfPlayer1;
     public static String nameOfPlayer2;
 
-    private Socket socket;
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
-    ObservableList onlineObservableList;
-    ObservableList topObservableList;
+
+    ObservableList<String> onlineObservableList;
+    ObservableList<String> topObservableList;
+
+    Vector<Player> players;
+    Vector<Player> topPlayers;
 
     protected LogOut logOut;
     protected Thread th;
-    private ActionEvent signOutEvent;
-    protected WelcomeBase welcomeScreen;
-    protected Parent root;
-    protected Stage stage;
-    protected Scene scene;
+    ArrayList<String> topList;
+    ArrayList<String> playerName;
 
     public onlinePlayersScreenBase(Player p) {
 
@@ -138,23 +133,14 @@ public class onlinePlayersScreenBase extends BorderPane {
         imgBack = new ImageView();
         glow = new Glow();
         btnSignOut = new Button();
-        signOutEvent = new ActionEvent();
         btnBack.setVisible(false);
+        nav = new Navigation();
+        pop = new PopUp();
 
         imgSignOut = new ImageView();
-        try {
-            socket = ClientSocket.getInstance();
-        } catch (SocketException s) {
-            // alert server under mintatnce got to welcome screen
-        } catch (IOException ex) {
-            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
 
-        }
-        System.out.println(socket);
-
-        topObservableList = FXCollections.observableArrayList();
-        onlineObservableList = FXCollections.observableArrayList();
-
+//        topObservableList = FXCollections.observableArrayList();
+//        onlineObservableList = FXCollections.observableArrayList();
         Stop[] stops = new Stop[]{
             new Stop(0, Color.GRAY),
             new Stop(1, Color.BLACK)
@@ -168,6 +154,8 @@ public class onlinePlayersScreenBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(mainGridPane, javafx.geometry.Pos.CENTER);
         mainGridPane.setAlignment(javafx.geometry.Pos.CENTER);
@@ -410,137 +398,122 @@ public class onlinePlayersScreenBase extends BorderPane {
         mainGridPane.getChildren().add(gridPaneTopPlayers);
         mainGridPane.getChildren().add(btnBack);
         mainGridPane.getChildren().add(btnSignOut);
-
+//=====================================================================
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
+
+        try {
+            ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
+            ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
+            System.out.println(ObjectinputStream);
+            System.out.println("2");
+            TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
+            ObjectoutputStream.writeObject(toponline);
+            ObjectoutputStream.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         btnSignOut.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent btnevent) {
-                signOutEvent = btnevent;
-                System.out.println(signOutEvent);
-                logOut = new LogOut(player.getUserName());
-                try {
-                    ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-                    System.out.println("1");
-                    ObjectoutputStream.writeObject(logOut);
-                    ObjectoutputStream.flush();
-                } catch (StreamCorruptedException | EOFException | SocketException s) {
-                } catch (IOException ex) {
-                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                pop.signOut(player);
             }
         });
-
+//=====================================================================
         th = new Thread() {
             @Override
             public void run() {
-
-                try {
-                    System.out.println("2");
-                    TopOnlinePlayers toponline = new TopOnlinePlayers(player.getUserName());
-                    ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-                    ObjectoutputStream.writeObject(toponline);
-                    ObjectoutputStream.flush();
-                    while (true) {
-                        ObjectinputStream = ClientSocket.getObjectInputStreamInstance();
+                while (true) {
+                    try {
                         System.out.println("3");
-                        try {
-                            Object obj = ObjectinputStream.readObject();
-                            System.out.println(obj);
-                            if (obj instanceof Request) {
-                                Request r = (Request) obj;
-                                System.out.println(r.getSendingUserName());
-                                if (r.isRequest()) {
-                                    Platform.runLater(() -> {
-                                        try {
-                                            r.setRequest(false);
-                                            boolean response = askForResponse(r.getSendingUserName());
-                                            r.setResponse(response);
-                                            ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
-                                            ObjectoutputStream.writeObject(r);
-                                            ObjectoutputStream.flush();
-                                            if (response) {
-                                                nameOfPlayer1 = r.getSendingUserName();
-                                                nameOfPlayer2 = r.getReceiverUserName();
-                                                th.stop();
-                                                GamePlayScreenBase gameScreen = new GamePlayScreenBase(new OnlineGame(player));
-                                                root = gameScreen;
-                                                System.out.println(gameScreen.toString());
-                                                stage = (Stage) listViewOnlinePlayers.getScene().getWindow();
-                                                scene = new Scene(root, 600, 630);
-                                                stage.setScene(scene);
-                                                stage.show();
-                                                stage.setMinHeight(630);
-                                                stage.setMinWidth(600);
-                                            }
-                                        } catch (StreamCorruptedException | EOFException | SocketException s) {
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                    });
-                                } else {
-                                    System.out.println(r.isResponse());
-                                    if (r.isResponse()) {
-                                        Platform.runLater(() -> {
-                                            nameOfPlayer1 = r.getSendingUserName();
-                                            nameOfPlayer2 = r.getReceiverUserName();
-                                            th.stop();
-                                            GamePlayScreenBase gameScreen = new GamePlayScreenBase(new OnlineGame(player));
-                                            root = gameScreen;
-                                            System.out.println(gameScreen.toString());
-                                            stage = (Stage) listViewOnlinePlayers.getScene().getWindow();
-                                            scene = new Scene(root, 600, 630);
-                                            stage.setScene(scene);
-                                            stage.show();
-                                            stage.setMinHeight(630);
-                                            stage.setMinWidth(600);
-
-                                        });
+                        Object readObj = ObjectinputStream.readObject();
+                        System.out.println(readObj);
+                        if (readObj instanceof Request) {
+                            Request r = (Request) readObj;
+                            System.out.println(r.getSendingUserName());
+                            if (r.isRequest()) {
+                                Platform.runLater(() -> {
+                                    r.setRequest(false);
+                                    boolean response = pop.askForResponse(r.getSendingUserName());
+                                    r.setResponse(response);
+                                    try {
+                                        ObjectoutputStream.writeObject(r);
+                                        ObjectoutputStream.flush();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-                                }
-
-                            } else if (obj instanceof String) {
-                                String msg = (String) obj;
-                                System.out.print(msg);
-                                if (msg.equals("LoggedOut")) {
-                                    ClientSocket.closeConnection();
-                                    Platform.runLater(() -> {
+                                    if (response) {
+                                        nameOfPlayer1 = r.getSendingUserName();
+                                        nameOfPlayer2 = r.getReceiverUserName();
                                         th.stop();
-                                        Navigation nav = new Navigation();
-                                        nav.navigateToWelcome(signOutEvent);
+                                        nav.navigateToGameScreen(new OnlineGame(player));
+                                    }
+                                });
+                            } else {
+                                System.out.println(r.isResponse());
+                                if (r.isResponse()) {
+                                    Platform.runLater(() -> {
+                                        nameOfPlayer1 = r.getSendingUserName();
+                                        nameOfPlayer2 = r.getReceiverUserName();
+                                        th.stop();
+                                        nav.navigateToGameScreen(new OnlineGame(player));
                                     });
-                                }
-                            } else if (obj instanceof TopOnlinePlayers) {
-                                TopOnlinePlayers topplayer = (TopOnlinePlayers) obj;
-                                for (int i = 0; i < topplayer.getTopPlayers().size(); i++) {
-                                    listViewTopPlayers.getItems().add(topplayer.getTopPlayers().get(i).getUserName() + "\t\t" + topplayer.getTopPlayers().get(i).getTotalScore());
-
-                                }
-                                for (int i = 0; i < topplayer.getOnlinePlayers().size(); i++) {
-                                    listViewOnlinePlayers.getItems().add(topplayer.getOnlinePlayers().get(i).getUserName());
                                 }
                             }
-                        } catch (EOFException | SocketException s) {
-                            th.stop();
-                        } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+
+                        } else if (readObj instanceof String) {
+                            String msg = (String) readObj;
+                            System.out.print(msg);
+                            if (msg.equals("LoggedOut")) {
+                                ClientSocket.closeConnection();
+                                player = null;
+                                Platform.runLater(() -> {
+                                    th.stop();
+                                    nav.navigateToWelcome();
+                                });
+                            }
+                        } //=============================ObservableList============================//                       
+                        else if (readObj instanceof TopOnlinePlayers) {
+                            TopOnlinePlayers topOnlineplayer = (TopOnlinePlayers) readObj;
+                            players = topOnlineplayer.getOnlinePlayers();
+                            playerName = new ArrayList<>();
+                            playerName.clear();
+                            for (Player p : players) {
+                                playerName.add(p.getUserName());
+                            }
+                            onlineObservableList = FXCollections.observableArrayList(playerName);
+                            listViewOnlinePlayers.refresh();
+                            listViewOnlinePlayers.setItems(onlineObservableList);
+
+                            //==================for Top Players===============
+                            topPlayers = topOnlineplayer.getTopPlayers();
+                            topList = new ArrayList<>();
+                            topList.clear();
+                            for (Player p : topPlayers) {
+                                topList.add(p.getUserName() + "\t\t" + p.getTotalScore());
+                            }
+                            topObservableList = FXCollections.observableArrayList(topList);
+                            listViewTopPlayers.refresh();
+                            listViewTopPlayers.setItems(topObservableList);
                         }
+
+                    } catch (EOFException | SocketException s) {
+                        th.stop();
+                    } catch (ClassNotFoundException | IOException ex) {
+                        Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+
                 }
             }
         };
 
         th.start();
-
+//===================================================================
         listViewOnlinePlayers.getSelectionModel()
                 .selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -549,15 +522,18 @@ public class onlinePlayersScreenBase extends BorderPane {
                             String newValue
                     ) {
                         try {
+
                             ObjectoutputStream = ClientSocket.getObjectOutputStreamInstance();
                             Request req = new Request();
                             req.setSendingUserName(player.getUserName());
                             req.setRequest(true);
-                            System.out.println(req.getSendingUserName());
                             req.setReceiverUserName(newValue);
+                            System.out.println(req.getReceiverUserName());
                             ObjectoutputStream.writeObject(req);
                             ObjectoutputStream.flush();
+                            pop.waitForRsponse(false);
                         } catch (SocketException | EOFException s) {
+                            pop.showErrorInServer();
                         } catch (IOException ex) {
                             Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -566,17 +542,4 @@ public class onlinePlayersScreenBase extends BorderPane {
                 }
                 );
     }
-
-    public static boolean askForResponse(String name) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yes = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
-        ButtonType no = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.setTitle("Conformation Request");
-        alert.setHeaderText(name + " sending you a game request,");
-        alert.getButtonTypes().setAll(yes, no);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == yes;
-    }
-//======================================================================
-
 }

@@ -16,6 +16,7 @@ import java.net.Socket;
  *
  * @author Azza Helmy
  */
+
 public class ClientSocket {
 
     private static Socket socket;
@@ -31,7 +32,7 @@ public class ClientSocket {
 
     public static synchronized Socket getInstance() throws IOException {
         if (socket == null || socket.isClosed()) {
-            socket = new Socket(ip, 6666);
+            socket = new Socket(ip, 5005);
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         }
@@ -55,6 +56,14 @@ public class ClientSocket {
     public static void closeConnection() throws IOException {
         objectOutputStream.close();
         objectInputStream.close();
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+    }
+    
+    public static void closeSocket() throws IOException {
+        outputStream.close();
+        inputStream.close();
         socket.close();
     }
 

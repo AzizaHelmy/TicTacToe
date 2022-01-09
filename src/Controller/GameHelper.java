@@ -6,25 +6,23 @@
 package Controller;
 
 import java.io.File;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-import javafx.animation.PauseTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import model.buttonDetails;
 
 /**
  *
@@ -57,12 +55,16 @@ public class GameHelper {
     protected String Player2Score;
     protected Label player1Name;
     protected Label player2Name;
+    protected AnchorPane xoPane;
 
     protected Vector<Button> buttons = new Vector<>();
     protected Vector<ImageView> imags = new Vector<>();
     protected Vector<Label> labels = new Vector<>();
-
+    protected PopUp pop = new PopUp();
+    protected String fileName;
+    int i = 0;
 //=======================================================
+
     public void setButtons(Vector<Button> b) {
         for (int i = 0; i < b.size(); i++) {
             buttons.add(i, b.get(i));
@@ -79,6 +81,10 @@ public class GameHelper {
         for (int i = 0; i < l.size(); i++) {
             labels.add(i, l.get(i));
         }
+    }
+
+    public void setPane(AnchorPane a) {
+        xoPane = a;
     }
 //==================================================================
 
@@ -114,6 +120,7 @@ public class GameHelper {
         imageView.setVisible(true);
         imageView.setImage(changingTurn(changeTurn, button));
         button.setDisable(true);
+        buttons.get(11).setDisable(true);
         changeTurn = !changeTurn;
 
     }
@@ -148,23 +155,42 @@ public class GameHelper {
     }
 //================================================================
 
-    public void WinnerWinnerChickenDinner() {
+    public void checkWinning() {
         if (isWinning(player1)) {
             score1++;
-            annimation();
+            pop.annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(2).setText("" + score1);
+
+            if (buttons.get(11).getText().equals("Recording")) {
+                buttons.get(11).setText("Save");
+                buttons.get(11).setDisable(false);
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+            }
         } else if (isWinning(player2)) {
             score2++;
-            annimation();
+            pop.annimation();
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(3).setText("" + score2);
+            if (buttons.get(11).getText().equals("Recording")) {
+                buttons.get(11).setText("Save");
+                buttons.get(11).setDisable(false);
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+
+            }
         } else if (counter == 9) {//no one win ,
             // setEnable();
             setDisable();
             buttons.get(9).setVisible(true);
+            if (buttons.get(11).getText().equals("Recording")) {
+
+                buttons.get(11).setText("Save");
+                buttons.get(11).setDisable(false);
+                imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
+
+            }
 
         }
     }
@@ -198,18 +224,20 @@ public class GameHelper {
 
     public void resetting() {
 
-        for (int i = 0; i < imags.size() - 2; i++) {
+        for (int i = 0; i < imags.size() - 3; i++) {
             imags.get(i).setImage(null);
             imags.get(i).setVisible(false);
         }
-        for (int i = 0; i < buttons.size() - 2; i++) {
+        for (int i = 0; i < buttons.size() - 3; i++) {
             buttons.get(i).setText("");
             buttons.get(i).setDisable(false);
             buttons.get(i).setVisible(true);
         }
+        buttons.get(11).setDisable(false);
         counter = 0;
         changeTurn = true;
         removeColors();
+        i = 0;
     }
 //==================================================
 
@@ -280,49 +308,35 @@ public class GameHelper {
         buttons.get(7).setStyle(null);
         buttons.get(8).setStyle(null);
     }
-//====================================================================
 
-    public void annimation() {
+    public void save() {
+        buttons.get(0).setId("TopLeftButton");
+        buttons.get(1).setId("TopCentertButton");
+        buttons.get(2).setId("TopRightButton");
+        buttons.get(3).setId("CenterLeftButton");
+        buttons.get(4).setId("CentercenterButton");
+        buttons.get(5).setId("CenterRightButton");
+        buttons.get(6).setId("BottomLeftButton");
+        buttons.get(7).setId("BottomCenterButton");
+        buttons.get(8).setId("BottomRightButton");
 
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-
-        Media media = new Media(new File("src/assets/playerwin.mp4").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mv = new MediaView(mediaPlayer);
-
-        DoubleProperty mvw = mv.fitWidthProperty();
-        DoubleProperty mvh = mv.fitHeightProperty();
-        mvw.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
-        mvh.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
-        mv.setPreserveRatio(false);
-        mediaPlayer.setAutoPlay(true);
-
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                mediaPlayer.stop();
-            }
-        });
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(mv);
-        Scene scene = new Scene(vbox, 500, 400);
-        stage.setScene(scene);
-        stage.show();
-
-        PauseTransition pt = new PauseTransition(javafx.util.Duration.seconds(10));
-        pt.play();
-        pt.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage.close();
-            }
-
-        });
+        String date = Date.valueOf(LocalDate.now()).toString();
+        String time = Time.valueOf(LocalTime.now()).toString().replace(":", "-");
+        fileName = date + "-" + time + ".json";
+        saveSteps recordedSteps = new saveSteps();
+        recordedSteps.recordSteps(GamePlayScreenBase.detail, fileName);
     }
+
+    
 
 //====================================================================
     public void setComputerChoice() {
+    }
+
+    public void setPosition(int position) {
+    }
+
+    public void GameSession() {
     }
 
 }

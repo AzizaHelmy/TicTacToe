@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="outBorderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <GridPane fx:id="infomationPane" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="player1Name" text="Player1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="player1Image" fitHeight="42.0" fitWidth="43.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/player1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="player2Name" contentDisplay="RIGHT" text="Player2" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="player2Image" fitHeight="42.0" fitWidth="43.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/player2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="scoreLabel" text="Score" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="colonLabel" text=":" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="player1Score" text="0" textFill="#1800f5" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="player2Score" text="0" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="player1PlayingLogo" fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fx:id="player2PlayingLogo" fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </ImageView>
+         </children>
+      </GridPane>
+   </top>
+   <center>
+      <GridPane fx:id="playingPane" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xoPane">
+               <children>
+                  <Button fx:id="topRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="centerRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="bottomRight" alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomRightIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="topCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="centerCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="bottomCenter" alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomCenterIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="topLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="topLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="centerLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="80.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="centerLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="bottomLeft" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="79.0" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="bottomLeftIcon" disable="true" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                     </graphic>
+                  </Button>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <Button fx:id="btnRestart" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Restart" textAlignment="CENTER" visible="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" right="20.0" />
+               </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/restart.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnExit" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Exit" textAlignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/exit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

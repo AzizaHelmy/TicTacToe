@@ -3,13 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/onlinePlayersScreenBase.java</file>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/loginscreenBase.java</file>
-            <file>file:/D:/sours/1-Project/TicTacToe/src/Controller/registerscreenBase.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/GamePlayScreenBase.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/nbproject/jfx-impl.xml</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/GameHelper.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/Navigation.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/DisplayRecordBase.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/saveSteps.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/TicTacToe.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/United/Desktop/peter/New%20folder/TicTacToe/src/Controller/DBConnection.java</file>
-            <file>file:/C:/Users/United/Desktop/peter/New%20folder/TicTacToe/src/Controller/GameHelper.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/Navigation.java</file>
+            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/TicTacToe.java</file>
         </group>
     </open-files>
 </project-private>

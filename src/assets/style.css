@@ -1,0 +1,56 @@
+
+/*#7C99AC غامق*/
+/*D3DEDC فاتح*/
+/*92A9BD*/
+/*beige بيج كده
+#ffffe3 اصفر*/
+.cardpane{
+    -fx-background-color: #ffff;
+    -fx-background-radius: 15px;
+    -fx-text-fill:black;
+}
+.butt{
+    -fx-background-color:#F4EEA9;
+    -fx-text-color:#fffff;   
+}
+.backFriend{
+    -fx-background-color:beige;
+}
+.buttn{
+    -fx-background-color:white;
+    -fx-text-color:#fffff;   
+}
+.backg{
+
+    -fx-background-color:#ffffe3;
+    -fx-background-radius: 25px;
+}
+.back{
+    -fx-background-color:#7C99AC;
+}
+.img{
+    -fx-background-image: url("/assets/imge9.jpg");
+    -fx-width: auto;
+    -fx-height: 100%;
+}
+/*=========================================*/
+.imgFirend{
+    -fx-background-image: url("/assets/im.jpg");
+}
+.imgWelcome{
+    
+}
+.txt{
+   -fx-text-fill:white;
+}
+.border{
+     -fx-background-radius: 15px;
+}
+
+.but{
+    -fx-background-color: #142F43;
+}
+.login{
+     -fx-background-color: #142F43;
+       -fx-background-radius: 15px;
+}

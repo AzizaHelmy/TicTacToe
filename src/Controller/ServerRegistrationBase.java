@@ -56,6 +56,8 @@ public class ServerRegistrationBase extends FlowPane {
     protected final Button btnBack;
     protected Socket socket;
     protected Navigation nav;
+    protected PopUp pop;
+    protected boolean checkConnection;
 
     public ServerRegistrationBase() {
 
@@ -85,6 +87,8 @@ public class ServerRegistrationBase extends FlowPane {
         label = new Label();
         btnBack = new Button();
         nav = new Navigation();
+        pop = new PopUp();
+        checkConnection = false;
 
         setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -94,6 +98,8 @@ public class ServerRegistrationBase extends FlowPane {
         borderPane.setMinWidth(USE_PREF_SIZE);
         borderPane.setPrefHeight(400.0);
         borderPane.setPrefWidth(600.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setPrefHeight(230.0);
@@ -204,7 +210,7 @@ public class ServerRegistrationBase extends FlowPane {
         imgInvalid.setPickOnBounds(true);
         imgInvalid.setPreserveRatio(true);
         imgInvalid.setVisible(false);
-        imgInvalid.setImage(new Image(getClass().getResource("/assets/frogFace.png").toExternalForm()));
+        imgInvalid.setImage(new Image(getClass().getResource("/assets/forgFace.png").toExternalForm()));
 
         GridPane.setColumnIndex(btnConnect, 3);
         GridPane.setRowIndex(btnConnect, 1);
@@ -262,13 +268,14 @@ public class ServerRegistrationBase extends FlowPane {
                     ClientSocket.setIp(txtFieldIP.getText());
                     try {
                         socket = ClientSocket.getInstance();
+//                        pop.waitForRsponse(socket.isConnected());
+
                         System.out.println("Connected");
-                        nav.navigateToLoginScreen(event);
-                    }catch(SocketException s){
+                        nav.navigateToLoginScreen();
+                    } catch (SocketException s) {
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
-                    }
-                    catch (IOException ex) {
+                    } catch (IOException ex) {
                         Logger.getLogger(ServerRegistrationBase.class.getName()).log(Level.SEVERE, null, ex);
 
                     }
@@ -284,7 +291,7 @@ public class ServerRegistrationBase extends FlowPane {
         btnBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nav.navigateToWelcome(event);
+                nav.navigateToWelcome();
             }
         });
 

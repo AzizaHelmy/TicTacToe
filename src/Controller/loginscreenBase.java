@@ -2,18 +2,15 @@ package Controller;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.SocketException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,13 +28,14 @@ public class loginscreenBase extends AnchorPane {
     protected final Text text;
     protected final ImageView imageView;
     protected final TextField usernamelog_field;
-    protected final TextField passlog_field;
+    protected final PasswordField  passlog_field;
     protected final Button btnSigninlog;
     protected final ImageView imageView0;
     protected final Button btnSignuplog;
     protected final ImageView imageView1;
     protected final Button button;
     protected final ImageView btnBacklog;
+    protected Navigation nav;
 
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
@@ -49,13 +47,14 @@ public class loginscreenBase extends AnchorPane {
         text = new Text();
         imageView = new ImageView();
         usernamelog_field = new TextField();
-        passlog_field = new TextField();
+        passlog_field = new PasswordField ();
         btnSigninlog = new Button();
         imageView0 = new ImageView();
         btnSignuplog = new Button();
         imageView1 = new ImageView();
         button = new Button();
         btnBacklog = new ImageView();
+        nav = new Navigation();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -63,6 +62,8 @@ public class loginscreenBase extends AnchorPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(500.0);
         setPrefWidth(700.0);
+        getStyleClass().add("img");
+        getStylesheets().add("/assets/style.css");
 
         anchorPane.setPrefHeight(174.0);
         anchorPane.setPrefWidth(700.0);
@@ -77,14 +78,16 @@ public class loginscreenBase extends AnchorPane {
         anchorPane0.getStylesheets().add("/loginpackage/login.css");
 
         text.setLayoutX(248.0);
-        text.setLayoutY(27.0);
+        text.setLayoutY(31.0);
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.setText("Tic Tac Toe");
         text.setFont(new Font(18.0));
+        text.setFont(new Font("Bodoni MT", 25.0));
+        text.setFill(javafx.scene.paint.Color.valueOf("#000000"));
 
         imageView.setFitHeight(100.0);
-        imageView.setFitWidth(100.0);
+        imageView.setFitWidth(111.0);
         imageView.setLayoutX(242.0);
         imageView.setLayoutY(39.0);
         imageView.setPickOnBounds(true);
@@ -93,22 +96,24 @@ public class loginscreenBase extends AnchorPane {
 
         usernamelog_field.setLayoutX(192.0);
         usernamelog_field.setLayoutY(158.0);
-        usernamelog_field.setPrefHeight(25.0);
+        usernamelog_field.setPrefHeight(39.0);
         usernamelog_field.setPrefWidth(200.0);
         usernamelog_field.setPromptText("Enter your name");
 
         passlog_field.setLayoutX(193.0);
-        passlog_field.setLayoutY(208.0);
-        passlog_field.setPrefHeight(25.0);
+        passlog_field.setLayoutY(215.0);//here
+        passlog_field.setPrefHeight(39.0);
         passlog_field.setPrefWidth(200.0);
         passlog_field.setPromptText("Enter paaword");
 
         btnSigninlog.setLayoutX(105.0);
-        btnSigninlog.setLayoutY(267.0);
+        btnSigninlog.setLayoutY(271.0);
         btnSigninlog.setMnemonicParsing(false);
-        btnSigninlog.getStyleClass().add("cardpane");
-        btnSigninlog.getStylesheets().add("/loginpackage/login.css");
+        btnSigninlog.getStyleClass().add("login");
+        btnSigninlog.setFont(new Font("Kristen ITC", 18.0));
+        btnSigninlog.getStylesheets().add("/assets/style.css");
         btnSigninlog.setText("Sign in");
+        btnSigninlog.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
 
         imageView0.setFitHeight(20.0);
         imageView0.setFitWidth(20.0);
@@ -120,10 +125,12 @@ public class loginscreenBase extends AnchorPane {
         btnSignuplog.setLayoutX(393.0);
         btnSignuplog.setLayoutY(271.0);
         btnSignuplog.setMnemonicParsing(false);
-        btnSignuplog.getStyleClass().add("cardpane");
-        btnSignuplog.getStylesheets().add("/loginpackage/login.css");
+        btnSignuplog.getStyleClass().add("login");
+        btnSignuplog.setFont(new Font("Kristen ITC", 18.0));
+        btnSignuplog.getStylesheets().add("/assets/style.css");
         btnSignuplog.setText("Sign up");
-
+        btnSignuplog.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
+        
         imageView1.setFitHeight(20.0);
         imageView1.setFitWidth(20.0);
         imageView1.setPickOnBounds(true);
@@ -156,8 +163,7 @@ public class loginscreenBase extends AnchorPane {
         btnSignuplog.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Navigation nav = new Navigation();
-                nav.navigateToRegisterScreen(event);
+                nav.navigateToRegisterScreen();
             }
         });
 //===================================================       
@@ -187,8 +193,7 @@ public class loginscreenBase extends AnchorPane {
                         } else if (obj instanceof Player) {
                             Player p = (Player) obj;
                             System.out.println(p.getIsOnline() + " , " + p.getIsRequest());
-                            Navigation nav = new Navigation();
-                            nav.navigateToOnlineScreen(event, p);
+                            nav.navigateToOnlineScreen(p);
                         }
                     }
                 } catch (SocketException s) {
@@ -204,13 +209,15 @@ public class loginscreenBase extends AnchorPane {
         }
         );
 //=======================================================       
-        button.addEventHandler(ActionEvent.ACTION,
-                new EventHandler<ActionEvent>() {
+        button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event
-            ) {
-                Navigation nav = new Navigation();
-                nav.navigateToWelcome(event);
+            public void handle(ActionEvent event) {
+                try {
+                    ClientSocket.closeSocket();
+                    nav.navigateToWelcome();
+                } catch (IOException ex) {
+                    Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         );
