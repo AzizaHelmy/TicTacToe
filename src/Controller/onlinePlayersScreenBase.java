@@ -38,7 +38,6 @@ import model.Player;
 import model.TopOnlinePlayers;
 import model.LogOut;
 import model.Request;
-import model.TopPlayers;
 
 public class onlinePlayersScreenBase extends BorderPane {
 
@@ -470,7 +469,7 @@ public class onlinePlayersScreenBase extends BorderPane {
                             String msg = (String) readObj;
                             System.out.print(msg);
                             if (msg.equals("LoggedOut")) {
-                                ClientSocket.closeConnection();
+                                ClientSocket.closeSocket();
                                 player = null;
                                 Platform.runLater(() -> {
                                     th.stop();
@@ -533,7 +532,12 @@ public class onlinePlayersScreenBase extends BorderPane {
                             ObjectoutputStream.flush();
                             pop.waitForRsponse(false);
                         } catch (SocketException | EOFException s) {
-                            pop.showErrorInServer();
+                            try {
+                                ClientSocket.closeSocket();
+                                pop.showErrorInServer();
+                            } catch (IOException ex) {
+                                Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         } catch (IOException ex) {
                             Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                         }

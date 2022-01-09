@@ -222,7 +222,12 @@ public class registerscreenBase extends GridPane {
                         registerpass_field.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222;");
                     }
                 } catch (SocketException s) {
-                    pop.showErrorInServer();
+                    try {
+                        ClientSocket.closeSocket();
+                        pop.showErrorInServer();
+                    } catch (IOException ex) {
+                        Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (EOFException e) {
                 } catch (IOException ex) {
                     Logger.getLogger(registerscreenBase.class.getName()).log(Level.SEVERE, null, ex);

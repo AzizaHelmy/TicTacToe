@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/GamePlayScreenBase.java</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/nbproject/jfx-impl.xml</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/GameHelper.java</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/Navigation.java</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/DisplayRecordBase.java</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/saveSteps.java</file>
-            <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/TicTacToe.java</file>
-        </group>
-        <group>
             <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/Navigation.java</file>
             <file>file:/C:/Users/United/Desktop/ali/TicTacToe/src/Controller/TicTacToe.java</file>
         </group>
+        <group/>
     </open-files>
 </project-private>

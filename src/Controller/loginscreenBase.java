@@ -28,7 +28,7 @@ public class loginscreenBase extends AnchorPane {
     protected final Text text;
     protected final ImageView imageView;
     protected final TextField usernamelog_field;
-    protected final PasswordField  passlog_field;
+    protected final PasswordField passlog_field;
     protected final Button btnSigninlog;
     protected final ImageView imageView0;
     protected final Button btnSignuplog;
@@ -36,6 +36,7 @@ public class loginscreenBase extends AnchorPane {
     protected final Button button;
     protected final ImageView btnBacklog;
     protected Navigation nav;
+    protected PopUp pop;
 
     private ObjectInputStream ObjectinputStream;
     private ObjectOutputStream ObjectoutputStream;
@@ -47,7 +48,7 @@ public class loginscreenBase extends AnchorPane {
         text = new Text();
         imageView = new ImageView();
         usernamelog_field = new TextField();
-        passlog_field = new PasswordField ();
+        passlog_field = new PasswordField();
         btnSigninlog = new Button();
         imageView0 = new ImageView();
         btnSignuplog = new Button();
@@ -130,7 +131,7 @@ public class loginscreenBase extends AnchorPane {
         btnSignuplog.getStylesheets().add("/assets/style.css");
         btnSignuplog.setText("Sign up");
         btnSignuplog.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
-        
+
         imageView1.setFitHeight(20.0);
         imageView1.setFitWidth(20.0);
         imageView1.setPickOnBounds(true);
@@ -196,13 +197,14 @@ public class loginscreenBase extends AnchorPane {
                             nav.navigateToOnlineScreen(p);
                         }
                     }
-                } catch (SocketException s) {
-
-                } catch (EOFException e) {
-
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } catch (SocketException | EOFException s) {
+                    try {
+                        pop.showErrorInServer();
+                        ClientSocket.closeSocket();
+                    } catch (IOException ex) {
+                        Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (ClassNotFoundException | IOException ex) {
                     Logger.getLogger(loginscreenBase.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

@@ -10,10 +10,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import model.buttonDetails;
 
 /**
  *
@@ -62,7 +59,6 @@ public class GameHelper {
     protected Vector<Label> labels = new Vector<>();
     protected PopUp pop = new PopUp();
     protected String fileName;
-    int i = 0;
 //=======================================================
 
     public void setButtons(Vector<Button> b) {
@@ -162,7 +158,6 @@ public class GameHelper {
             setDisable();
             buttons.get(9).setVisible(true);
             labels.get(2).setText("" + score1);
-
             if (buttons.get(11).getText().equals("Recording")) {
                 buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
@@ -178,18 +173,14 @@ public class GameHelper {
                 buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
                 imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
-
             }
         } else if (counter == 9) {//no one win ,
-            // setEnable();
             setDisable();
             buttons.get(9).setVisible(true);
             if (buttons.get(11).getText().equals("Recording")) {
-
                 buttons.get(11).setText("Save");
                 buttons.get(11).setDisable(false);
                 imags.get(11).setImage(new Image(getClass().getResource("/assets/folder.png").toExternalForm()));
-
             }
 
         }
@@ -223,7 +214,6 @@ public class GameHelper {
 //===========================================================
 
     public void resetting() {
-
         for (int i = 0; i < imags.size() - 3; i++) {
             imags.get(i).setImage(null);
             imags.get(i).setVisible(false);
@@ -237,12 +227,10 @@ public class GameHelper {
         counter = 0;
         changeTurn = true;
         removeColors();
-        i = 0;
     }
 //==================================================
 
     public void drawLineOfColors() {
-
         if ((buttons.get(0).getText().equals(buttons.get(1).getText()))
                 && (buttons.get(0).getText().equals(buttons.get(2).getText()))) {
 
@@ -326,8 +314,6 @@ public class GameHelper {
         saveSteps recordedSteps = new saveSteps();
         recordedSteps.recordSteps(GamePlayScreenBase.detail, fileName);
     }
-
-    
 
 //====================================================================
     public void setComputerChoice() {

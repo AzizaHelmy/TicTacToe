@@ -58,10 +58,8 @@ public class PopUp {
         okButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 nav.navigateToWelcome();
                 dialog.hide();
-                //  dialog.close();
             }
         }
         );
@@ -141,11 +139,15 @@ public class PopUp {
                 objectOutputStream.writeObject(logOut);
                 objectOutputStream.flush();
             } catch (StreamCorruptedException | EOFException | SocketException s) {
-                showErrorInServer();
+                try {
+                    ClientSocket.closeSocket();
+                    showErrorInServer();
+                } catch (IOException ex) {
+                    Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (IOException ex) {
                 Logger.getLogger(onlinePlayersScreenBase.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            nav.navigateToWelcome();
         }
     }
 
@@ -215,8 +217,7 @@ public class PopUp {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == yes) {
                     try {
-                        System.out.println("testing");
-                        if (player != null && ClientSocket.getInstance().isConnected()) {
+                        if (player != null && ClientSocket.getSocketInstance().isConnected()) {
                             System.out.println("x:logout");
                             try {
                                 objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
@@ -224,7 +225,7 @@ public class PopUp {
                                 System.out.println(player.getUserName());
                                 objectOutputStream.writeObject(logOut);
                                 objectOutputStream.flush();
-                                ClientSocket.closeConnection();
+                                ClientSocket.closeSocket();
                                 System.exit(0);
                             } catch (StreamCorruptedException | EOFException | SocketException s) {
                             } catch (IOException ex) {

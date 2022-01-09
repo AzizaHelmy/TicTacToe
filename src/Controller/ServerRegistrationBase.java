@@ -49,7 +49,7 @@ public class ServerRegistrationBase extends FlowPane {
     protected final RowConstraints rowConstraints4;
     protected final ImageView imgInvalid;
     protected final Button btnConnect;
-    protected final static TextField txtFieldIP = new TextField();
+    protected TextField txtFieldIP;
     protected final Text txtInvalid;
     protected final Rectangle rectangle;
     protected final Label label;
@@ -70,6 +70,7 @@ public class ServerRegistrationBase extends FlowPane {
         imgServer = new ImageView();
         recTitle = new Rectangle(150, 30, 100, 65);
         text = new Text();
+        txtFieldIP = new TextField();
         gridPane0 = new GridPane();
         columnConstraints0 = new ColumnConstraints();
         columnConstraints1 = new ColumnConstraints();
@@ -81,7 +82,6 @@ public class ServerRegistrationBase extends FlowPane {
         rowConstraints4 = new RowConstraints();
         imgInvalid = new ImageView();
         btnConnect = new Button();
-        //txtFieldIP = new TextField();
         txtInvalid = new Text();
         rectangle = new Rectangle(150, 30, 100, 65);
         label = new Label();
@@ -267,11 +267,12 @@ public class ServerRegistrationBase extends FlowPane {
                 if (isValidIPAddress(txtFieldIP.getText())) {
                     ClientSocket.setIp(txtFieldIP.getText());
                     try {
-                        socket = ClientSocket.getInstance();
+                        socket = ClientSocket.getSocketInstance();
 //                        pop.waitForRsponse(socket.isConnected());
 
                         System.out.println("Connected");
                         nav.navigateToLoginScreen();
+                        txtFieldIP.setText("");
                     } catch (SocketException s) {
                         imgInvalid.setVisible(true);
                         txtInvalid.setVisible(true);
