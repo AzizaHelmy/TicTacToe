@@ -30,7 +30,7 @@ public class ClientSocket {
         ip = s;
     }
 
-    public static synchronized Socket getInstance() throws IOException {
+    public static synchronized Socket getSocketInstance() throws IOException {
         if (socket == null || socket.isClosed()) {
             socket = new Socket(ip, 5005);
             inputStream = socket.getInputStream();
@@ -53,15 +53,8 @@ public class ClientSocket {
         return objectInputStream;
     }
 
-    public static void closeConnection() throws IOException {
-        objectOutputStream.close();
-        objectInputStream.close();
-        outputStream.close();
-        inputStream.close();
-        socket.close();
-    }
     
-    public static void closeSocket() throws IOException {
+    public static synchronized void closeSocket() throws IOException {
         outputStream.close();
         inputStream.close();
         socket.close();

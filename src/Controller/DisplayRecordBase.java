@@ -1,7 +1,6 @@
 package Controller;
 
 import java.util.List;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -73,6 +72,8 @@ public class DisplayRecordBase extends BorderPane {
     protected final Image xImage;
     protected final Image oImage;
     protected int i = 0;
+    protected List<buttonDetails> detailed;
+    protected saveSteps recordedSteps;
 
     public DisplayRecordBase() {
 
@@ -127,6 +128,8 @@ public class DisplayRecordBase extends BorderPane {
         imageView = new ImageView();
         btnBack = new Button();
         imageView0 = new ImageView();
+        recordedSteps = new saveSteps();
+        detailed = recordedSteps.loadScreen();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -185,7 +188,6 @@ public class DisplayRecordBase extends BorderPane {
         player1Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player1Image.setPickOnBounds(true);
         player1Image.setPreserveRatio(true);
-//        player1Image.setImage(new Image(getClass().getResource("assets/player1.png").toExternalForm()));
         player1Name.setGraphic(player1Image);
         player1Name.setFont(new Font("Book Antiqua", 21.0));
         player1Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
@@ -202,7 +204,6 @@ public class DisplayRecordBase extends BorderPane {
         player2Image.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         player2Image.setPickOnBounds(true);
         player2Image.setPreserveRatio(true);
-        // player2Image.setImage(new Image(getClass().getResource("assets/player2.png").toExternalForm()));
         player2Name.setGraphic(player2Image);
         player2Name.setFont(new Font("Book Antiqua", 21.0));
         player2Name.setTextFill(javafx.scene.paint.Color.valueOf("#ffff"));
@@ -560,127 +561,105 @@ public class DisplayRecordBase extends BorderPane {
     }
 
     public void displayRecorded() {
-
-        List<buttonDetails> detailed;
-        saveSteps recordedSteps = new saveSteps();
-        detailed = recordedSteps.loadScreen();
-        Platform.runLater(() -> {
-//            System.out.println(detailed.get(i).getContent());
-//            System.out.println(detailed.get(i).getId());
-            if (i < detailed.size() ) {
-                if (detailed.get(i).getId().equals("TopLeftButton")) {
-                    topLeft.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        topLeftIcon.setImage(xImage);
-                        topLeftIcon.setVisible(true);
-                    } else {
-                        topLeftIcon.setImage(oImage);
-                        topLeftIcon.setVisible(true);
-                    }
-                    System.out.println("1");
-
-                    //setPlayingIcon(topLeftIcon, topLeft);
-                } else if (detailed.get(i).getId().equals("TopCentertButton")) {
-                    topCenter.setText(detailed.get(i).getContent());
-
-                    if (detailed.get(i).getContent().equals("x")) {
-                        topCenterIcon.setImage(xImage);
-                        topCenterIcon.setVisible(true);
-                    } else {
-                        topCenterIcon.setImage(oImage);
-                        topCenterIcon.setVisible(true);
-                    }
-                    System.out.println("2");
-
-                } else if (detailed.get(i).getId().equals("TopRightButton")) {
-                    topRight.setText(detailed.get(i).getContent());
-
-                    if (detailed.get(i).getContent().equals("x")) {
-                        topRightIcon.setImage(xImage);
-                        topRightIcon.setVisible(true);
-                    } else {
-                        topRightIcon.setImage(oImage);
-                        topRightIcon.setVisible(true);
-                    }
-                    System.out.println("3");
-                } else if (detailed.get(i).getId().equals("CenterLeftButton")) {
-                    centerLeft.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        centerLeftIcon.setImage(xImage);
-                        centerLeftIcon.setVisible(true);
-
-                    } else {
-                        centerLeftIcon.setImage(oImage);
-                        centerLeftIcon.setVisible(true);
-
-                    }
-
-                } else if (detailed.get(i).getId().equals("CentercenterButton")) {
-                    centerCenter.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        centerCenterIcon.setImage(xImage);
-                        centerCenterIcon.setVisible(true);
-
-                    } else {
-                        centerCenterIcon.setImage(oImage);
-                        centerCenterIcon.setVisible(true);
-
-                    }
-                    System.out.println("5");
-
-                } else if (detailed.get(i).getId().equals("CenterRightButton")) {
-                    centerRight.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        centerRightIcon.setImage(xImage);
-                        centerRightIcon.setVisible(true);
-
-                    } else {
-                        centerRightIcon.setImage(oImage);
-                        centerRightIcon.setVisible(true);
-
-                    }
-                    System.out.println("6");
-                } else if (detailed.get(i).getId().equals("BottomLeftButton")) {
-                    bottomLeft.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        bottomLeftIcon.setImage(xImage);
-                        bottomLeftIcon.setVisible(true);
-
-                    } else {
-                        bottomLeftIcon.setImage(oImage);
-                        bottomLeftIcon.setVisible(true);
-
-                    }
-                    System.out.println("7");
-                } else if (detailed.get(i).getId().equals("BottomCenterButton")) {
-                    System.out.println("test");
-                    bottomCenter.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        bottomCenterIcon.setImage(xImage);
-                        bottomCenterIcon.setVisible(true);
-                    } else {
-                        bottomCenterIcon.setImage(oImage);
-                        bottomCenterIcon.setVisible(true);
-                    }
-                    System.out.println("8");
-                } else if (detailed.get(i).getId().equals("BottomRightButton")) {
-                    bottomRight.setText(detailed.get(i).getContent());
-                    if (detailed.get(i).getContent().equals("x")) {
-                        bottomRightIcon.setImage(xImage);
-                        bottomRightIcon.setVisible(true);
-                    } else {
-                        bottomRightIcon.setImage(oImage);
-                        bottomRightIcon.setVisible(true);
-                    }
-                    System.out.println("9");
+        if (i < detailed.size()) {
+            if (detailed.get(i).getId().equals("TopLeftButton")) {
+                topLeft.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    topLeftIcon.setImage(xImage);
+                    topLeftIcon.setVisible(true);
+                } else {
+                    topLeftIcon.setImage(oImage);
+                    topLeftIcon.setVisible(true);
                 }
+                System.out.println("0");
+            } else if (detailed.get(i).getId().equals("TopCentertButton")) {
+                topCenter.setText(detailed.get(i).getContent());
+
+                if (detailed.get(i).getContent().equals("x")) {
+                    topCenterIcon.setImage(xImage);
+                    topCenterIcon.setVisible(true);
+                } else {
+                    topCenterIcon.setImage(oImage);
+                    topCenterIcon.setVisible(true);
+                }
+                System.out.println("1");
+            } else if (detailed.get(i).getId().equals("TopRightButton")) {
+                topRight.setText(detailed.get(i).getContent());
+
+                if (detailed.get(i).getContent().equals("x")) {
+                    topRightIcon.setImage(xImage);
+                    topRightIcon.setVisible(true);
+                } else {
+                    topRightIcon.setImage(oImage);
+                    topRightIcon.setVisible(true);
+                }
+                System.out.println("2");
+            } else if (detailed.get(i).getId().equals("CenterLeftButton")) {
+                centerLeft.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    centerLeftIcon.setImage(xImage);
+                    centerLeftIcon.setVisible(true);
+                } else {
+                    centerLeftIcon.setImage(oImage);
+                    centerLeftIcon.setVisible(true);
+                }
+                System.out.println("3");
+            } else if (detailed.get(i).getId().equals("CentercenterButton")) {
+                centerCenter.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    centerCenterIcon.setImage(xImage);
+                    centerCenterIcon.setVisible(true);
+                } else {
+                    centerCenterIcon.setImage(oImage);
+                    centerCenterIcon.setVisible(true);
+                }
+                System.out.println("4");
+            } else if (detailed.get(i).getId().equals("CenterRightButton")) {
+                centerRight.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    centerRightIcon.setImage(xImage);
+                    centerRightIcon.setVisible(true);
+                } else {
+                    centerRightIcon.setImage(oImage);
+                    centerRightIcon.setVisible(true);
+                }
+                System.out.println("5");
+            } else if (detailed.get(i).getId().equals("BottomLeftButton")) {
+                bottomLeft.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    bottomLeftIcon.setImage(xImage);
+                    bottomLeftIcon.setVisible(true);
+                } else {
+                    bottomLeftIcon.setImage(oImage);
+                    bottomLeftIcon.setVisible(true);
+                }
+                System.out.println("6");
+            } else if (detailed.get(i).getId().equals("BottomCenterButton")) {
+                bottomCenter.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    bottomCenterIcon.setImage(xImage);
+                    bottomCenterIcon.setVisible(true);
+                } else {
+                    bottomCenterIcon.setImage(oImage);
+                    bottomCenterIcon.setVisible(true);
+                }
+                System.out.println("7");
+            } else if (detailed.get(i).getId().equals("BottomRightButton")) {
+                bottomRight.setText(detailed.get(i).getContent());
+                if (detailed.get(i).getContent().equals("x")) {
+                    bottomRightIcon.setImage(xImage);
+                    bottomRightIcon.setVisible(true);
+                } else {
+                    bottomRightIcon.setImage(oImage);
+                    bottomRightIcon.setVisible(true);
+                }
+                System.out.println("8");
             }
-            
-            i++;
-            if (i == detailed.size()) {
-                btnNext.setDisable(true);
-            }
-        });
+        }
+        if (i == detailed.size() - 1) {
+            btnNext.setDisable(true);
+        }
+        i++;
     }
 
     public void setDisable() {

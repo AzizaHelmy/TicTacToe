@@ -22,7 +22,6 @@ import model.Player;
 public class OnlineGame extends GameHelper {
 
     private ObjectInputStream objectInputStream;
-    private PopUp pop;
     private ObjectOutputStream objectOutputStream;
     private Thread th;
     public static Player player;
@@ -30,7 +29,6 @@ public class OnlineGame extends GameHelper {
 
     public OnlineGame(Player p) {
         player = p;
-        pop = new PopUp();
         try {
             objectInputStream = ClientSocket.getObjectInputStreamInstance();
             objectOutputStream = ClientSocket.getObjectOutputStreamInstance();
@@ -58,8 +56,13 @@ public class OnlineGame extends GameHelper {
                         setPlayingIcon(imags.get(move.getX()), buttons.get(move.getX()));
                         xoPane.setDisable(false);
                     } catch (SocketException | EOFException s) {
-                        pop.showErrorInServer();
-                        s.printStackTrace();
+                        try {
+                            ClientSocket.closeSocket();
+                            pop.showErrorInServer();
+                            s.printStackTrace();
+                        } catch (IOException ex) {
+                            Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } catch (IOException | ClassNotFoundException ex) {
                         Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -77,8 +80,13 @@ public class OnlineGame extends GameHelper {
             objectOutputStream.writeObject(move);
             objectOutputStream.flush();
         } catch (SocketException | EOFException s) {
-            s.printStackTrace();
-            pop.showErrorInServer();
+            try {
+                ClientSocket.closeSocket();
+                s.printStackTrace();
+                pop.showErrorInServer();
+            } catch (IOException ex) {
+                Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (IOException ex) {
             Logger.getLogger(OnlineGame.class.getName()).log(Level.SEVERE, null, ex);
         }

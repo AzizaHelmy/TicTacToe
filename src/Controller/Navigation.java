@@ -16,16 +16,6 @@ import model.Player;
  */
 public class Navigation {
 
-    protected loginscreenBase loginScreen;
-    protected registerscreenBase registerScreen;
-    protected WelcomeBase welcomeScreen;
-    protected WithFriendBase withFriendScreen;
-    protected onlinePlayersScreenBase onlineScreen;
-    protected LevelScreenBase levelScreen;
-    protected ServerRegistrationBase serverRegistrationScreen;
-    protected GamePlayScreenBase gameScreen;
-    protected Recordedfiles_screenBase recordList;
-    protected DisplayRecordBase displayRecord;
     protected Parent root;
     protected static Stage stage;
     protected Scene scene;
@@ -35,9 +25,7 @@ public class Navigation {
     }
 
     public void navigateToWelcome() {
-
-        welcomeScreen = new WelcomeBase();
-        root = welcomeScreen;
+        root = new WelcomeBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -46,9 +34,7 @@ public class Navigation {
     }
     //====================================================
     public void navigateToDisplayRecord() {
-
-        displayRecord=new DisplayRecordBase();
-        root = displayRecord;
+        root = new DisplayRecordBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -59,8 +45,7 @@ public class Navigation {
     //=================================================== 
 
     public void navigateToRecordescreen() {
-        recordList = new Recordedfiles_screenBase();
-        root = recordList;
+        root = new Recordedfiles_screenBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -70,8 +55,7 @@ public class Navigation {
     }
 
     public void navigateToLoginScreen() {
-        loginScreen = new loginscreenBase();
-        root = loginScreen;
+        root = new loginscreenBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -80,8 +64,7 @@ public class Navigation {
     }
 
     public void navigateToRegisterScreen() {
-        registerScreen = new registerscreenBase();
-        root = registerScreen;
+        root = new registerscreenBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -90,8 +73,7 @@ public class Navigation {
     }
 
     public void navigateTowithFriendsScreen() {
-        withFriendScreen = new WithFriendBase();
-        root = withFriendScreen;
+        root = new WithFriendBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -100,8 +82,7 @@ public class Navigation {
     }
 
     public void navigateToGameScreen(GameHelper g) {
-        gameScreen = new GamePlayScreenBase(g);
-        root = gameScreen;
+        root = new GamePlayScreenBase(g);
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -110,8 +91,7 @@ public class Navigation {
     }
 
     public void navigateToOnlineScreen(Player player) {
-        onlineScreen = new onlinePlayersScreenBase(player);
-        root = onlineScreen;
+        root = new onlinePlayersScreenBase(player);
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -120,8 +100,7 @@ public class Navigation {
     }
 
     public void navigateToLevelScreen() {
-        levelScreen = new LevelScreenBase();
-        root = levelScreen;
+        root = new LevelScreenBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -130,10 +109,8 @@ public class Navigation {
     }
 //==========================================================
     
-    //=========================================================
     public void navigateToRegistrationScreen() {
-        serverRegistrationScreen = new ServerRegistrationBase();
-        root = serverRegistrationScreen;
+        root = new ServerRegistrationBase();
         scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();

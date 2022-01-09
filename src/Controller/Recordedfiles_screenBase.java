@@ -1,6 +1,5 @@
 package Controller;
 
-import Controller.saveSteps;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -63,14 +62,12 @@ public class Recordedfiles_screenBase extends AnchorPane {
         getChildren().add(recordedfiles_listview);
         getChildren().add(back_btn);
         getChildren().add(imageView);
-        saveSteps step = new saveSteps();
-        recFiles = step.recordedFiles();
+        recFiles = s.recordedFiles();
         filesObservableList = FXCollections.observableArrayList(recFiles);
         recordedfiles_listview.setItems(filesObservableList);
 
         recordedfiles_listview.getSelectionModel()
                 .selectedItemProperty().addListener(new ChangeListener<String>() {
-
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         System.out.println(newValue);
